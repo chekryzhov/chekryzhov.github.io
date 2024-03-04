@@ -354,7 +354,7 @@ input[type="radio"] {
     width: 50%;
     padding-left: 10px;
     display: flex;
-
+    position: relative;
     align-items: center;
     flex-wrap: wrap;
 }
@@ -397,6 +397,12 @@ input[type="radio"] {
     border: 2px solid black;
     border-radius: 10px;
     z-index: 2;
+}
+
+.descr_active {
+    display: block;
+    width: 260px;
+    min-height: 30px;
 }
 
 .radio__wrapper:hover .descr {

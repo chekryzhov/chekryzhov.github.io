@@ -39,24 +39,44 @@ pacient.textContent = name_p + "" + lastname;
 let conclusion = '';
 let resultModal = document.getElementById("modal__body");
 
+const age_input = document.querySelector('input[id="age"]');
+age_input.addEventListener('change', function () {
+    if (this.value > 17 || this.value < 0) {
+        this.value = '';
+        this.parentNode.querySelector('.descr').classList.add('descr_active');
+    } else {
+        this.parentNode.querySelector('.descr').classList.remove('descr_active');
+    }
+});
+
 function FirstStepSubmit() {
+
     let age, orz;
 
     age = document.querySelector('input[id="age"]').value;
     orz = document.querySelector('input[id="orz"]').value;
 
-    frequently_ill = 0;
+    if (age && orz) {
 
-    if (age <= 1 && orz >= 4) {frequently_ill = 1;} 
-    if (age > 1 && age <= 3 && orz >= 6) {frequently_ill = 1;} 
-    if (age >= 4 && age <= 5 && orz >= 5) {frequently_ill = 1;} 
-    if (age >= 6 && orz >= 4) {frequently_ill = 1;}
-    
-    if (frequently_ill) {
-        fadeOut(first_step, 500);
-        setTimeout(fadeIn, 600, second_step, 500);
+
+
+        frequently_ill = 0;
+
+        if (age <= 1 && orz >= 4) {frequently_ill = 1;} 
+        if (age > 1 && age <= 3 && orz >= 6) {frequently_ill = 1;} 
+        if (age >= 4 && age <= 5 && orz >= 5) {frequently_ill = 1;} 
+        if (age >= 6 && orz >= 4) {frequently_ill = 1;}
+        
+        if (frequently_ill) {
+            fadeOut(first_step, 500);
+            setTimeout(fadeIn, 600, second_step, 500);
+        } else {
+            conclusion = 'Ребенок не является частоболеющим';
+            resultModal.innerText = conclusion;
+            fadeIn(modal,500);
+        }
     } else {
-        conclusion = 'Ребенок не является частоболеющим';
+        conclusion = 'Заполните все поля!';
         resultModal.innerText = conclusion;
         fadeIn(modal,500);
     }
