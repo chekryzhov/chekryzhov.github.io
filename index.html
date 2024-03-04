@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" href="css/site.css">
+    <link rel="stylesheet" href="css/style.css">
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.14.7/dist/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+    <title>Главная</title>
+</head>
+<body class="d-flex flex-column h-100">
+<div class="wrapper">
+    <header class="header__container">
+        <div class="header__content">
+            <div class="header__content-wrapper container">
+                <div class="header__logo-institute-img">
+                    <img src="img/header/logo_institut.png" alt="" class="header__logo-institute-img">
+                </div>
+                <div class="header__logo-institute-title">
+                    ФБУН Центральный НИИ Эпидемиологии Роспотребнадзора
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <main id="main" class="flex-shrink-0" role="main">
+        <div class="container">
+            <div class="form__wrapper">
+                <div class="form__title">
+                    Прогноз наличия активной герпесвирусной инфекции у детей с рекуррентными респираторными инфекциями. 
+                </div>
+                <div class="patient__info">
+                    <div class="patient__wrap">
+                        <div class="form__title">
+                            Дата: 
+                        </div>
+                        <div id="today" class="form__subtitle">1</div>
+                    </div>
+                    <div class="patient__wrap">
+                        <div class="form__title">
+                            Номер пациента: 
+                        </div>
+                        <div id="pacient" class="form__subtitle"></div>
+                    </div>
+                </div>
+                
+                <div class="questionnaire__wrapper questionnaire__wrapper_active">
+                    <div class="first__step">
+                        <div class="questionnaire">
+                            <div class="questionnaire__title">ОЦЕНКА ДАННЫХ АНАМНЕЗА</div>
+                            <div class="question">
+                                <div class="question__text question__text_align">Возраст</div>
+                                <div class="question__answer">
+                                    <input id="age" class="value" placeholder="Введите возраст"></input>
+                                </div>
+                            </div>
+                            <div class="question question_last">
+                                <div class="question__text question__text_align">Частота ОРЗ в год</div>
+                                <div class="question__answer">
+                                    <input id="orz" class="value" placeholder="Введите частоту"></input>
+                                </div>
+                            </div>
+                        </div>
+                        <button class="btn btn-primary questionnaire__submit-btn" onclick="FirstStepSubmit()">Отправить данные</button>
+                    </div>
+
+                    <div class="second__step">
+                        <div class="questionnaire">
+                            <div class="questionnaire__title">ОЦЕНКА КЛИНИЧЕСКИХ ПРОЯВЛЕНИЙ</div>
+                            <div class="question">
+                                <div class="question__text">Увеличение лимфоузлов</div>
+                                <div class="question__answer">
+                                    <div class="radio__wrapper">
+                                        <input type="radio" id="limfouzel_ans1" name="Лимфоузлы" value="0">
+                                        <label for="limfouzel_ans1">Лимфоузлы не увеличены</label>
+                                    </div>
+                                    <div class="radio__wrapper" >
+                                        <input type="radio" id="limfouzel_ans2" name="Лимфоузлы" value="1">
+                                        <label for="limfouzel_ans2">Увеличение лимфоузлов 1 степени </label>
+                                        <div class="descr">лимфатические узлы более 10 мм, 3 и более в группе в одной области</div>
+                                    </div>
+                                    <div class="radio__wrapper" >
+                                        <input type="radio" id="limfouzel_ans3" name="Лимфоузлы" value="2">
+                                        <label for="limfouzel_ans3">Увеличение лимфоузлов 2 степени </label>
+                                        <div class="descr">лимфатические узлы более 10 мм, 3 и более в группе в двух областях</div>
+                                    </div>
+                                    <div class="radio__wrapper" >
+                                        <input type="radio" id="limfouzel_ans4" name="Лимфоузлы" value="3">
+                                        <label for="limfouzel_ans4">Увеличение лимфоузлов 3 степени </label>
+                                        <div class="descr">лимфатические узлы более 10 мм, 3 и более в группе в трех и более областях</div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="question  ">
+                                <div class="question__text">Зeрнистость задней стенки глотки <p>(гранулярный фарингит)</p></div>
+                                <div class="question__answer">
+                                    <div class="radio__wrapper">
+                                        <input type="radio" id="faringit_ans1" name="Фарингит" value="0">
+                                        <label for="faringit_ans1">Лимфоидные фолликулы не увеличены</label>
+                                    </div>
+                                    <div class="radio__wrapper">
+                                        <input type="radio" id="faringit_ans2" name="Фарингит" value="1">
+                                        <label for="faringit_ans2">Лимфоидные фолликулы покрывают менее 1/3 видимой части задней стенки глотки</label>
+                                    </div>
+                                    <div class="radio__wrapper">
+                                        <input type="radio" id="faringit_ans3" name="Фарингит" value="2">
+                                        <label for="faringit_ans3">Лимфоидные фолликулы покрывают от 1/3 до 1/2 видимой части задней стенки глотки</label>
+                                    </div>
+                                    <div class="radio__wrapper">
+                                        <input type="radio" id="faringit_ans4" name="Фарингит" value="3">
+                                        <label for="faringit_ans4">Лимфоидные фолликулы покрывают от 1/2 и более видимой части задней стенки глотки</label>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="question">
+                                <div class="question__text">Оценка гипертрофии небных миндалин</div>
+                                <div class="question__answer">
+                                    <div class="radio__wrapper">
+                                        <input type="radio" id="mindalin_ans1" name="Миндалины" value="0">
+                                        <label for="mindalin_ans1">Не увеличены</label>
+                                    </div>
+                                    <div class="radio__wrapper">
+                                        <input type="radio" id="mindalin_ans2" name="Миндалины" value="1">
+                                        <label for="mindalin_ans2">1 степени</label>
+                                    </div>
+                                    <div class="radio__wrapper">
+                                        <input type="radio" id="mindalin_ans3" name="Миндалины" value="2">
+                                        <label for="mindalin_ans3">2 степени</label>
+                                    </div>
+                                    <div class="radio__wrapper">
+                                        <input type="radio" id="mindalin_ans4" name="Миндалины" value="3">
+                                        <label for="mindalin_ans4">3 степени</label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="question ">
+                                <div class="question__text">Оценка степени гипертрофии аденоидов <p class="warning">(при наличии информации)</p></div>
+                                <div class="question__answer">
+                                    <div class="radio__wrapper">
+                                        <input type="radio" id="adenoid_ans1" name="Аденоиды" value="0">
+                                        <label for="adenoid_ans1">Не увеличены</label>
+                                    </div>
+                                    <div class="radio__wrapper">
+                                        <input type="radio" id="adenoid_ans2" name="Аденоиды" value="1">
+                                        <label for="adenoid_ans2">1 степени</label>
+                                    </div>
+                                    <div class="radio__wrapper">
+                                        <input type="radio" id="adenoid_ans3" name="Аденоиды" value="2">
+                                        <label for="adenoid_ans3">2-3 степени</label>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="question">
+                                <div class="question__text">Увеличение печени</div>
+                                <div class="question__answer">
+                                    <div class="radio__wrapper">
+                                        <input type="radio" id="pechen_yes" name="Печень" value="1">
+                                        <label for="pechen_yes">Да</label>
+                                    </div>
+                                    <div class="radio__wrapper">
+                                        <input type="radio" id="pechen_no" name="Печень" value="0">
+                                        <label for="pechen_no">Нет</label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="question question_last">
+                                <div class="question__text">Увеличение селезенки</div>
+                                <div class="question__answer">
+                                    <div class="radio__wrapper">
+                                        <input type="radio" id="selezenka_yes" name="Селезенка" value="1">
+                                        <label for="selezenka_yes">Да</label>
+                                    </div>
+                                    <div class="radio__wrapper">
+                                        <input type="radio" id="selezenka_no" name="Селезенка" value="0">
+                                        <label for="selezenka_no">Нет</label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <button class="btn btn-primary questionnaire__submit-btn" onclick="SecondStepSubmit()">Получить результат</button>
+                    </div>
+                </div>
+            
+                <!-- Modal -->
+                <div class="modal modal__container" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                    <div class="modal-dialog modal-dialog-centered" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="exampleModalLongTitle">Результат</h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <div id="modal__body" class="modal-body modal__body">
+                                ...
+                            </div>
+                            <div class="modal__footer">
+                                <button type="button" class="btn btn-secondary modal__btn-close" data-dismiss="modal">Закрыть</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer class="footer__container">
+            <p class="float-left">Прогноз наличия активной герпесвирусной инфекции у детей с рекуррентными респираторными инфекциями</p>
+            <p class="float-right">&copy ФБУН Центральный НИИ Эпидемиологии Роспотребнадзора</p>
+    </footer>
+</div>
+
+<script src="js/script.js"></script>
+</body>
+</html>

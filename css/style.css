@@ -1,0 +1,447 @@
+html {
+    height: 100%;
+}
+
+* {
+    padding: 0;
+    margin: 0;
+    border: 0;
+    outline: 0;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+}
+
+.wrapper {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+    -ms-flex-direction: column;
+    flex-direction: column;
+    min-height: 100%;
+}
+
+main {
+    -webkit-box-flex: 1;
+    -ms-flex: 1 0 auto;
+    flex: 1 0 auto;
+}
+
+footer {
+    -webkit-box-flex: 0;
+    -ms-flex: 0 0 auto;
+    flex: 0 0 auto;
+}
+
+.footer__container {
+    width: 100%;
+    display: flex;
+    justify-content: space-evenly;
+    background-color: #eee;
+    padding: 15px 0 0 0;
+    font-family: "DINpro", sans-serif;
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 1.33;
+    color: #777;
+}
+
+.float-left {
+    float: left;
+}
+
+.float-right {
+    float: right;
+}
+
+.container {
+    max-width: 1020px;
+    margin: 0 auto;
+    padding: 0 10px;
+    overflow: hidden;
+}
+
+.header__container {
+    -webkit-box-shadow: 0 4px 4px 0 rgba(0, 0, 0, 0.25);
+    box-shadow: 0 4px 4px 0 rgba(0, 0, 0, 0.25);
+}
+
+.header__content {
+    padding: 20px 0 20px 0;
+    border-bottom: 1px solid #e7e7e7;
+}
+@media (max-width: 992px) {
+    .header__content {
+        border: none;
+    }
+}
+
+.header__content-wrapper {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-orient: horizontal;
+    -webkit-box-direction: normal;
+    -ms-flex-direction: row;
+    flex-direction: row;
+    -webkit-box-pack: justify;
+    -ms-flex-pack: justify;
+    justify-content: space-between;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
+}
+@media (max-width: 992px) {
+    .header__content-wrapper {
+        font-size: 26px;
+    }
+}
+
+.header__logo-institute-img {
+    height: 80px;
+    margin: 0 25px 0 5px;
+}
+@media (max-width: 576px) {
+    .header__logo-institute-img {
+        height: 60px;
+        margin-right: 15px;
+    }
+}
+@media (max-width: 480px) {
+    .header__logo-institute-img {
+        height: 60px;
+        margin-right: 10px;
+    }
+}
+
+.header__logo-institute-title {
+    font-family: "DINpro", sans-serif;
+    font-size: 28px;
+    font-weight: 700;
+    line-height: 1.33;
+    color: #001489;
+}
+@media (max-width: 992px) {
+    .header__logo-institute-title {
+        font-size: 26px;
+    }
+}
+@media (max-width: 768px) {
+    .header__logo-institute-title {
+        font-size: 24px;
+    }
+}
+@media (max-width: 576px) {
+    .header__logo-institute-title {
+        font-size: 20px;
+    }
+}
+@media (max-width: 480px) {
+    .header__logo-institute-title {
+        font-size: 18px;
+    }
+}
+
+.form__wrapper {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.form__title {
+    text-align: center;
+    font-family: "DINpro", sans-serif;
+    font-size: 24px;
+    font-weight: 700;
+    line-height: 1.5;
+    color: #000000;
+}
+
+.form__subtitle {
+    margin-left: 10px;
+    text-align: center;
+    font-family: "DINpro", sans-serif;
+    font-size: 25px;
+}
+
+.week__wrapper {
+    margin-top: 10px;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+
+.week__item {
+    width: 150px;
+    height: 50px;
+    background-color: bisque;
+    border-radius: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    margin: 0 15px;
+}
+
+.week__item_active {
+    border: 2px solid black;
+    /* box-shadow: 5px 5px 5px 5px bisque; */
+}
+
+.week__item:hover {
+    background-color: rgba(255, 228, 196, 0.569);
+}
+
+.week__title {
+    font-size: 20px;
+}
+
+@media (max-width: 576px) {
+    .week__title {
+		font-size: 15px;
+	}
+}
+
+.questionnaire__wrapper {
+    width: 100%;
+}
+
+.questionnaire {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    border: 1px solid black;
+    border-radius: 10px;
+    margin-top: 30px;
+    /* padding-bottom: 10px; */
+}
+
+.questionnaire__title {
+    padding: 10px;
+    width: 100%;
+    text-align: center;
+    font-size: 26px;
+    border-radius: 10px 10px 0 0;
+    font-weight: 500;
+    line-height: 1.33;
+    color: #ffffff;
+    background-color: #001489;
+}
+
+.value {
+    /* margin-top: 10px; */
+    text-align: center;
+    font-size: 16px;
+    font-weight: 500;
+    line-height: 1.33;
+    color: #000000;
+    width: 100%;
+    padding: 10px;
+    margin: 0;
+}
+
+.questionnaire__submit-btn {
+    display: block;
+    margin: 0 auto;
+    margin-top: 15px;
+    font-family: "DINpro", sans-serif;
+    font-size: 16px;
+    font-weight: 500;
+    line-height: 1.33;
+    color: #ffffff;
+    background-color: #e87722;
+    border: none;
+    border-radius: 6px;
+    padding: 10px 25px;
+}
+.questionnaire__submit-btn:hover {
+    -webkit-transition: all 0.3s ease-in-out;
+    transition: all 0.3s ease-in-out;
+    background-color: #c63a3a;
+}
+
+.modal {
+    background-color: #00000042;
+}
+.modal__body {
+    font-family: "DINpro", sans-serif;
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 1.33;
+    color: #000000;
+    text-align: center;
+}
+
+.modal__footer {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-pack: center;
+    -ms-flex-pack: center;
+    justify-content: center;
+    padding: 10px;
+}
+
+.modal__btn-close {
+    font-family: "DINpro", sans-serif;
+    font-size: 16px;
+    font-weight: 500;
+    line-height: 1.33;
+    color: #ffffff;
+    background-color: #e87722;
+    border: none;
+    border-radius: 6px;
+    padding: 10px 25px;
+}
+.modal__btn-close:hover {
+    -webkit-transition: all 0.3s ease-in-out;
+    transition: all 0.3s ease-in-out;
+    background-color: #c63a3a;
+}
+
+label {
+    font-size: 15px;
+    cursor: pointer;
+    margin: 0;
+    margin-left: 10px;
+}
+
+input[type="radio"] {
+    cursor: pointer;
+}
+
+.questionnaire__wrapper {
+    display: none;
+}
+.questionnaire__wrapper_active {
+    display: block;
+}
+
+.modal__wrapper {
+    display: none;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 2;
+    background-color: #00000042;
+}
+
+.close {
+    font-size: 25px;
+    background-color: white;
+}
+
+.question {
+    display: flex;
+    width: 100%;
+    padding: 10px;
+    font-size: 20px;
+    border-bottom: 1px solid black;
+}
+
+.question__text {
+    width: 50%;
+    padding-left: 10px;
+    border-right: 1px solid black;
+}
+
+.question__answer {
+    width: 50%;
+    padding-left: 10px;
+    display: flex;
+
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+.question_last {
+    border-bottom: 0;
+    border-radius: 0 0 10px 10px;
+}
+
+.question__chet {
+    background-color: #c7c4c4;
+}
+
+.modal {
+    display: none;
+}
+
+.question__text_align {
+    text-align: left;
+}
+
+.radio__wrapper {
+    display: flex;
+    align-items: center;
+    margin-right: 15px;
+    margin-bottom: 5px;
+    position: relative;
+}
+
+.descr {
+    padding: 5px;
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    width: 250px;
+    min-height: 65px;
+    font-size: 13px;
+    background-color: white;
+    border: 2px solid black;
+    border-radius: 10px;
+    z-index: 2;
+}
+
+.radio__wrapper:hover .descr {
+    display: block;
+}
+
+@media (max-width: 1000px) {
+    .descr {
+		left: 0;
+	}
+}
+
+@media (max-width: 576px) {
+    .descr {
+		left: -30%;
+	}
+}
+
+@media (max-width: 476px) {
+    .descr {
+		left: -60%;
+	}
+}
+
+.patient__info {
+    width: 100%;
+    margin-top: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.patient__wrap {
+    display: flex;
+    align-items: center;
+}
+
+.patient__info__title {
+    font-size: 24px;
+}
+
+.second__step {
+    display: none;
+}
+
+.warning {
+    color: red;
+}
