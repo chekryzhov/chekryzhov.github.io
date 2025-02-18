@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HSIL</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" href="css/style.css">
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.14.7/dist/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+</head>
+<body class="d-flex flex-column">
+    <header id="header" class="header__container">
+        <div class="header__content">
+            <div class="container">
+                <div class="logo__wrapper">
+                    <a href="/" class="logo_block">
+                        <div class="logo">
+                            <img src="img/header/logo.svg" alt="" class="logo">
+                        </div>
+                    </a>
+                    <div class="name__app">Виртуальный помощник расчета риска наличия <p>плоскоклеточного интраэпителиального поражения шейки матки высокой степени (HSIL)</p> </div>
+                </div>
+            </div>
+        </div>
+    </header>
+    <main id="main" class="flex-shrink-0" role="main">
+        <div class="container">
+            <div class="title">Вероятность наличия HSIL</div>
+            
+            <div class="form__block">
+                <div class="form__item">
+                    <div class="form__item__label">Возраст (полных лет)</div>
+                    <div class="form__item__enter">
+                        <input id="age" class="form__input" type="text" placeholder="Введите возраст" onkeyup="this.value = this.value.replace (/\D/, '')">
+                    </div>
+                </div>
+            
+                <div class="form__item">
+                    <div class="form__item__label">Суммарная концентрация ДНК ВПЧ 14-и типов</div>
+                    <div class="form__item__enter">
+                        <div class="radio__wrapper">
+                            <input type="radio" id="x_sum_14_1" name="x_sum_14" value="0">
+                            <label for="x_sum_14_1">&lt;4 lg/10<sup>5</sup> клеток человека</label>
+                        </div>
+                        <div class="radio__wrapper">
+                            <input type="radio" id="x_sum_14_2" name="x_sum_14" value="1">
+                            <label for="x_sum_14_2">&ge;4 lg/10<sup>5</sup> клеток человека</label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form__item">
+                    <div class="form__item__label">Концентрация ДНК ВПЧ 16 типа <p>(lg /10<sup>5</sup> клеток человека)</p></div>
+                    <div class="form__item__enter">
+                        <input id="x_16" class="form__input" type="text" placeholder="Введите значение" onkeyup="this.value = this.value.replace (/[a-zа-я]/, '')">
+                    </div>
+                </div>
+
+                <div class="form__item">
+                    <div class="form__item__label">Концентрация ДНК ВПЧ 33 типа <p>(lg /10<sup>5</sup> клеток человека)</p></div>
+                    <div class="form__item__enter">
+                        <input id="x_33" class="form__input" type="text" placeholder="Введите значение" onkeyup="this.value = this.value.replace (/[a-zа-я]/, '')">
+                    </div>
+                </div>
+
+                <div class="form__item">
+                    <div class="form__item__label">Концентрация ДНК ВПЧ 58 типа <p>(lg /10<sup>5</sup> клеток человека)</p></div>
+                    <div class="form__item__enter">
+                        <input id="x_58" class="form__input" type="text" placeholder="Введите значение" onkeyup="this.value = this.value.replace (/[a-zа-я]/, '')">
+                    </div>
+                </div>
+
+                <div class="form__item">
+                    <div class="form__item__label">Концентрация ДНК ВПЧ 66 типа <p>(lg /10<sup>5</sup> клеток человека)</p></div>
+                    <div class="form__item__enter">
+                        <input id="x_66" class="form__input" type="text" placeholder="Введите значение" onkeyup="this.value = this.value.replace (/[a-zа-я]/, '')">
+                    </div>
+                </div>
+
+                <div class="form__item">
+                    <div class="form__item__label">Наличие ВПЧ 18 типа</div>
+                    <div class="form__item__enter form__item__enter_checkbox">
+                        <div class="radio__wrapper">
+                            <input type="radio" id="x_18_y" name="x_18" value="1">
+                            <label for="x_18_y">+</label>
+                        </div>
+                        <div class="radio__wrapper">
+                            <input type="radio" id="x_18_n" name="x_18" value="0">
+                            <label for="x_18_n">-</label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <button class="btn btn_result" onclick="questionnaireSubmit()">Отправить</button>
+
+            <!-- Modal -->
+            <div class="modal modal_result modal__container" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <div class="title" id="exampleModalLongTitle">Результат</div>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div id="modal__body" class="modal-body modal__body">
+                            <div class="text">
+                            </div>
+                        </div>
+                        <div class="modal__footer">
+                            <button type="button" class="btn btn_close modal__btn-close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">Закрыть</span></button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer class="footer__container">
+        <div class="container">
+            <p class="footer_tac">Виртуальный помощник расчета риска наличия плоскоклеточного интраэпителиального поражения шейки матки высокой степени (HSIL)
+            </p>
+            <p class="footer_tac">&copy ФБУН Центральный НИИ Эпидемиологии Роспотребнадзора</p>
+        </div>
+    </footer>
+
+    <script src="js/script.js"></script>
+</body>
+</html>
