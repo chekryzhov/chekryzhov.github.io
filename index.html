@@ -84,11 +84,11 @@
                     <div class="form__item__enter form__item__enter_checkbox">
                         <div class="radio__wrapper">
                             <input type="radio" id="x_18_y" name="x_18" value="1">
-                            <label for="x_18_y">+</label>
+                            <label for="x_18_y" class="radio_18_type">+</label>
                         </div>
                         <div class="radio__wrapper">
                             <input type="radio" id="x_18_n" name="x_18" value="0">
-                            <label for="x_18_n">-</label>
+                            <label for="x_18_n" class="radio_18_type">-</label>
                         </div>
                     </div>
                 </div>
@@ -110,6 +110,31 @@
                             <div class="text">
                             </div>
                         </div>
+                        <div class="result">
+                            <div class="green_zone">Низкий риск наличия HSIL</div>
+                            <div class="red_zone">Высокий риск наличия HSIL</div>
+                            <div class="pointer_wrap">
+                                <div class="pointer"></div>
+                                <div class="pointer_text">12%</div>
+                            </div>
+                            <div class="result_pointer_wrap">
+                                <div class="result_pointer"></div>
+                                <div class="result_pointer_text">12%</div>
+                            </div>
+                        </div>
+                        <div class="result_legend">
+                            <div class="result_legend_item">
+                                <div class="pointer"></div>
+                                <span class="result_legend_divider"> - </span>
+                                <div class="result_legend_descr">пороговое значение</div>
+                            </div>
+                            <div class="result_legend_item">
+                                <div class="result_pointer"></div>
+                                <span class="result_legend_divider"> - </span>
+                                <div class="result_legend_descr">результат</div>
+                            </div>
+                        </div>
+                        <div class="result_descr"></div>
                         <div class="modal__footer">
                             <button type="button" class="btn btn_close modal__btn-close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">Закрыть</span></button>
                         </div>

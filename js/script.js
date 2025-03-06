@@ -30,22 +30,30 @@ function questionnaireSubmit() {
     x_sum_14 = document.querySelector('input[name="x_sum_14"]:checked').value;
     x_18 = document.querySelector('input[name="x_18"]:checked').value;
 
+    z = -5.749 + 0.057 * age + 2.072 * x_sum_14 + 0.38 * x_16 + 0.243 * x_33 + 0.144 * x_58 - 0.4 * x_66;
+    P = (1/(1 + Math.exp(-z))) * 100;
+    
     if (x_18 == 1) {
-        conclusion = "Высокий риск HSIL, требуется цитологическое исследование и кольпоскопия";
+        conclusion = "Требуется цитологическое исследование и кольпоскопия.";
     } else {
-        z = -5.749 + 0.057 * age + 2.072 * x_sum_14 + 0.38 * x_16 + 0.243 * x_33 + 0.144 * x_58 - 0.4 * x_66;
-        P = (1/(1 + Math.exp(-z))) * 100;
-
         if (P >= 12) {
-            conclusion = "Высокий риск HSIL, требуется цитологическое исследование и кольпоскопия";
+            conclusion = "Требуется цитологическое исследование и кольпоскопия.";
         } else {
-            conclusion = "Низкий риск HSIL, требуется повторное исследование через 12 месяцев";
+            conclusion = "Требуется повторное исследование через 12 месяцев.";
         }
     }
 
     let resultModal = document.getElementById("modal__body");
     resultModal.innerText = conclusion;
 
+    document.querySelector(".result_pointer_wrap").style.left = P + '%';
+    document.querySelector(".result_pointer_text").innerText = Math.round(P) + '%';
+
+    let result_descr = document.querySelector(".result_descr");
+    result_descr.innerText = 'Риск наличия HSIL ' + Math.round(P) + '%';
+    if (x_18 == 1 && P < 12) {
+        result_descr.innerText = 'Риск наличия HSIL ' + Math.round(P) + '%, особое условие – наличие ВПЧ 18 типа';
+    }
     fadeIn(modal,500);
 }
 

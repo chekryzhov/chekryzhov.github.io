@@ -391,10 +391,11 @@ label {
     margin-top: 16px;
     padding: 0;
     padding-right: 20px;
-    font-size: 16px;
+    font-size: 22px;
     font-weight: 400;
     line-height: 1.33;
     color: #000000;
+    text-align: center;
 }
 
 .modal__info {
@@ -423,6 +424,90 @@ label {
 
 .footer_tac {
     text-align: center;
+}
+
+.radio_18_type {
+    font-size: 26px;
+}
+
+.result {
+    height: 25px;
+    width: 100%;
+    background: linear-gradient(to right,lime 0%, yellow 15%, orange 50%, red 70%);
+    position: relative;
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+.green_zone {
+    position: absolute;
+    top: 0;
+    left: 2px;
+}
+
+.red_zone {
+    position: absolute;
+    top: 0;
+    right: 2px;
+}
+
+.pointer_wrap {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    top: 0;
+    left: 12%;
+    transform: translateX(-50%);
+}
+
+.pointer {
+    width: 5px;
+    height: 40px;
+    background-color: #0191e3;
+}
+
+.result_pointer_wrap {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    top: 0;
+    /* left: 12%; */
+    transform: translateX(-50%);
+}
+
+.result_pointer {
+    width: 5px;
+    height: 30px;
+    background-color: #000000;
+}
+
+.result_descr {
+    margin-bottom: 20px;
+    text-align: center;
+    font-size: 22px;
+    margin-top: 25px;
+}
+
+.result_legend {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 20px;
+}
+
+.result_legend_item {
+    margin: 0 15px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.result_legend_divider {
+    margin: 0 15px;
 }
 
 @media (max-width: 1450px) {
