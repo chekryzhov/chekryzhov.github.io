@@ -1,4 +1,4 @@
-const modal = document.querySelector('.modal');
+const modal = document.querySelector('.modal_result');
 
 const fadeIn = (el, timeout, display) => {
     el.style.opacity = 0;
@@ -43,16 +43,16 @@ function questionnaireSubmit() {
         }
     }
 
-    let resultModal = document.getElementById("modal__body");
+    let resultModal = document.querySelector(".recommendation__descr");
     resultModal.innerText = conclusion;
 
     document.querySelector(".result_pointer_wrap").style.left = P + '%';
-    document.querySelector(".result_pointer_text").innerText = Math.round(P) + '%';
+    document.querySelector(".result_pointer_text").innerHTML = '<b>' + Math.round(P) + '%<b/>';
 
     let result_descr = document.querySelector(".result_descr");
-    result_descr.innerText = 'Риск наличия HSIL ' + Math.round(P) + '%';
+    result_descr.innerHTML = 'Риск наличия HSIL <span class = "result__percent">' + Math.round(P) + '%</span>';
     if (x_18 == 1 && P < 12) {
-        result_descr.innerText = 'Риск наличия HSIL ' + Math.round(P) + '%, особое условие – наличие ВПЧ 18 типа';
+        result_descr.innerHTML = 'Риск наличия HSIL <span class = "result__percent">' + Math.round(P) + '%</span>, особое условие – наличие ВПЧ 18 типа';
     }
     fadeIn(modal,500);
 }
@@ -63,3 +63,18 @@ document
 document
     .querySelector(".close")
     .addEventListener("click", () => fadeOut(modal,500));
+
+const modal_about = document.querySelector('.modal_about');
+let about = document.querySelector("#about_project");
+
+about.addEventListener("click", (e) => {
+    e.preventDefault();
+    fadeIn(modal_about, 500);
+})
+
+document
+    .querySelector(".btn_close_about")
+    .addEventListener("click", () => fadeOut(modal_about,500));
+document
+    .querySelector(".close_about")
+    .addEventListener("click", () => fadeOut(modal_about,500));

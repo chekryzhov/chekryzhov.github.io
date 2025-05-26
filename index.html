@@ -20,14 +20,27 @@
                             <img src="img/header/logo.svg" alt="" class="logo">
                         </div>
                     </a>
-                    <div class="name__app">Виртуальный помощник расчета риска наличия <p>плоскоклеточного интраэпителиального поражения шейки матки высокой степени (HSIL)</p> </div>
+                    <div class="name__app">Виртуальный помощник расчета риска наличия <p>плоскоклеточного интраэпителиального поражения шейки матки высокой степени</p> </div>
+                </div>
+            </div>
+            <div class="header__line"></div>
+            <div class="container">
+                <div class="header__menu">
+                    <div class="main__menu">
+                        <div class="nav-item">
+                            <a class="menu__link" href="/">Калькулятор</a>
+                        </div>
+                        <div class="nav-item">
+                            <a id="about_project" class="menu__link" href="#">О проекте</a>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
     </header>
     <main id="main" class="flex-shrink-0" role="main">
         <div class="container">
-            <div class="title">Вероятность наличия HSIL</div>
+            <div class="title">Виртуальный помощник расчета риска наличия плоскоклеточного интраэпителиального поражения шейки матки высокой степени (HSIL)</div>
             
             <div class="form__block">
                 <div class="form__item">
@@ -38,7 +51,7 @@
                 </div>
             
                 <div class="form__item">
-                    <div class="form__item__label">Суммарная концентрация ДНК ВПЧ 14-и типов</div>
+                    <div class="form__item__label"><span>Суммарная</span> концентрация ДНК ВПЧ 14-и типов</div>
                     <div class="form__item__enter">
                         <div class="radio__wrapper">
                             <input type="radio" id="x_sum_14_1" name="x_sum_14" value="0">
@@ -52,91 +65,104 @@
                 </div>
 
                 <div class="form__item">
-                    <div class="form__item__label">Концентрация ДНК ВПЧ 16 типа <p>(lg /10<sup>5</sup> клеток человека)</p></div>
+                    <div class="form__item__label">Концентрация ДНК ВПЧ <span>16 типа</span></div>
                     <div class="form__item__enter">
                         <input id="x_16" class="form__input" type="text" placeholder="Введите значение" onkeyup="this.value = this.value.replace (/[a-zа-я]/, '')">
+                        <label class="form__item__enter__label" for="">lg /10<sup>5</sup> клеток человека</label>
                     </div>
                 </div>
 
                 <div class="form__item">
-                    <div class="form__item__label">Концентрация ДНК ВПЧ 33 типа <p>(lg /10<sup>5</sup> клеток человека)</p></div>
+                    <div class="form__item__label">Концентрация ДНК ВПЧ <span>33 типа</span></div>
                     <div class="form__item__enter">
                         <input id="x_33" class="form__input" type="text" placeholder="Введите значение" onkeyup="this.value = this.value.replace (/[a-zа-я]/, '')">
+                        <label class="form__item__enter__label" for="">lg /10<sup>5</sup> клеток человека</label>
                     </div>
                 </div>
 
                 <div class="form__item">
-                    <div class="form__item__label">Концентрация ДНК ВПЧ 58 типа <p>(lg /10<sup>5</sup> клеток человека)</p></div>
+                    <div class="form__item__label">Концентрация ДНК ВПЧ <span>58 типа</span></div>
                     <div class="form__item__enter">
                         <input id="x_58" class="form__input" type="text" placeholder="Введите значение" onkeyup="this.value = this.value.replace (/[a-zа-я]/, '')">
+                        <label class="form__item__enter__label" for="">lg /10<sup>5</sup> клеток человека</label>
                     </div>
                 </div>
 
                 <div class="form__item">
-                    <div class="form__item__label">Концентрация ДНК ВПЧ 66 типа <p>(lg /10<sup>5</sup> клеток человека)</p></div>
+                    <div class="form__item__label">Концентрация ДНК ВПЧ <span>66 типа</span></div>
                     <div class="form__item__enter">
                         <input id="x_66" class="form__input" type="text" placeholder="Введите значение" onkeyup="this.value = this.value.replace (/[a-zа-я]/, '')">
+                        <label class="form__item__enter__label" for="">lg /10<sup>5</sup> клеток человека</label>
                     </div>
                 </div>
 
                 <div class="form__item">
-                    <div class="form__item__label">ДНК ВПЧ 18 типа</div>
-                    <div class="form__item__enter form__item__enter_checkbox">
+                    <div class="form__item__label">ДНК ВПЧ <span>18 типа</span></div>
+                    <div class="form__item__enter">
                         <div class="radio__wrapper">
                             <input type="radio" id="x_18_y" name="x_18" value="1">
-                            <label for="x_18_y" class="">обнаружено</label>
+                            <label for="x_18_y" class="">Обнаружено</label>
                         </div>
                         <div class="radio__wrapper">
                             <input type="radio" id="x_18_n" name="x_18" value="0">
-                            <label for="x_18_n" class="">не обнаружено</label>
+                            <label for="x_18_n" class="">Не обнаружено</label>
                         </div>
                     </div>
                 </div>
             </div>
 
-            <button class="btn btn_result" onclick="questionnaireSubmit()">Отправить</button>
+            <button class="btn btn_result" onclick="questionnaireSubmit()">Получить результат</button>
 
             <!-- Modal -->
             <div class="modal modal_result modal__container" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
                 <div class="modal-dialog modal-dialog-centered" role="document">
                     <div class="modal-content">
                         <div class="modal-header">
-                            <div class="title" id="exampleModalLongTitle">Результат</div>
+                            <div class="result_descr title" id="exampleModalLongTitle">Результат</div>
                             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                 <span aria-hidden="true">&times;</span>
                             </button>
                         </div>
-                        <div class="result_descr"></div>
                         <div class="result">
-                            <div class="green_zone">Низкий риск наличия HSIL</div>
-                            <div class="red_zone">Высокий риск наличия HSIL</div>
+                            <div class="green_zone">Низкий риск</div>
+                            <div class="red_zone">Высокий риск</div>
                             <div class="pointer_wrap">
                                 <div class="pointer"></div>
-                                <div class="pointer_text">12%</div>
+                                <div class="pointer_text">пороговое значение 12%</div>
                             </div>
                             <div class="result_pointer_wrap">
-                                <div class="result_pointer"></div>
                                 <div class="result_pointer_text">12%</div>
-                            </div>
-                        </div>
-                        <div class="result_legend">
-                            <div class="result_legend_item">
-                                <div class="pointer"></div>
-                                <span class="result_legend_divider"> - </span>
-                                <div class="result_legend_descr">пороговое значение</div>
-                            </div>
-                            <div class="result_legend_item">
                                 <div class="result_pointer"></div>
-                                <span class="result_legend_divider"> - </span>
-                                <div class="result_legend_descr">результат</div>
                             </div>
                         </div>
                         <div id="modal__body" class="modal-body modal__body">
-                            <div class="text">
+                            <div class="recommendation">
+                                <div class="recommendation__title">Рекомендация</div>
+                                <div class="recommendation__descr"></div>
                             </div>
                         </div>
                         <div class="modal__footer">
                             <button type="button" class="btn btn_close modal__btn-close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">Закрыть</span></button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Modal about -->
+            <div class="modal modal_about modal__container" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <div class="result_descr title">О проекте</div>
+                            <button type="button" class="close close_about" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="about__descr">
+                            
+                        </div>
+                        <div class="modal__footer">
+                            <button type="button" class="btn btn_close_about btn_close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">Закрыть</span></button>
                         </div>
                     </div>
                 </div>
@@ -146,9 +172,8 @@
 
     <footer class="footer__container">
         <div class="container">
-            <p class="footer_tac">Виртуальный помощник расчета риска наличия плоскоклеточного интраэпителиального поражения шейки матки высокой степени (HSIL)
-            </p>
-            <p class="footer_tac">&copy ФБУН Центральный НИИ Эпидемиологии Роспотребнадзора</p>
+            <p class="footer_tac">Виртуальный помощник расчета риска наличия плоскоклеточного интраэпителиального поражения шейки матки высокой степени</p>
+            <p class="footer_tac">&copy 2025, ФБУН Центральный НИИ Эпидемиологии Роспотребнадзора</p>
         </div>
     </footer>
 
