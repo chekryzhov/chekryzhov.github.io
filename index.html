@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Главная</title>
     <link rel="stylesheet" href="css/bootstrap.min.css">
-    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/style.css?ver=1.0">
     <script src="js/jquery-3.3.1.slim.min.js" ></script>
     <script src="js/popper.min.js"></script>
     <script src="js/bootstrap.min.js"></script>
@@ -1030,42 +1030,45 @@
             <template id="product-group-template-reusable">
                 <div id="reusable_diapers_group" class="dropdown__group dropdown__group_hidden dropdown__group__product">
                         <div class="dropdown__group__item">
-                            <div class="dropdown__group__name">Пеленки/простыни</div>
+                            <div class="item_header_wrap">
+                                <div class="dropdown__group__name">Пеленки/простыни</div>
 
-                            <div class="process_wrap">
+                                <div class="process_wrap">
 
-                                <!-- Обеззараживание и Стерилизация -->
-                                <div class="process__group">
+                                    <!-- Обеззараживание и Стерилизация -->
+                                    <div class="process__group">
 
-                                    <div class="process">
-                                        <label class="switch">
-                                            <input id="reusable_process__sterilization_diapers" class="process__name" type="checkbox" data-name-type="reusable" data-name-product="diapers" data-name-process="sterilization">
-                                            <span class="slider round disabled__slider"></span>
-                                        </label>
-                                        <label class="process__label" for="reusable_process__sterilization_diapers">Стерилизация</label>
+                                        <div class="process">
+                                            <label class="switch">
+                                                <input id="reusable_process__sterilization_diapers" class="process__name" type="checkbox" data-name-type="reusable" data-name-product="diapers" data-name-process="sterilization">
+                                                <span class="slider round disabled__slider"></span>
+                                            </label>
+                                            <label class="process__label" for="reusable_process__sterilization_diapers">Стерилизация</label>
+                                        </div>
                                     </div>
+
+                                    <!-- Ремонт и Стирка -->
+                                    <div class="process__group">
+                                        <div class="process">
+                                            <label class="switch">
+                                                <input id="reusable_process__repair_diapers" class="process__name" type="checkbox" data-name-type="reusable" data-name-product="diapers" data-name-process="repair">
+                                                <span class="slider round disabled__slider"></span>
+                                            </label>
+                                            <label class="process__label" for="reusable_process__repair_diapers">Ремонт</label>
+                                        </div>
+
+                                        <div class="process">
+                                            <label class="switch">
+                                                <input id="reusable_process__washing_diapers" class="process__name" type="checkbox" data-name-type="reusable" data-name-product="diapers" data-name-process="washing">
+                                                <span class="slider round disabled__slider"></span>
+                                            </label>
+                                            <label class="process__label" for="reusable_process__washing_diapers">Стирка</label>
+                                        </div>
+                                    </div>
+                                    
                                 </div>
-
-                                <!-- Ремонт и Стирка -->
-                                <div class="process__group">
-                                    <div class="process">
-                                        <label class="switch">
-                                            <input id="reusable_process__repair_diapers" class="process__name" type="checkbox" data-name-type="reusable" data-name-product="diapers" data-name-process="repair">
-                                            <span class="slider round disabled__slider"></span>
-                                        </label>
-                                        <label class="process__label" for="reusable_process__repair_diapers">Ремонт</label>
-                                    </div>
-
-                                    <div class="process">
-                                        <label class="switch">
-                                            <input id="reusable_process__washing_diapers" class="process__name" type="checkbox" data-name-type="reusable" data-name-product="diapers" data-name-process="washing">
-                                            <span class="slider round disabled__slider"></span>
-                                        </label>
-                                        <label class="process__label" for="reusable_process__washing_diapers">Стирка</label>
-                                    </div>
-                                </div>
-                                
                             </div>
+                            
 
                             <div class="drop__icon"><img class="drop_img_group" src="img/plus.svg" alt=""></div>
                         </div>

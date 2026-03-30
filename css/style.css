@@ -524,6 +524,13 @@ label {
     display: block;
 }
 
+.item_header_wrap {
+    width: 90%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
 .form__item_active {
     display: flex;
 }
@@ -814,6 +821,14 @@ th[data-group][colspan="0"] {
     .process {
         width: 100%;
         justify-content: flex-start;
+    }
+
+    .item_header_wrap {
+        flex-direction: column;
+    }
+
+    .process_wrap {
+        flex-direction: column;
     }
     
 }
