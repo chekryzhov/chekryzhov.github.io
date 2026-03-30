@@ -29,8 +29,6 @@ function resetInputsInBlock(blockId) {
         const noResetTypes = ['button', 'submit', 'reset', 'image', 'file', 'hidden'];
         if (!noResetTypes.includes(type)) {
             input.value = 0;
-            // При желании здесь тоже можно вызвать событие input, если нужно
-            // input.dispatchEvent(new Event('input', { bubbles: true }));
         }
         }
     });
@@ -1028,7 +1026,7 @@ function recount () {
         let product_name = input.dataset.nameProduct;
         input.value = document.querySelector('input[data-name-type="' + product_type + '"][data-name-product="' + product_name + '"][data-name-process="purchase"][data-name-indicator="cost"]').value * document.querySelector('input[data-name-type="' + product_type + '"][data-name-product="' + product_name + '"][data-name-process="purchase"][data-name-indicator="consumption"]').value;
 
-        if (product_type = 'disposable') {
+        if (product_type == 'disposable') {
             total_purchase_disposable = total_purchase_disposable + parseInt(input.value);
         } else {
             total_purchase_reusable = total_purchase_reusable + parseInt(input.value);
@@ -1064,7 +1062,7 @@ function recount () {
         let storage_tax = document.querySelector('input[data-name-type="' + product_type + '"][data-name-product="' + product_name + '"][data-name-process="storage"][data-name-indicator="tax"]').value;
         input.value = (storage_space * storage_rent) + (storage_space * storage_utilities) + (storage_space * storage_tax);
 
-        if (product_type = 'disposable') {
+        if (product_type == 'disposable') {
             total_storage_disposable = total_storage_disposable + parseInt(input.value);
         } else {
             total_storage_reusable = total_storage_reusable + parseInt(input.value);
@@ -1275,6 +1273,8 @@ function recount () {
                     (document.querySelector('input[data-name-type="' + product_type + '"][data-name-product="' + product_name + '"][data-name-process="waste_disinfection"][data-name-indicator="employee_count"][data-name-disinfection-method="physic"]').value * price_medosmotr);
 
                     sum = sum + parseInt(document.querySelector('input[data-name-type="' + product_type + '"][data-name-product="' + product_name + '"][data-name-process="waste_disinfection"][data-name-indicator="equipment_annual_cost"][data-name-disinfection-method="physic"]').value) + parseInt(document.querySelector('input[data-name-type="' + product_type + '"][data-name-product="' + product_name + '"][data-name-process="waste_disinfection"][data-name-indicator="sum_cost_waste_disinfection_employee"][data-name-disinfection-method="physic"]').value);
+
+                    //!!Можно посчитать затраты на персонал по каждому процессу отдельно
                 }
 
                 if (method == 'chemical') {
