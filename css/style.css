@@ -444,7 +444,15 @@ label {
 }
 
 .active {
-    display: block;;
+    display: block;
+}
+
+.footer_wrap {
+    text-align: center;
+}
+
+.sprav_list {
+    padding-left: 20px;
 }
 
 #result_table tbody tr.collapsed {
@@ -575,6 +583,15 @@ label {
     display: none;
 }
 
+.other_hidden {
+    display: none;
+}
+
+.hidden {
+    display: none;
+}
+
+
 .switch {
     position: relative;
     display: inline-block;
@@ -683,6 +700,10 @@ th[data-group][colspan="0"] {
 
 .form__item__enter_type_calculation {
     width: 60%;
+}
+
+.total_item_cost_employee {
+    font-size: 14px;
 }
 
 @media (max-width: 1450px) {

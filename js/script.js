@@ -32,6 +32,8 @@ function resetInputsInBlock(blockId) {
         }
         }
     });
+
+    recount();
 }
 
 //Меняем местами блоки
@@ -58,6 +60,206 @@ function isFirstBeforeSecond(el1, el2) {
     
     // Если el1 предшествует el2, возвращаем true
     return (position & Node.DOCUMENT_POSITION_PRECEDING) !== 0;
+}
+
+function formatWithSpaces(number) {
+    // Округляем до нужного количества знаков, если необходимо
+    return number.toLocaleString('ru-RU');  // для 1200000.55 → "1 200 000,55"
+}
+
+function parseInputToNumber(inputString) {
+    // Удаляем все пробелы и любые нецифровые символы, кроме точки (или запятой)
+    let cleaned = inputString.replace(/\s/g, '') // убираем пробелы
+                            .replace(',', '.'); // если используется запятая как разделитель
+    return parseFloat(cleaned);
+}
+
+function roundTwo(number) {
+    // Округляем до нужного количества знаков, если необходимо
+    return +number.toFixed(2);  // для 1200000.55 → "1 200 000,55"
+}
+
+function check_for_unknown_count_product (product_type, product_name) {
+    let unknown_consumption = document.querySelector('input[data-name-type="' + product_type + '"][data-name-product="' + product_name + '"][data-name-process="purchase"][data-name-indicator="unknown_consumption"]');
+
+    let count_manipulation = document.querySelector('input[data-name-type="' + product_type + '"][data-name-product="' + product_name + '"][data-name-process="main"][data-name-indicator="count_manipulation"]');
+
+    let count_product_one_manipulation = document.querySelector('input[data-name-type="' + product_type + '"][data-name-product="' + product_name + '"][data-name-process="main"][data-name-indicator="count_product_one_manipulation"]');
+
+    let disinfection_unknown_count_product_block = document.querySelector('#' + product_type + '_' + product_name + '_disinfection_unknown_count_product_block');
+    let washing_unknown_count_product_block = document.querySelector('#' + product_type + '_' + product_name + '_washing_unknown_count_product_block');
+
+    let disinfection_unknown_count_product = document.querySelector('input[data-name-type="' + product_type + '"][data-name-product="' + product_name + '"][data-name-process="disinfection"][data-name-indicator="unknown_count_product"]');
+
+    let washing_unknown_count_product = document.querySelector('input[data-name-type="' + product_type + '"][data-name-product="' + product_name + '"][data-name-process="washing"][data-name-indicator="unknown_count_product"]');
+
+    if (unknown_consumption.checked && parseInputToNumber(count_manipulation.value) != 0 && parseInputToNumber(count_product_one_manipulation.value) != 0) {
+        disinfection_unknown_count_product_block.classList.remove('hidden');
+        disinfection_unknown_count_product_block.classList.add('active');
+        washing_unknown_count_product_block.classList.remove('hidden');
+        washing_unknown_count_product_block.classList.add('active');
+    } else {
+        disinfection_unknown_count_product_block.classList.remove('active');
+        disinfection_unknown_count_product_block.classList.add('hidden');
+        washing_unknown_count_product_block.classList.remove('active');
+        washing_unknown_count_product_block.classList.add('hidden');
+
+        disinfection_unknown_count_product.checked = false;
+        washing_unknown_count_product.checked = false;
+    }
+}
+
+//Стоимость часа работы 
+const cost_hour_work_process = {
+    'transportation': 651.25,
+    'disinfection': 544.68,
+    'waste_disinfection': 795.82,
+    'washing': 544.68,
+    'sterilization': 544.68,
+    'repair': 544.68,
+};
+
+//Объем многоразового изделия
+const volume_reusable_products = {
+    'diapers': 2,
+    'absorbent_diapers': 0.67,
+    'pads': 0.7,
+    'surgical_suits': 2.7,
+    'patient_clothing': 2.6,
+    'socks': 0.22,
+    'underwear': 0.27,
+    'cover_medical_equipment': 1,
+    'apron': 0.8,
+    'reusable_woven_shoe': 0.21,
+    'robes': 2.4,
+    'hats': 0.08,
+    'masks': 0.5,
+    'bed_sheets': 6.8,
+    'mattress_covers': 8,
+    'cleaning_wipes': 0.03,
+};
+
+//Объем пакетов
+const volume_packets_process = {
+    'transportation': 18
+};
+
+const cost_purchase_products = {
+    "disposable" : {
+        "non_sterialize" : {
+            'diapers': 36.54,
+            'absorbent_diapers': 33,
+            'pads': 24.6,
+            'surgical_suits': 286.07,
+            'patient_clothing': 32,
+            'socks': 3.04,
+            'underwear': 48.6,
+            'cover_medical_equipment': 71.01,
+            'apron': 27.03,
+            'non_woven_shoe': 7.55,
+            'robes': 51.5,
+            'hats': 3.38,
+            'masks': 2.49,
+            'bed_sheets': 202.46,
+            'mattress_covers': 129.08,
+            'cleaning_wipes': 3.42,
+        },
+        "sterialize" : {
+            'diapers': 68.64,
+            'absorbent_diapers': 46.06,
+            'pads': 25.8,
+            'surgical_suits': 402.97,
+            'patient_clothing': 50.6,
+            'socks': 67.13,
+            'underwear': 72.4,
+            'cover_medical_equipment': 259.88,
+            'apron': 46.77,
+            'non_woven_shoe': 27.72,
+            'robes': 79.4,
+            'hats': 15.2,
+            'masks': 12.91,
+            'bed_sheets': 466,
+            'mattress_covers': 153,
+            'cleaning_wipes': 17,
+        }
+    },
+    "reusable" : {
+        'diapers': 92,
+        'absorbent_diapers': 1300,
+        'pads': 76.12,
+        'surgical_suits': 1383.33,
+        'patient_clothing': 651.67,
+        'socks': 57.33,
+        'underwear': 456.6,
+        'cover_medical_equipment': 3900,
+        'apron': 880,
+        'reusable_woven_shoe': 170,
+        'robes': 2150,
+        'hats': 215,
+        'masks': 44.8,
+        'bed_sheets': 1406.33,
+        'mattress_covers': 2000,
+        'cleaning_wipes': 16.03,
+    },
+}
+
+const weight_purchase_products = {
+    "disposable" : {
+        "non_sterialize" : {
+            'diapers': 0.056,
+            'absorbent_diapers': 0.05,
+            'pads': 0.023,
+            'surgical_suits': 0.105,
+            'patient_clothing': 0.11,
+            'socks': 0.0036,
+            'underwear': 0.02,
+            'cover_medical_equipment': 0,
+            'apron': 0.042,
+            'non_woven_shoe': 0.004,
+            'robes': 0.04,
+            'hats': 0.004,
+            'masks': 0.0025,
+            'bed_sheets': 0.249,
+            'mattress_covers': 0.079,
+            'cleaning_wipes': 0.0042,
+        },
+        "sterialize" : {
+            'diapers': 0.15,
+            'absorbent_diapers': 0.04,
+            'pads': 0.02,
+            'surgical_suits': 0.105,
+            'patient_clothing': 0.11,
+            'socks': 0.016,
+            'underwear': 0.016,
+            'cover_medical_equipment': 0.090,
+            'apron': 0.045,
+            'non_woven_shoe': 0.004,
+            'robes': 0.095,
+            'hats': 0.01,
+            'masks': 0.0035,
+            'bed_sheets': 0.235,
+            'mattress_covers': 0.085,
+            'cleaning_wipes': 0.0048,
+        }
+    },
+    "reusable" : {
+        'diapers': 0.3,
+        'absorbent_diapers': 0.37,
+        'pads': 0.22,
+        'surgical_suits': 0.4,
+        'patient_clothing': 0.33,
+        'socks': 0.04,
+        'underwear': 0.12,
+        'cover_medical_equipment': 0.45,
+        'apron': 0.2,
+        'non_woven_shoe': 0.06,
+        'robes': 0.36,
+        'hats': 0.05,
+        'masks': 0.003,
+        'bed_sheets': 0.95,
+        'mattress_covers': 0.74,
+        'cleaning_wipes': 0.0024,
+    },
 }
 
 let dropdown__groups = document.querySelectorAll('.dropdown__group');
@@ -141,9 +343,6 @@ document.addEventListener('click', function(e) {
             if (this.value.trim() === '') this.value = '0';
         });
 
-        // input.addEventListener('change', function() {
-        //     recount();
-        // });
     });
 
     // Проверяем, что клик был по чекбоксу внутри нужного контейнера
@@ -218,6 +417,22 @@ document.addEventListener('change', function(e) {
         recount();
     }
 
+    if (e.target.matches('input[data-name-type="reusable"][data-name-process="main"][data-name-indicator="count_manipulation"]')) {
+        let inp = e.target.closest('input[data-name-type="reusable"][data-name-process="main"][data-name-indicator="count_manipulation"]');
+        let product_type = inp.dataset.nameType;
+        let product_name = inp.dataset.nameProduct;
+
+        check_for_unknown_count_product(product_type, product_name);
+    }
+
+    if (e.target.matches('input[data-name-type="reusable"][data-name-process="main"][data-name-indicator="count_product_one_manipulation"]')) {
+        let inp = e.target.closest('input[data-name-type="reusable"][data-name-process="main"][data-name-indicator="count_product_one_manipulation"]');
+        let product_type = inp.dataset.nameType;
+        let product_name = inp.dataset.nameProduct;
+
+        check_for_unknown_count_product(product_type, product_name);
+    }
+
     //Если вводим налог, то стоимость аренды недоступна и наоборот
     if (e.target.matches('input[data-name-process="storage"][data-name-indicator="rent"]')) {
         let inp_rent = e.target.closest('input[data-name-process="storage"][data-name-indicator="rent"]');
@@ -272,9 +487,11 @@ document.addEventListener('change', function(e) {
         if (choose_waste_class.checked) {
             waste_class_group.classList.remove('dropdown__group_hidden');
             waste_class_group.classList.add('dropdown__group_active');
+            waste_class_group.querySelector('.dropdown__group__item').click();
 
         } else {
             resetInputsInBlock(product_type + '_' + product_name + '_waste_class_' + waste_class + '_group');
+            waste_class_group.querySelector('.dropdown__group__item').click();
             waste_class_group.classList.remove('dropdown__group_active');
             waste_class_group.classList.add('dropdown__group_hidden');
         }
@@ -372,6 +589,8 @@ document.addEventListener('change', function(e) {
         let inp_hours_approximate = document.querySelector('input[data-name-type="' + product_type + '"][data-name-product="' + product_name + '"][data-name-process="waste_disinfection"][data-name-indicator="hours_approximate"][data-name-disinfection-method="' + method + '"]');
 
         let inp_time_disinfection_one_load = document.querySelector('input[data-name-type="' + product_type + '"][data-name-product="' + product_name + '"][data-name-process="waste_disinfection"][data-name-indicator="time_disinfection_one_load"][data-name-disinfection-method="' + method + '"]');
+
+        let inp_unknown_time_disinfection_one_load = document.querySelector('input[data-name-type="' + product_type + '"][data-name-product="' + product_name + '"][data-name-process="waste_disinfection"][data-name-indicator="unknown_time_disinfection_one_load"][data-name-disinfection-method="' + method + '"]');
         
         if (inp_hour_known.value != 0 && inp_hour_known.value != '') {
             inp_hours_approximate.disabled = true;
@@ -382,6 +601,11 @@ document.addEventListener('change', function(e) {
             inp_time_disinfection_one_load.value = '';
             inp_time_disinfection_one_load.placeholder = '';
             inp_time_disinfection_one_load.classList.add('form__input_formula');
+
+            if (inp_unknown_time_disinfection_one_load) {
+                inp_unknown_time_disinfection_one_load.disabled = true;
+                inp_unknown_time_disinfection_one_load.checked = false;
+            }
         } else {
             inp_hours_approximate.value = 0;
             inp_hours_approximate.placeholder = 'Введите значение';
@@ -390,6 +614,56 @@ document.addEventListener('change', function(e) {
             inp_time_disinfection_one_load.value = 0;
             inp_time_disinfection_one_load.placeholder = 'Введите значение';
             inp_time_disinfection_one_load.classList.remove('form__input_formula');
+
+            if (inp_unknown_time_disinfection_one_load) {
+                inp_unknown_time_disinfection_one_load.disabled = false;
+            }
+        }
+    }
+
+    //Если вводим кол-во часов
+    if (e.target.matches('input[data-name-indicator="count_hours"]')) {
+        let inp_count_hours = e.target.closest('input[data-name-indicator="count_hours"]');
+        let product_type = inp_count_hours.dataset.nameType;
+        let product_name = inp_count_hours.dataset.nameProduct;
+        let process_name = inp_count_hours.dataset.nameProcess;
+
+        let approximate_count_hours = document.querySelector('input[data-name-type="' + product_type + '"][data-name-product="' + product_name + '"][data-name-process="' + process_name + '"][data-name-indicator="approximate_count_hours"]');
+
+        let inp_var_cost = document.querySelector('input[data-name-type="' + product_type + '"][data-name-product="' + product_name + '"][data-name-process="' + process_name + '"][data-name-indicator="var_cost"]');
+
+        let inp_unknown_var_cost = document.querySelector('input[data-name-type="' + product_type + '"][data-name-product="' + product_name + '"][data-name-process="' + process_name + '"][data-name-indicator="unknown_var_cost"]');
+        
+        if (inp_count_hours.value != 0 && inp_count_hours.value != '') {
+            approximate_count_hours.disabled = true;
+            approximate_count_hours.value = '';
+            approximate_count_hours.placeholder = '';
+
+            if (inp_var_cost) {
+                inp_var_cost.disabled = true;
+                inp_var_cost.value = '';
+                inp_var_cost.placeholder = '';
+                inp_var_cost.classList.add('form__input_formula');
+            }
+
+            if (inp_unknown_var_cost) {
+                inp_unknown_var_cost.disabled = true;
+                inp_unknown_var_cost.checked = false;
+            }
+        } else {
+            approximate_count_hours.value = 0;
+            approximate_count_hours.placeholder = 'Введите значение';
+
+            if (inp_var_cost) {
+                inp_var_cost.disabled = false;
+                inp_var_cost.value = 0;
+                inp_var_cost.placeholder = 'Введите значение';
+                inp_var_cost.classList.remove('form__input_formula');
+            }
+
+            if (inp_unknown_var_cost) {
+                inp_unknown_var_cost.disabled = false;
+            }
         }
     }
 
@@ -515,6 +789,34 @@ document.addEventListener('change', function(e) {
         recount();
     }
 
+    //Выбор Имеете ли Вы информацию об используемом дезсредстве
+    if (e.target.matches('input[data-name-process="waste_disinfection"][data-name-indicator="info_disinfectant"]')) {
+        let info_disinfectant_input = e.target.closest('input[data-name-process="waste_disinfection"][data-name-indicator="info_disinfectant"]');
+
+        let product_type = info_disinfectant_input.dataset.nameType;
+        let product_name = info_disinfectant_input.dataset.nameProduct;
+        let info_disinfectant = info_disinfectant_input.value;
+
+        let volume_disinfectant = document.querySelector('input[data-name-type="' + product_type + '"][data-name-product="' + product_name + '"][data-name-process="waste_disinfection"][data-name-indicator="disinfectant_volume"]');
+        let cost_disinfectant = document.querySelector('input[data-name-type="' + product_type + '"][data-name-product="' + product_name + '"][data-name-process="waste_disinfection"][data-name-indicator="disinfectant_cost_per_unit"]');
+        let consumption_disinfectant = document.querySelector('input[data-name-type="' + product_type + '"][data-name-product="' + product_name + '"][data-name-process="waste_disinfection"][data-name-indicator="disinfectant_consumption_per_load"]');
+        let count_product_one_load = document.querySelector('input[data-name-type="' + product_type + '"][data-name-product="' + product_name + '"][data-name-process="waste_disinfection"][data-name-indicator="items_per_load"]');
+
+        if (info_disinfectant == 'y') {
+            volume_disinfectant.value = 0;
+            cost_disinfectant.value = 0;
+            consumption_disinfectant.value = 0;
+            count_product_one_load.value = 0;
+        } else {
+            volume_disinfectant.value = 1;
+            cost_disinfectant.value = 468.75;
+            consumption_disinfectant.value = 0.4;
+            count_product_one_load.value = 4;
+        }   
+
+        recount();
+    }
+
     //Выбор Обеззараживание в сторонней организации
     if (e.target.matches('input[data-name-process="disinfection"][data-name-indicator="disinfection_contract"]')) {
         let disinfection_contract_input = e.target.closest('input[data-name-process="disinfection"][data-name-indicator="disinfection_contract"]');
@@ -613,11 +915,24 @@ document.addEventListener('change', function(e) {
         let info_form_block_id = product_type + '_' + product_name + '_purchase_unknown_cost_form_block';
         let info_form_block = document.querySelector('#' + info_form_block_id);
 
+        let cost = document.querySelector('input[data-name-type="' + product_type + '"][data-name-product="' + product_name + '"][data-name-process="purchase"][data-name-indicator="cost"]');
+        let weight = document.querySelector('input[data-name-type="' + product_type + '"][data-name-product="' + product_name + '"][data-name-process="purchase"][data-name-indicator="weight"]');
+
         if (info_input.checked) {
             info_form_block.classList.add('active');
+            cost.disabled = true;
+            cost.classList.add('form__input_formula');
+            weight.disabled = true;
+            weight.classList.add('form__input_formula');
         } else {
             resetInputsInBlock(info_form_block_id);            
             info_form_block.classList.remove('active');
+            cost.disabled = false;
+            cost.classList.remove('form__input_formula');
+            weight.disabled = false;
+            weight.classList.remove('form__input_formula');
+            cost.value = 0;
+            weight.value = 0;
         }  
 
         recount();
@@ -634,14 +949,8 @@ document.addEventListener('change', function(e) {
         let cost = document.querySelector('input[data-name-type="' + product_type + '"][data-name-product="' + product_name + '"][data-name-process="purchase"][data-name-indicator="cost"]');
         let weight = document.querySelector('input[data-name-type="' + product_type + '"][data-name-product="' + product_name + '"][data-name-process="purchase"][data-name-indicator="weight"]');
 
-        //!!!!!
-        if (kind_product == 'sterialize') {
-            cost.value = 1;
-            weight.value = 1;
-        } else {
-            cost.value = 0;
-            weight.value = 0;
-        }   
+        cost.value = cost_purchase_products[product_type][kind_product][product_name];
+        weight.value = weight_purchase_products[product_type][kind_product][product_name];
 
         recount();
     }
@@ -656,9 +965,37 @@ document.addEventListener('change', function(e) {
         let consumption = document.querySelector('input[data-name-type="' + product_type + '"][data-name-product="' + product_name + '"][data-name-process="purchase"][data-name-indicator="consumption"]');
 
         if (info_input.checked) {
-            consumption.value = document.querySelector('input[data-name-type="' + product_type + '"][data-name-product="' + product_name + '"][data-name-process="main"][data-name-indicator="count_product"]').value;
+            consumption.value = parseInputToNumber(document.querySelector('input[data-name-type="' + product_type + '"][data-name-product="' + product_name + '"][data-name-process="main"][data-name-indicator="count_product"]').value);
+            consumption.disabled = true;
+            consumption.classList.add('form__input_formula');
         } else {
             consumption.value = 0;
+            consumption.disabled = false;
+            consumption.classList.remove('form__input_formula');
+        }  
+
+        check_for_unknown_count_product(product_type, product_name);
+
+        recount();
+    }
+
+    //Отсутствие информации Время, затрачиваемое на проведение обеззараживания
+    if (e.target.matches('input[data-name-type="disposable"][data-name-process="waste_disinfection"][data-name-indicator="unknown_time_disinfection_one_load"]')) {
+        let info_input = e.target.closest('input[data-name-type="disposable"][data-name-process="waste_disinfection"][data-name-indicator="unknown_time_disinfection_one_load"]');
+
+        let product_type = info_input.dataset.nameType;
+        let product_name = info_input.dataset.nameProduct;
+
+        let time_disinfection_one_load = document.querySelector('input[data-name-type="' + product_type + '"][data-name-product="' + product_name + '"][data-name-process="waste_disinfection"][data-name-indicator="time_disinfection_one_load"][data-name-disinfection-method="chemical"]');
+
+        if (info_input.checked) {
+            time_disinfection_one_load.value = 0.5;
+            time_disinfection_one_load.disabled = true;
+            time_disinfection_one_load.classList.add('form__input_formula');
+        } else {
+            time_disinfection_one_load.value = 0;
+            time_disinfection_one_load.disabled = false;
+            time_disinfection_one_load.classList.remove('form__input_formula');
         }  
 
         recount();
@@ -675,9 +1012,85 @@ document.addEventListener('change', function(e) {
         let cost_hour = document.querySelector('input[data-name-type="' + product_type + '"][data-name-product="' + product_name + '"][data-name-process="' + process_name + '"][data-name-indicator="cost_hour"]');
 
         if (info_input.checked) {
-            cost_hour.value = 1;
+            cost_hour.value = cost_hour_work_process[process_name];
+            cost_hour.disabled = true;
+            cost_hour.classList.add('form__input_formula');
         } else {
             cost_hour.value = 0;
+            cost_hour.disabled = false;
+            cost_hour.classList.remove('form__input_formula');
+        }  
+
+        recount();
+    }
+
+    //Отсутствие информации Количество изделий в 1 загрузку (в кг или куб. м)
+    if (e.target.matches('input[data-name-type="reusable"][data-name-process="disinfection"][data-name-indicator="unknown_count_product_one_load"]')) {
+        let info_input = e.target.closest('input[data-name-type="reusable"][data-name-process="disinfection"][data-name-indicator="unknown_count_product_one_load"]');
+
+        let product_type = info_input.dataset.nameType;
+        let product_name = info_input.dataset.nameProduct;
+
+        let count_product_one_load = document.querySelector('input[data-name-type="' + product_type + '"][data-name-product="' + product_name + '"][data-name-process="disinfection"][data-name-indicator="count_product_one_load"]');
+
+        if (info_input.checked) {
+            count_product_one_load.value = 4;
+            count_product_one_load.disabled = true;
+            count_product_one_load.classList.add('form__input_formula');
+        } else {
+            count_product_one_load.value = 0;
+            count_product_one_load.disabled = false;
+            count_product_one_load.classList.remove('form__input_formula');
+        }  
+
+        recount();
+    }
+
+    //Отсутствие информации Количество часов
+    if (e.target.matches('input[data-name-type="reusable"][data-name-process="disinfection"][data-name-indicator="unknown_count_hours"]')) {
+
+        recount();
+    }
+
+    if (e.target.matches('input[data-name-indicator="unknown_volume_packet"]')) {
+        let info_input = e.target.closest('input[data-name-indicator="unknown_volume_packet"]');
+
+        let product_type = info_input.dataset.nameType;
+        let product_name = info_input.dataset.nameProduct;
+        let process_name = info_input.dataset.nameProcess;
+
+        let volume_product = document.querySelector('input[data-name-type="' + product_type + '"][data-name-product="' + product_name + '"][data-name-process="' + process_name + '"][data-name-indicator="volume_product"]');
+
+        if (info_input.checked) {
+            volume_product.value = volume_packets_process[process_name];
+            volume_product.disabled = true;
+            volume_product.classList.add('form__input_formula');
+        } else {
+            volume_product.value = 0;
+            volume_product.disabled = false;
+            volume_product.classList.remove('form__input_formula');
+        }  
+
+        recount();
+    }
+
+    if (e.target.matches('input[data-name-indicator="unknown_volume_one_packet"]')) {
+        let info_input = e.target.closest('input[data-name-indicator="unknown_volume_one_packet"]');
+
+        let product_type = info_input.dataset.nameType;
+        let product_name = info_input.dataset.nameProduct;
+        let process_name = info_input.dataset.nameProcess;
+
+        let volume_one_product = document.querySelector('input[data-name-type="' + product_type + '"][data-name-product="' + product_name + '"][data-name-process="' + process_name + '"][data-name-indicator="volume_one_product"]');
+
+        if (info_input.checked) {
+            volume_one_product.value = volume_reusable_products[product_name];
+            volume_one_product.disabled = true;
+            volume_one_product.classList.add('form__input_formula');
+        } else {
+            volume_one_product.value = 0;
+            volume_one_product.disabled = false;
+            volume_one_product.classList.remove('form__input_formula');
         }  
 
         recount();
@@ -694,9 +1107,13 @@ document.addEventListener('change', function(e) {
         let cost_hour = document.querySelector('input[data-name-type="' + product_type + '"][data-name-product="' + product_name + '"][data-name-process="' + process_name + '"][data-name-indicator="employee_hour_cost"]');
 
         if (info_input.checked) {
-            cost_hour.value = 1;
+            cost_hour.value = cost_hour_work_process[process_name];
+            cost_hour.disabled = true;
+            cost_hour.classList.add('form__input_formula');
         } else {
             cost_hour.value = 0;
+            cost_hour.disabled = false;
+            cost_hour.classList.remove('form__input_formula');
         }  
 
         recount();
@@ -712,8 +1129,12 @@ document.addEventListener('change', function(e) {
 
         if (info_input.checked) {
             employee_count.value = 1;
+            employee_count.disabled = true;
+            employee_count.classList.add('form__input_formula');
         } else {
             employee_count.value = 0;
+            employee_count.disabled = false;
+            employee_count.classList.remove('form__input_formula');
         }  
 
         recount();
@@ -730,9 +1151,17 @@ document.addEventListener('change', function(e) {
         let reusable_hours_count = document.querySelector('input[data-name-type="reusable"][data-name-product="' + product_name + '"][data-name-process="transportation"][data-name-indicator="hours_count"]');
 
         if (info_input.checked) {
-            hours_count.value = parseInt(reusable_hours_count.value) / 3;
+            if (reusable_hours_count) {
+                hours_count.value = parseInputToNumber(reusable_hours_count.value) / 3;
+            } else {
+                hours_count.value = 1;
+            }
+            hours_count.disabled = true;
+            hours_count.classList.add('form__input_formula');
         } else {
             hours_count.value = 0;
+            hours_count.disabled = false;
+            hours_count.classList.remove('form__input_formula');
         }  
 
         recount();
@@ -748,8 +1177,12 @@ document.addEventListener('change', function(e) {
 
         if (info_input.checked) {
             employee_count.value = 1;
+            employee_count.disabled = true;
+            employee_count.classList.add('form__input_formula');
         } else {
             employee_count.value = 0;
+            employee_count.disabled = false;
+            employee_count.classList.remove('form__input_formula');
         }  
 
         recount();
@@ -765,8 +1198,12 @@ document.addEventListener('change', function(e) {
 
         if (info_input.checked) {
             hours_count.value = 3;
+            hours_count.disabled = true;
+            hours_count.classList.add('form__input_formula');
         } else {
             hours_count.value = 0;
+            hours_count.disabled = false;
+            hours_count.classList.remove('form__input_formula');
         }  
 
         recount();
@@ -783,9 +1220,13 @@ document.addEventListener('change', function(e) {
         let cost = document.querySelector('input[data-name-type="' + product_type + '"][data-name-product="' + product_name + '"][data-name-process="' + process_name + '"][data-name-indicator="cost"]');
 
         if (info_input.checked) {
-            cost.value = 1; //!!
+            cost.value = cost_purchase_products[product_type][product_name];
+            cost.disabled = true;
+            cost.classList.add('form__input_formula');
         } else {
             cost.value = 0;
+            cost.disabled = false;
+            cost.classList.remove('form__input_formula');
         }  
 
         recount();
@@ -802,9 +1243,13 @@ document.addEventListener('change', function(e) {
         let weight = document.querySelector('input[data-name-type="' + product_type + '"][data-name-product="' + product_name + '"][data-name-process="' + process_name + '"][data-name-indicator="weight"]');
 
         if (info_input.checked) {
-            weight.value = 1; //!!
+            weight.value = weight_purchase_products[product_type][product_name];
+            weight.disabled = true;
+            weight.classList.add('form__input_formula');
         } else {
             weight.value = 0;
+            weight.disabled = false;
+            weight.classList.remove('form__input_formula');
         }  
 
         recount();
@@ -822,6 +1267,8 @@ document.addEventListener('change', function(e) {
 
         let count_manipulation = document.querySelector('input[data-name-type="' + product_type + '"][data-name-product="' + product_name + '"][data-name-process="main"][data-name-indicator="count_manipulation"]');
 
+        let count_product_one_manipulation = document.querySelector('input[data-name-type="' + product_type + '"][data-name-product="' + product_name + '"][data-name-process="main"][data-name-indicator="count_product_one_manipulation"]');
+
         let even_cleaner = document.querySelector('input[data-name-type="' + product_type + '"][data-name-product="' + product_name + '"][data-name-process="main"][data-name-indicator="even_cleaner"]');
 
         let k_for_formula = {
@@ -836,13 +1283,17 @@ document.addEventListener('change', function(e) {
 
         if (info_input.checked) {
             if (product_type == 'robes' || product_type == 'surgical_suits' || product_type == 'hats') {
-                consumption.value = 3 * ((count_manipulation.value/365) * k_for_formula[even_cleaner.value]);
+                consumption.value = Math.ceil(3 * (((parseInputToNumber(count_manipulation.value) * parseInputToNumber(count_product_one_manipulation.value))/365) * k_for_formula[even_cleaner.value]));
             } else {
-                let part = 2 * ((count_manipulation.value/365) * k_for_formula[even_cleaner.value]);
-                consumption.value = part + part/10;
+                let part = 2 * (((parseInputToNumber(count_manipulation.value) * parseInputToNumber(count_product_one_manipulation.value))/365) * k_for_formula[even_cleaner.value]);
+                consumption.value = Math.ceil(part + part/10);
             }
+            consumption.disabled = true;
+            consumption.classList.add('form__input_formula');
         } else {
             consumption.value = 0;
+            consumption.disabled = false;
+            consumption.classList.remove('form__input_formula');
         }  
 
         recount();
@@ -856,6 +1307,16 @@ document.addEventListener('change', function(e) {
         let product_name = info_input.dataset.nameProduct;
         let process_name = info_input.dataset.nameProcess;
 
+        let k_for_formula = {
+            1: 7,
+            2: 3.5,
+            3: 2.3,
+            4: 1.75,
+            5: 1.4,
+            6: 1.17,
+            7: 1
+        };
+
         let count_product = document.querySelector('input[data-name-type="' + product_type + '"][data-name-product="' + product_name + '"][data-name-process="' + process_name + '"][data-name-indicator="count_product"]');
 
         let how_often = document.querySelector('input[data-name-type="' + product_type + '"][data-name-product="' + product_name + '"][data-name-process="' + process_name + '"][data-name-indicator="how_often"]');
@@ -865,9 +1326,14 @@ document.addEventListener('change', function(e) {
         let count_product_one_manipulation = document.querySelector('input[data-name-type="' + product_type + '"][data-name-product="' + product_name + '"][data-name-process="main"][data-name-indicator="count_product_one_manipulation"]');
 
         if (info_input.checked) {
-            count_product.value = count_manipulation.value * count_product_one_manipulation.value * how_often.value;
+            let result = Math.ceil(((parseInputToNumber(count_manipulation.value) * parseInputToNumber(count_product_one_manipulation.value)) / 365) * k_for_formula[how_often.value]);
+            count_product.value = result * parseInputToNumber(how_often.value) * 52;
+            count_product.disabled = true;
+            count_product.classList.add('form__input_formula');
         } else {
             count_product.value = 0;
+            count_product.disabled = false;
+            count_product.classList.remove('form__input_formula');
         }  
 
         recount();
@@ -889,9 +1355,20 @@ document.addEventListener('change', function(e) {
             } else {
                 var_cost.value = 0.3;
             }
+            var_cost.disabled = true;
+            var_cost.classList.add('form__input_formula');
         } else {
             var_cost.value = 0;
+            var_cost.disabled = false;
+            var_cost.classList.remove('form__input_formula');
         }  
+
+        recount();
+    }
+
+    //Перерасчет при выборе типа закупки или аренды
+    if (e.target.matches('input[data-name-process="rent"][data-name-indicator="type_cost"]')) {
+        let info_input = e.target.closest('input[data-name-process="rent"][data-name-indicator="type_cost"]'); 
 
         recount();
     }
@@ -922,6 +1399,9 @@ function recount () {
     let total_disposable = 0;
     let total_reusable = 0;
 
+    let total_cost_employee_disposable = 0;
+    let total_cost_employee_reusable = 0;
+
     let type_calculation_value = document.querySelector('input[name="type_calculation"]:checked').value;
     if (type_calculation_value != 'Оценка фактических затрат') {
         //Требуемое количество единиц изделия по манипуляциям
@@ -929,9 +1409,8 @@ function recount () {
         count_product_main_inputs.forEach(input => {
             let product_type = input.dataset.nameType;
             let product_name = input.dataset.nameProduct;
-            input.value = document.querySelector('input[data-name-type="' + product_type + '"][data-name-product="' + product_name + '"][data-name-process="main"][data-name-indicator="count_manipulation"]').value * document.querySelector('input[data-name-type="' + product_type + '"][data-name-product="' + product_name + '"][data-name-process="main"][data-name-indicator="count_product_one_manipulation"]').value;
+            input.value = parseInputToNumber(document.querySelector('input[data-name-type="' + product_type + '"][data-name-product="' + product_name + '"][data-name-process="main"][data-name-indicator="count_manipulation"]').value) * parseInputToNumber(document.querySelector('input[data-name-type="' + product_type + '"][data-name-product="' + product_name + '"][data-name-process="main"][data-name-indicator="count_product_one_manipulation"]').value);
 
-            // total_purchase = total_purchase + parseInt(input.value);
         });  
     }
 
@@ -944,6 +1423,8 @@ function recount () {
         let consumption = document.querySelector('input[data-name-type="' + product_type + '"][data-name-product="' + product_name + '"][data-name-process="' + process_name + '"][data-name-indicator="consumption"]');
 
         let count_manipulation = document.querySelector('input[data-name-type="' + product_type + '"][data-name-product="' + product_name + '"][data-name-process="main"][data-name-indicator="count_manipulation"]');
+
+        let count_product_one_manipulation = document.querySelector('input[data-name-type="' + product_type + '"][data-name-product="' + product_name + '"][data-name-process="main"][data-name-indicator="count_product_one_manipulation"]');
 
         let even_cleaner = document.querySelector('input[data-name-type="' + product_type + '"][data-name-product="' + product_name + '"][data-name-process="main"][data-name-indicator="even_cleaner"]');
 
@@ -959,10 +1440,10 @@ function recount () {
 
         if (input.checked) {
             if (product_type == 'robes' || product_type == 'surgical_suits' || product_type == 'hats') {
-                consumption.value = 3 * ((count_manipulation.value/365) * k_for_formula[even_cleaner.value]);
+                consumption.value = Math.ceil(3 * (((parseInputToNumber(count_manipulation.value) * parseInputToNumber(count_product_one_manipulation.value))/365) * k_for_formula[even_cleaner.value]));
             } else {
-                let part = 2 * ((count_manipulation.value/365) * k_for_formula[even_cleaner.value]);
-                consumption.value = part + part/10;
+                let part = 2 * (((parseInputToNumber(count_manipulation.value) * parseInputToNumber(count_product_one_manipulation.value))/365) * k_for_formula[even_cleaner.value]);
+                consumption.value = Math.ceil(part + part/10);
             }
         } else {
             // consumption.value = 0;
@@ -975,6 +1456,16 @@ function recount () {
         let product_name = input.dataset.nameProduct;
         let process_name = input.dataset.nameProcess;
 
+        let k_for_formula = {
+            1: 7,
+            2: 3.5,
+            3: 2.3,
+            4: 1.75,
+            5: 1.4,
+            6: 1.17,
+            7: 1
+        };
+
         let count_product = document.querySelector('input[data-name-type="' + product_type + '"][data-name-product="' + product_name + '"][data-name-process="' + process_name + '"][data-name-indicator="count_product"]');
 
         let how_often = document.querySelector('input[data-name-type="' + product_type + '"][data-name-product="' + product_name + '"][data-name-process="' + process_name + '"][data-name-indicator="how_often"]');
@@ -984,7 +1475,8 @@ function recount () {
         let count_product_one_manipulation = document.querySelector('input[data-name-type="' + product_type + '"][data-name-product="' + product_name + '"][data-name-process="main"][data-name-indicator="count_product_one_manipulation"]');
 
         if (input.checked) {
-            count_product.value = count_manipulation.value * count_product_one_manipulation.value * how_often.value;
+            let result = Math.ceil(((parseInputToNumber(count_manipulation.value) * parseInputToNumber(count_product_one_manipulation.value)) / 365) * k_for_formula[how_often.value]);
+            count_product.value = result * parseInputToNumber(how_often.value) * 52;
         } else {
             // count_product.value = 0;
         }  
@@ -999,7 +1491,11 @@ function recount () {
         let reusable_hours_count = document.querySelector('input[data-name-type="reusable"][data-name-product="' + product_name + '"][data-name-process="transportation"][data-name-indicator="hours_count"]');
 
         if (input.checked) {
-            hours_count.value = parseInt(reusable_hours_count.value) / 3;
+            if (reusable_hours_count) {
+                hours_count.value = parseInputToNumber(reusable_hours_count.value) / 3;
+            } else {
+                hours_count.value = 1;
+            }
         } else {
             // hours_count.value = 0;
         }  
@@ -1024,12 +1520,17 @@ function recount () {
     sum_year_purchase_inputs.forEach(input => {
         let product_type = input.dataset.nameType;
         let product_name = input.dataset.nameProduct;
-        input.value = document.querySelector('input[data-name-type="' + product_type + '"][data-name-product="' + product_name + '"][data-name-process="purchase"][data-name-indicator="cost"]').value * document.querySelector('input[data-name-type="' + product_type + '"][data-name-product="' + product_name + '"][data-name-process="purchase"][data-name-indicator="consumption"]').value;
+
+        let cost = document.querySelector('input[data-name-type="' + product_type + '"][data-name-product="' + product_name + '"][data-name-process="purchase"][data-name-indicator="cost"]');
+        let consumption = document.querySelector('input[data-name-type="' + product_type + '"][data-name-product="' + product_name + '"][data-name-process="purchase"][data-name-indicator="consumption"]');
+
+        let res = parseInputToNumber(cost.value) * parseInputToNumber(consumption.value);
+        input.value = formatWithSpaces(res);
 
         if (product_type == 'disposable') {
-            total_purchase_disposable = total_purchase_disposable + parseInt(input.value);
+            total_purchase_disposable = total_purchase_disposable + parseInputToNumber(input.value);
         } else {
-            total_purchase_reusable = total_purchase_reusable + parseInt(input.value);
+            total_purchase_reusable = total_purchase_reusable + parseInputToNumber(input.value);
         }
     });    
 
@@ -1041,11 +1542,18 @@ function recount () {
         let type_cost_checked = document.querySelector('input[data-name-type="' + product_type + '"][data-name-product="' + product_name + '"][data-name-process="rent"][data-name-indicator="type_cost"]:checked');
         if (type_cost_checked) {
             let type_cost = type_cost_checked.value;
+            let sum_year;
+
+            let cost = document.querySelector('input[data-name-type="' + product_type + '"][data-name-product="' + product_name + '"][data-name-process="rent"][data-name-indicator="cost"]');
             if (type_cost == 'count') {
-                input.value = document.querySelector('input[data-name-type="' + product_type + '"][data-name-product="' + product_name + '"][data-name-process="rent"][data-name-indicator="cost"]').value * document.querySelector('input[data-name-type="' + product_type + '"][data-name-product="' + product_name + '"][data-name-process="rent"][data-name-indicator="consumption"]').value;
+                let consumption = document.querySelector('input[data-name-type="' + product_type + '"][data-name-product="' + product_name + '"][data-name-process="rent"][data-name-indicator="consumption"]');
+                sum_year = parseInputToNumber(cost.value) * parseInputToNumber(consumption.value);
             } else {
-                input.value = document.querySelector('input[data-name-type="' + product_type + '"][data-name-product="' + product_name + '"][data-name-process="rent"][data-name-indicator="cost"]').value * document.querySelector('input[data-name-type="' + product_type + '"][data-name-product="' + product_name + '"][data-name-process="rent"][data-name-indicator="weight"]').value;
+                let weight = document.querySelector('input[data-name-type="' + product_type + '"][data-name-product="' + product_name + '"][data-name-process="rent"][data-name-indicator="weight"]');
+                sum_year = parseInputToNumber(cost.value) * parseInputToNumber(weight.value);
             }
+
+            input.value = formatWithSpaces(sum_year);
         }
 
         total_rent_reusable = total_rent_reusable + parseInt(input.value);
@@ -1056,16 +1564,16 @@ function recount () {
     sum_year_storage_inputs.forEach(input => {
         let product_type = input.dataset.nameType;
         let product_name = input.dataset.nameProduct;
-        let storage_space = document.querySelector('input[data-name-type="' + product_type + '"][data-name-product="' + product_name + '"][data-name-process="storage"][data-name-indicator="space"]').value;
-        let storage_rent = document.querySelector('input[data-name-type="' + product_type + '"][data-name-product="' + product_name + '"][data-name-process="storage"][data-name-indicator="rent"]').value;
-        let storage_utilities = document.querySelector('input[data-name-type="' + product_type + '"][data-name-product="' + product_name + '"][data-name-process="storage"][data-name-indicator="utilities"]').value;
-        let storage_tax = document.querySelector('input[data-name-type="' + product_type + '"][data-name-product="' + product_name + '"][data-name-process="storage"][data-name-indicator="tax"]').value;
-        input.value = (storage_space * storage_rent) + (storage_space * storage_utilities) + (storage_space * storage_tax);
+        let storage_space = document.querySelector('input[data-name-type="' + product_type + '"][data-name-product="' + product_name + '"][data-name-process="storage"][data-name-indicator="space"]');
+        let storage_rent = document.querySelector('input[data-name-type="' + product_type + '"][data-name-product="' + product_name + '"][data-name-process="storage"][data-name-indicator="rent"]');
+        let storage_utilities = document.querySelector('input[data-name-type="' + product_type + '"][data-name-product="' + product_name + '"][data-name-process="storage"][data-name-indicator="utilities"]');
+        let storage_tax = document.querySelector('input[data-name-type="' + product_type + '"][data-name-product="' + product_name + '"][data-name-process="storage"][data-name-indicator="tax"]');
+        input.value = formatWithSpaces((parseInputToNumber(storage_space.value) * parseInputToNumber(storage_rent.value)) + (parseInputToNumber(storage_space.value) * parseInputToNumber(storage_utilities.value)) + parseInputToNumber(storage_tax.value));
 
         if (product_type == 'disposable') {
-            total_storage_disposable = total_storage_disposable + parseInt(input.value);
+            total_storage_disposable = total_storage_disposable + parseInputToNumber(input.value);
         } else {
-            total_storage_reusable = total_storage_reusable + parseInt(input.value);
+            total_storage_reusable = total_storage_reusable + parseInputToNumber(input.value);
         }
     });
 
@@ -1074,20 +1582,22 @@ function recount () {
     sum_year_transportation_inputs.forEach(input => {
         let product_type = input.dataset.nameType;
         let product_name = input.dataset.nameProduct;
-        let transportation_employee_count = document.querySelector('input[data-name-type="' + product_type + '"][data-name-product="' + product_name + '"][data-name-process="transportation"][data-name-indicator="employee_count"]').value;
-        let transportation_hours_count = document.querySelector('input[data-name-type="' + product_type + '"][data-name-product="' + product_name + '"][data-name-process="transportation"][data-name-indicator="hours_count"]').value;
-        let transportation_cost_hour = document.querySelector('input[data-name-type="' + product_type + '"][data-name-product="' + product_name + '"][data-name-process="transportation"][data-name-indicator="cost_hour"]').value;
+        let transportation_employee_count = document.querySelector('input[data-name-type="' + product_type + '"][data-name-product="' + product_name + '"][data-name-process="transportation"][data-name-indicator="employee_count"]');
+        let transportation_hours_count = document.querySelector('input[data-name-type="' + product_type + '"][data-name-product="' + product_name + '"][data-name-process="transportation"][data-name-indicator="hours_count"]');
+        let transportation_cost_hour = document.querySelector('input[data-name-type="' + product_type + '"][data-name-product="' + product_name + '"][data-name-process="transportation"][data-name-indicator="cost_hour"]');
 
-        let sum_cost_employee = (transportation_employee_count * transportation_hours_count * transportation_cost_hour) + (transportation_employee_count * price_medosmotr);
-        document.querySelector('input[data-name-type="' + product_type + '"][data-name-product="' + product_name + '"][data-name-process="transportation"][data-name-indicator="sum_cost_employee"]').value = sum_cost_employee;
+        let sum_cost_employee = (parseInputToNumber(transportation_employee_count.value) * parseInputToNumber(transportation_hours_count.value) * parseInputToNumber(transportation_cost_hour.value)) + (parseInputToNumber(transportation_employee_count.value) * price_medosmotr);
+
+        document.querySelector('input[data-name-type="' + product_type + '"][data-name-product="' + product_name + '"][data-name-process="transportation"][data-name-indicator="sum_cost_employee"]').value = formatWithSpaces(sum_cost_employee);
 
         if (product_type == 'disposable') {
-            input.value = sum_cost_employee;
-            total_transportation_disposable = total_transportation_disposable + parseInt(input.value);
+            input.value = formatWithSpaces(sum_cost_employee);
+            total_transportation_disposable = total_transportation_disposable + parseInputToNumber(input.value);
+            total_cost_employee_disposable = total_cost_employee_disposable + sum_cost_employee;
         } else {
             let use_packet = document.querySelector('input[data-name-type="' + product_type + '"][data-name-product="' + product_name + '"][data-name-process="transportation"][data-name-indicator="use_packet"]:checked');
 
-            let cost_product = document.querySelector('input[data-name-type="' + product_type + '"][data-name-product="' + product_name + '"][data-name-process="transportation"][data-name-indicator="cost_product"]').value;
+            let cost_product = parseInputToNumber(document.querySelector('input[data-name-type="' + product_type + '"][data-name-product="' + product_name + '"][data-name-process="transportation"][data-name-indicator="cost_product"]').value);
             let transportation_cost_packages;
             //Если используются доп пакеты
             if (use_packet && use_packet.value == 'y') {
@@ -1100,19 +1610,19 @@ function recount () {
 
                     //Если неизвестен объем присваиваем другое значение
                     if (document.querySelector('input[data-name-type="' + product_type + '"][data-name-product="' + product_name + '"][data-name-process="transportation"][data-name-indicator="unknown_volume_packet"]').checked) {
-                        volume_product = 1; //!!!Должно быть значение
+                        volume_product = volume_packets_process["transportation"]; //!!!Должно быть значение
                     } else {
-                        volume_product = document.querySelector('input[data-name-type="' + product_type + '"][data-name-product="' + product_name + '"][data-name-process="transportation"][data-name-indicator="volume_product"]').value;
+                        volume_product = parseInputToNumber(document.querySelector('input[data-name-type="' + product_type + '"][data-name-product="' + product_name + '"][data-name-process="transportation"][data-name-indicator="volume_product"]').value);
                     }
 
                     //Если неизвестен объем одного присваиваем другое значение
                     if (document.querySelector('input[data-name-type="' + product_type + '"][data-name-product="' + product_name + '"][data-name-process="transportation"][data-name-indicator="unknown_volume_one_packet"]').checked) {
-                        volume_one_product = 1; //!!!Должно быть значение
+                        volume_one_product = volume_reusable_products[product_name]; //!!!Должно быть значение
                     } else {
-                        volume_one_product = document.querySelector('input[data-name-type="' + product_type + '"][data-name-product="' + product_name + '"][data-name-process="transportation"][data-name-indicator="volume_one_product"]').value;
+                        volume_one_product = parseInputToNumber(document.querySelector('input[data-name-type="' + product_type + '"][data-name-product="' + product_name + '"][data-name-process="transportation"][data-name-indicator="volume_one_product"]').value);
                     }
 
-                    let clean_count_product = document.querySelector('input[data-name-type="' + product_type + '"][data-name-product="' + product_name + '"][data-name-process="washing"][data-name-indicator="count_product"]').value; //!!Уточнить
+                    let clean_count_product = parseInputToNumber(document.querySelector('input[data-name-type="' + product_type + '"][data-name-product="' + product_name + '"][data-name-process="washing"][data-name-indicator="count_product"]').value); //!!Уточнить
 
                     //Считаем примерное кол-во
                     approximate_count_product = Math.ceil((volume_one_product * clean_count_product)/volume_product);
@@ -1120,21 +1630,23 @@ function recount () {
                     
                     //Считаем заьраты на пакеты
                     transportation_cost_packages = approximate_count_product * cost_product;
-                    cost_packages.value = transportation_cost_packages;
+                    cost_packages.value = formatWithSpaces(transportation_cost_packages);
 
                 } else {
-                    let count_product = document.querySelector('input[data-name-type="' + product_type + '"][data-name-product="' + product_name + '"][data-name-process="transportation"][data-name-indicator="count_product"]').value;
+                    let count_product = parseInputToNumber(document.querySelector('input[data-name-type="' + product_type + '"][data-name-product="' + product_name + '"][data-name-process="transportation"][data-name-indicator="count_product"]').value);
                     
                     transportation_cost_packages = count_product * cost_product;
-                    cost_packages.value = transportation_cost_packages;
+                    cost_packages.value = formatWithSpaces(transportation_cost_packages);
                 }
             } else {
                 transportation_cost_packages = 0;
             }
 
-            input.value = sum_cost_employee + parseInt(transportation_cost_packages);
+            input.value = formatWithSpaces(sum_cost_employee + transportation_cost_packages);
 
-            total_transportation_reusable = total_transportation_reusable + parseInt(input.value);
+            total_cost_employee_reusable = total_cost_employee_reusable + sum_cost_employee;
+
+            total_transportation_reusable = total_transportation_reusable + parseInputToNumber(input.value);
         }
 
     });
@@ -1159,49 +1671,74 @@ function recount () {
                 let weight = document.querySelector('input[data-name-type="' + product_type + '"][data-name-product="' + product_name + '"][data-name-process="purchase"][data-name-indicator="weight"]');
 
                 //Общий вес отходов, кг
-                sum_weight_waste.value = count_product_waste_class.value * weight.value;
+                sum_weight_waste.value = parseInputToNumber(count_product_waste_class.value) * parseInputToNumber(weight.value);
 
                 let volume_waste_kubm = document.querySelector('input[data-name-type="' + product_type + '"][data-name-product="' + product_name + '"][data-name-process="waste_disinfection"][data-name-indicator="volume_waste_kubm"][data-name-waste-class="' + waste_class + '"]');
                 let waste_density = document.querySelector('input[data-name-type="' + product_type + '"][data-name-product="' + product_name + '"][data-name-process="waste_disinfection"][data-name-indicator="waste_density"][data-name-waste-class="' + waste_class + '"]');
 
+                let volume_kubm = 0;
+
                 //Объем отходов, куб. м
                 if (waste_density.value != 0) {
-                    volume_waste_kubm.value = sum_weight_waste.value / waste_density.value;
+                    volume_kubm = parseInputToNumber(sum_weight_waste.value) / parseInputToNumber(waste_density.value);
                 }
 
+                let cost_transport_waste_class = document.querySelector('input[data-name-type="' + product_type + '"][data-name-product="' + product_name + '"][data-name-process="waste_disinfection"][data-name-indicator="cost_transport_waste_class"][data-name-waste-class="' + waste_class + '"]');
+                let cost_one = document.querySelector('input[data-name-type="' + product_type + '"][data-name-product="' + product_name + '"][data-name-process="waste_disinfection"][data-name-indicator="cost_one"][data-name-waste-class="' + waste_class + '"]');
+
                 //Затраты на вывоз отходов класса
-                document.querySelector('input[data-name-type="' + product_type + '"][data-name-product="' + product_name + '"][data-name-process="waste_disinfection"][data-name-indicator="cost_transport_waste_class"][data-name-waste-class="' + waste_class + '"]').value = document.querySelector('input[data-name-type="' + product_type + '"][data-name-product="' + product_name + '"][data-name-process="waste_disinfection"][data-name-indicator="volume_waste_kubm"][data-name-waste-class="' + waste_class + '"]').value * document.querySelector('input[data-name-type="' + product_type + '"][data-name-product="' + product_name + '"][data-name-process="waste_disinfection"][data-name-indicator="cost_one"][data-name-waste-class="' + waste_class + '"]').value;
+                cost_transport_waste_class.value = volume_kubm * parseInputToNumber(cost_one.value);
+
+                let volume_waste_l = document.querySelector('input[data-name-type="' + product_type + '"][data-name-product="' + product_name + '"][data-name-process="waste_disinfection"][data-name-indicator="volume_waste_l"][data-name-waste-class="' + waste_class + '"]');
 
                 //Объем отходов, л
-                document.querySelector('input[data-name-type="' + product_type + '"][data-name-product="' + product_name + '"][data-name-process="waste_disinfection"][data-name-indicator="volume_waste_l"][data-name-waste-class="' + waste_class + '"]').value = document.querySelector('input[data-name-type="' + product_type + '"][data-name-product="' + product_name + '"][data-name-process="waste_disinfection"][data-name-indicator="volume_waste_kubm"][data-name-waste-class="' + waste_class + '"]').value * 1000;
-
+                volume_waste_l.value = volume_kubm * 1000;
 
                 let count_packet = document.querySelector('input[data-name-type="' + product_type + '"][data-name-product="' + product_name + '"][data-name-process="waste_disinfection"][data-name-indicator="count_packet"][data-name-waste-class="' + waste_class + '"]');
-                let volume_waste_l = document.querySelector('input[data-name-type="' + product_type + '"][data-name-product="' + product_name + '"][data-name-process="waste_disinfection"][data-name-indicator="volume_waste_l"][data-name-waste-class="' + waste_class + '"]');
                 let packet_volume = document.querySelector('input[data-name-type="' + product_type + '"][data-name-product="' + product_name + '"][data-name-process="waste_disinfection"][data-name-indicator="packet_volume"][data-name-waste-class="' + waste_class + '"]');
 
                 //Количество пакетов для сбора отходов
                 if (packet_volume.value != 0) {
-                    count_packet.value = volume_waste_l.value / packet_volume.value;
+                    count_packet.value = parseInputToNumber(volume_waste_l.value) / parseInputToNumber(packet_volume.value);
                 }
+
+                let sum_cost_on_packet = document.querySelector('input[data-name-type="' + product_type + '"][data-name-product="' + product_name + '"][data-name-process="waste_disinfection"][data-name-indicator="sum_cost_on_packet"][data-name-waste-class="' + waste_class + '"]');
+                let cost_one_packet = document.querySelector('input[data-name-type="' + product_type + '"][data-name-product="' + product_name + '"][data-name-process="waste_disinfection"][data-name-indicator="cost_one_packet"][data-name-waste-class="' + waste_class + '"]');
 
                 //Затраты на пакеты, руб
-                document.querySelector('input[data-name-type="' + product_type + '"][data-name-product="' + product_name + '"][data-name-process="waste_disinfection"][data-name-indicator="sum_cost_on_packet"][data-name-waste-class="' + waste_class + '"]').value = document.querySelector('input[data-name-type="' + product_type + '"][data-name-product="' + product_name + '"][data-name-process="waste_disinfection"][data-name-indicator="count_packet"][data-name-waste-class="' + waste_class + '"]').value * document.querySelector('input[data-name-type="' + product_type + '"][data-name-product="' + product_name + '"][data-name-process="waste_disinfection"][data-name-indicator="cost_one_packet"][data-name-waste-class="' + waste_class + '"]').value;
+                sum_cost_on_packet.value = parseInputToNumber(count_packet.value) * parseInputToNumber(cost_one_packet.value);
 
                 if (waste_class == "B" || waste_class == "C") {
+
+                    let autoclaving_count_packet = document.querySelector('input[data-name-type="' + product_type + '"][data-name-product="' + product_name + '"][data-name-process="waste_disinfection"][data-name-indicator="autoclaving_count_packet"][data-name-waste-class="' + waste_class + '"]');
+                    let autoclaving_volume_packet = document.querySelector('input[data-name-type="' + product_type + '"][data-name-product="' + product_name + '"][data-name-process="waste_disinfection"][data-name-indicator="autoclaving_volume_packet"][data-name-waste-class="' + waste_class + '"]');
+
                     //Количество пакетов для автоклавирования, шт.
-                    if (((document.querySelector('input[data-name-type="' + product_type + '"][data-name-product="' + product_name + '"][data-name-process="waste_disinfection"][data-name-indicator="autoclaving_volume_packet"][data-name-waste-class="' + waste_class + '"]').value/4) * 3) != 0) {
-                        document.querySelector('input[data-name-type="' + product_type + '"][data-name-product="' + product_name + '"][data-name-process="waste_disinfection"][data-name-indicator="autoclaving_count_packet"][data-name-waste-class="' + waste_class + '"]').value = document.querySelector('input[data-name-type="' + product_type + '"][data-name-product="' + product_name + '"][data-name-process="waste_disinfection"][data-name-indicator="volume_waste_l"][data-name-waste-class="' + waste_class + '"]').value / ((document.querySelector('input[data-name-type="' + product_type + '"][data-name-product="' + product_name + '"][data-name-process="waste_disinfection"][data-name-indicator="autoclaving_volume_packet"][data-name-waste-class="' + waste_class + '"]').value/4) * 3);
+                    if (autoclaving_volume_packet.value != 0) {
+                        autoclaving_count_packet.value = Math.ceil(parseInputToNumber(volume_waste_l.value) / ((parseInputToNumber(autoclaving_volume_packet.value)/4) * 3));
                     }
-                    
+
+                    let autoclaving_sum_cost_packet = document.querySelector('input[data-name-type="' + product_type + '"][data-name-product="' + product_name + '"][data-name-process="waste_disinfection"][data-name-indicator="autoclaving_sum_cost_packet"][data-name-waste-class="' + waste_class + '"]');
+                    let autoclaving_cost_packet = document.querySelector('input[data-name-type="' + product_type + '"][data-name-product="' + product_name + '"][data-name-process="waste_disinfection"][data-name-indicator="autoclaving_cost_packet"][data-name-waste-class="' + waste_class + '"]');
 
                     //Затраты на пакеты для автоклавирования, руб.
-                    document.querySelector('input[data-name-type="' + product_type + '"][data-name-product="' + product_name + '"][data-name-process="waste_disinfection"][data-name-indicator="autoclaving_sum_cost_packet"][data-name-waste-class="' + waste_class + '"]').value = document.querySelector('input[data-name-type="' + product_type + '"][data-name-product="' + product_name + '"][data-name-process="waste_disinfection"][data-name-indicator="autoclaving_count_packet"][data-name-waste-class="' + waste_class + '"]').value * document.querySelector('input[data-name-type="' + product_type + '"][data-name-product="' + product_name + '"][data-name-process="waste_disinfection"][data-name-indicator="autoclaving_cost_packet"][data-name-waste-class="' + waste_class + '"]').value;
+                    autoclaving_sum_cost_packet.value = parseInputToNumber(autoclaving_count_packet.value) * parseInputToNumber(autoclaving_cost_packet.value);
 
-                    sum = sum + parseInt(document.querySelector('input[data-name-type="' + product_type + '"][data-name-product="' + product_name + '"][data-name-process="waste_disinfection"][data-name-indicator="autoclaving_sum_cost_packet"][data-name-waste-class="' + waste_class + '"]').value);
+                    sum = sum + parseInputToNumber(autoclaving_sum_cost_packet.value);
+                
+                    autoclaving_count_packet.value = formatWithSpaces(roundTwo(parseInputToNumber(autoclaving_count_packet.value)));
+                    autoclaving_sum_cost_packet.value = formatWithSpaces(roundTwo(parseInputToNumber(autoclaving_sum_cost_packet.value)));
                 }
 
-                sum = sum + parseInt(document.querySelector('input[data-name-type="' + product_type + '"][data-name-product="' + product_name + '"][data-name-process="waste_disinfection"][data-name-indicator="cost_transport_waste_class"][data-name-waste-class="' + waste_class + '"]').value) + parseInt(document.querySelector('input[data-name-type="' + product_type + '"][data-name-product="' + product_name + '"][data-name-process="waste_disinfection"][data-name-indicator="sum_cost_on_packet"][data-name-waste-class="' + waste_class + '"]').value);
+                sum = sum + parseInputToNumber(cost_transport_waste_class.value) + parseInputToNumber(sum_cost_on_packet.value);
+
+                //!! после расмчета округляем значение
+                sum_weight_waste.value = formatWithSpaces(roundTwo(parseInputToNumber(sum_weight_waste.value)));
+                volume_waste_kubm.value =  formatWithSpaces(roundTwo(volume_kubm));
+                cost_transport_waste_class.value = formatWithSpaces(roundTwo(parseInputToNumber(cost_transport_waste_class.value)));
+                volume_waste_l.value = formatWithSpaces(roundTwo(parseInputToNumber(volume_waste_l.value)));
+                count_packet.value = formatWithSpaces(roundTwo(parseInputToNumber(count_packet.value)));
+                sum_cost_on_packet.value = formatWithSpaces(roundTwo(parseInputToNumber(sum_cost_on_packet.value)));
             }
 
         });
@@ -1216,126 +1753,157 @@ function recount () {
 
                 //Для Физического
                 if (method == 'physic') {
+
+                    let equipment_annual_cost = document.querySelector('input[data-name-type="' + product_type + '"][data-name-product="' + product_name + '"][data-name-process="waste_disinfection"][data-name-indicator="equipment_annual_cost"][data-name-disinfection-method="physic"]');
+                    let equipment_cost = document.querySelector('input[data-name-type="' + product_type + '"][data-name-product="' + product_name + '"][data-name-process="waste_disinfection"][data-name-indicator="equipment_cost"][data-name-disinfection-method="physic"]');
+                    let equipment_lifetime = document.querySelector('input[data-name-type="' + product_type + '"][data-name-product="' + product_name + '"][data-name-process="waste_disinfection"][data-name-indicator="equipment_lifetime"][data-name-disinfection-method="physic"]');
+
                     //Ежегодные затраты на оборудование, руб
-                    if (document.querySelector('input[data-name-type="' + product_type + '"][data-name-product="' + product_name + '"][data-name-process="waste_disinfection"][data-name-indicator="equipment_lifetime"][data-name-disinfection-method="physic"]').value != 0) {
-                        document.querySelector('input[data-name-type="' + product_type + '"][data-name-product="' + product_name + '"][data-name-process="waste_disinfection"][data-name-indicator="equipment_annual_cost"][data-name-disinfection-method="physic"]').value = document.querySelector('input[data-name-type="' + product_type + '"][data-name-product="' + product_name + '"][data-name-process="waste_disinfection"][data-name-indicator="equipment_cost"][data-name-disinfection-method="physic"]').value / document.querySelector('input[data-name-type="' + product_type + '"][data-name-product="' + product_name + '"][data-name-process="waste_disinfection"][data-name-indicator="equipment_lifetime"][data-name-disinfection-method="physic"]').value;
+                    if (equipment_lifetime.value != 0) {
+                        equipment_annual_cost.value = parseInputToNumber(equipment_cost.value) / parseInputToNumber(equipment_lifetime.value);
+                    } else {
+                        equipment_annual_cost.value = 0;
                     }
                     
+                    let cycles_per_year = document.querySelector('input[data-name-type="' + product_type + '"][data-name-product="' + product_name + '"][data-name-process="waste_disinfection"][data-name-indicator="cycles_per_year"][data-name-disinfection-method="physic"]');
+
+                    let sum_weight_waste_B = document.querySelector('input[data-name-type="' + product_type + '"][data-name-product="' + product_name + '"][data-name-process="waste_disinfection"][data-name-indicator="sum_weight_waste"][data-name-waste-class="B"]');
+                    let sum_weight_waste_C = document.querySelector('input[data-name-type="' + product_type + '"][data-name-product="' + product_name + '"][data-name-process="waste_disinfection"][data-name-indicator="sum_weight_waste"][data-name-waste-class="C"]');
+                    let equipment_items_per_load = document.querySelector('input[data-name-type="' + product_type + '"][data-name-product="' + product_name + '"][data-name-process="waste_disinfection"][data-name-indicator="equipment_items_per_load"][data-name-disinfection-method="physic"]');
+
 
                     //Число запусков оборудования (циклов обеззараживания) в год
-                    if (document.querySelector('input[data-name-type="' + product_type + '"][data-name-product="' + product_name + '"][data-name-process="waste_disinfection"][data-name-indicator="equipment_items_per_load"][data-name-disinfection-method="physic"]').value != 0) {
-                        document.querySelector('input[data-name-type="' + product_type + '"][data-name-product="' + product_name + '"][data-name-process="waste_disinfection"][data-name-indicator="cycles_per_year"][data-name-disinfection-method="physic"]').value 
-                        = Math.ceil((document.querySelector('input[data-name-type="' + product_type + '"][data-name-product="' + product_name + '"][data-name-process="waste_disinfection"][data-name-indicator="sum_weight_waste"][data-name-waste-class="B"]').value 
-                        + 
-                        document.querySelector('input[data-name-type="' + product_type + '"][data-name-product="' + product_name + '"][data-name-process="waste_disinfection"][data-name-indicator="sum_weight_waste"][data-name-waste-class="C"]').value)
-                        /
-                        document.querySelector('input[data-name-type="' + product_type + '"][data-name-product="' + product_name + '"][data-name-process="waste_disinfection"][data-name-indicator="equipment_items_per_load"][data-name-disinfection-method="physic"]').value);
+                    if (equipment_items_per_load.value != 0) {
+                        cycles_per_year.value = Math.ceil((parseInputToNumber(sum_weight_waste_B.value) + parseInputToNumber(sum_weight_waste_C.value)) / parseInputToNumber(equipment_items_per_load.value));
+                    } else {
+                        cycles_per_year.value = 0;
                     }
-                    
+
+                    let modify_waste_equipment = document.querySelector('input[data-name-type="' + product_type + '"][data-name-product="' + product_name + '"][data-name-process="waste_disinfection"][data-name-indicator="modify_waste_equipment"][data-name-disinfection-method="physic"]:checked') && document.querySelector('input[data-name-type="' + product_type + '"][data-name-product="' + product_name + '"][data-name-process="waste_disinfection"][data-name-indicator="modify_waste_equipment"][data-name-disinfection-method="physic"]:checked');
+
+                    let modification_equipment_annual_cost = document.querySelector('input[data-name-type="' + product_type + '"][data-name-product="' + product_name + '"][data-name-process="waste_disinfection"][data-name-indicator="modification_equipment_annual_cost"][data-name-disinfection-method="physic"]');
+                    let modification_equipment_cost = document.querySelector('input[data-name-type="' + product_type + '"][data-name-product="' + product_name + '"][data-name-process="waste_disinfection"][data-name-indicator="modification_equipment_cost"][data-name-disinfection-method="physic"]');
+                    let modification_equipment_lifetime = document.querySelector('input[data-name-type="' + product_type + '"][data-name-product="' + product_name + '"][data-name-process="waste_disinfection"][data-name-indicator="modification_equipment_lifetime"][data-name-disinfection-method="physic"]');
 
                     //Ежегодные затраты на доп оборудование, руб
-                    if (document.querySelector('input[data-name-type="' + product_type + '"][data-name-product="' + product_name + '"][data-name-process="waste_disinfection"][data-name-indicator="modify_waste_equipment"][data-name-disinfection-method="physic"]:checked') && document.querySelector('input[data-name-type="' + product_type + '"][data-name-product="' + product_name + '"][data-name-process="waste_disinfection"][data-name-indicator="modify_waste_equipment"][data-name-disinfection-method="physic"]:checked').value == '1') {
-                        if (document.querySelector('input[data-name-type="' + product_type + '"][data-name-product="' + product_name + '"][data-name-process="waste_disinfection"][data-name-indicator="modification_equipment_lifetime"][data-name-disinfection-method="physic"]').value != 0) {
-                            document.querySelector('input[data-name-type="' + product_type + '"][data-name-product="' + product_name + '"][data-name-process="waste_disinfection"][data-name-indicator="modification_equipment_annual_cost"][data-name-disinfection-method="physic"]').value = document.querySelector('input[data-name-type="' + product_type + '"][data-name-product="' + product_name + '"][data-name-process="waste_disinfection"][data-name-indicator="modification_equipment_cost"][data-name-disinfection-method="physic"]').value / document.querySelector('input[data-name-type="' + product_type + '"][data-name-product="' + product_name + '"][data-name-process="waste_disinfection"][data-name-indicator="modification_equipment_lifetime"][data-name-disinfection-method="physic"]').value;
+                    if (modify_waste_equipment && modify_waste_equipment.value == '1') {
+                        if (modification_equipment_lifetime.value != 0) {
+                            modification_equipment_annual_cost.value = parseInputToNumber(modification_equipment_cost.value) / parseInputToNumber(modification_equipment_lifetime.value);
+                        } else {
+                            modification_equipment_annual_cost.value = 0;
                         }
 
-                        sum = sum + parseInt(document.querySelector('input[data-name-type="' + product_type + '"][data-name-product="' + product_name + '"][data-name-process="waste_disinfection"][data-name-indicator="modification_equipment_annual_cost"][data-name-disinfection-method="physic"]').value);
+                        sum = sum + parseInputToNumber(modification_equipment_annual_cost.value);
                     }
 
+                    let hours_approximate = document.querySelector('input[data-name-type="' + product_type + '"][data-name-product="' + product_name + '"][data-name-process="waste_disinfection"][data-name-indicator="hours_approximate"][data-name-disinfection-method="physic"]');
+                    let time_disinfection_one_load = document.querySelector('input[data-name-type="' + product_type + '"][data-name-product="' + product_name + '"][data-name-process="waste_disinfection"][data-name-indicator="time_disinfection_one_load"][data-name-disinfection-method="physic"]');
+                    let employee_count = document.querySelector('input[data-name-type="' + product_type + '"][data-name-product="' + product_name + '"][data-name-process="waste_disinfection"][data-name-indicator="employee_count"][data-name-disinfection-method="physic"]');
+
+                    let hours_known = document.querySelector('input[data-name-type="' + product_type + '"][data-name-product="' + product_name + '"][data-name-process="waste_disinfection"][data-name-indicator="hours_known"][data-name-disinfection-method="physic"]');
+
                     //Примерное количество часов в год, затрачиваемых на обеззараживание одним сотрудником (если неизвестно точное количество)
-                    if (document.querySelector('input[data-name-type="' + product_type + '"][data-name-product="' + product_name + '"][data-name-process="waste_disinfection"][data-name-indicator="hours_known"][data-name-disinfection-method="physic"]').value == 0 && document.querySelector('input[data-name-type="' + product_type + '"][data-name-product="' + product_name + '"][data-name-process="waste_disinfection"][data-name-indicator="employee_count"][data-name-disinfection-method="physic"]').value != 0) {
-                        document.querySelector('input[data-name-type="' + product_type + '"][data-name-product="' + product_name + '"][data-name-process="waste_disinfection"][data-name-indicator="hours_approximate"][data-name-disinfection-method="physic"]').value 
-                        = ((document.querySelector('input[data-name-type="' + product_type + '"][data-name-product="' + product_name + '"][data-name-process="waste_disinfection"][data-name-indicator="cycles_per_year"][data-name-disinfection-method="physic"]').value 
-                        *
-                        document.querySelector('input[data-name-type="' + product_type + '"][data-name-product="' + product_name + '"][data-name-process="waste_disinfection"][data-name-indicator="time_disinfection_one_load"][data-name-disinfection-method="physic"]').value)
-                        + (
-                        document.querySelector('input[data-name-type="' + product_type + '"][data-name-product="' + product_name + '"][data-name-process="waste_disinfection"][data-name-indicator="cycles_per_year"][data-name-disinfection-method="physic"]').value 
-                        * time_on_load_and_unload_waste
-                        )) / 
-                        document.querySelector('input[data-name-type="' + product_type + '"][data-name-product="' + product_name + '"][data-name-process="waste_disinfection"][data-name-indicator="employee_count"][data-name-disinfection-method="physic"]').value;
+                    if (hours_known.value == 0 && employee_count.value != 0) {
+                        hours_approximate.value = ((parseInputToNumber(cycles_per_year.value) * parseInputToNumber(time_disinfection_one_load.value)) + (parseInputToNumber(cycles_per_year.value) * time_on_load_and_unload_waste)) / parseInputToNumber(employee_count.value);
+                    } else {
+                        hours_approximate.value = 0;
                     }
 
                     let count_hours_physic_method = 0; 
-                    if (document.querySelector('input[data-name-type="' + product_type + '"][data-name-product="' + product_name + '"][data-name-process="waste_disinfection"][data-name-indicator="hours_known"][data-name-disinfection-method="physic"]').value == 0) {
-                        count_hours_physic_method = document.querySelector('input[data-name-type="' + product_type + '"][data-name-product="' + product_name + '"][data-name-process="waste_disinfection"][data-name-indicator="hours_approximate"][data-name-disinfection-method="physic"]').value;
+
+                    if (hours_known.value == 0) {
+                        count_hours_physic_method = parseInputToNumber(hours_approximate.value);
                     } else {
-                        count_hours_physic_method = document.querySelector('input[data-name-type="' + product_type + '"][data-name-product="' + product_name + '"][data-name-process="waste_disinfection"][data-name-indicator="hours_known"][data-name-disinfection-method="physic"]').value;
+                        count_hours_physic_method = parseInputToNumber(hours_known.value);
                     }
 
-                    //Затраты на персонал
-                    document.querySelector('input[data-name-type="' + product_type + '"][data-name-product="' + product_name + '"][data-name-process="waste_disinfection"][data-name-indicator="sum_cost_waste_disinfection_employee"][data-name-disinfection-method="physic"]').value 
-                    = (document.querySelector('input[data-name-type="' + product_type + '"][data-name-product="' + product_name + '"][data-name-process="waste_disinfection"][data-name-indicator="employee_count"][data-name-disinfection-method="physic"]').value 
-                    *
-                    count_hours_physic_method
-                    * document.querySelector('input[data-name-type="' + product_type + '"][data-name-product="' + product_name + '"][data-name-process="waste_disinfection"][data-name-indicator="cost_waste_disinfection_hour_employee"][data-name-disinfection-method="physic"]').value
-                    )
-                    +
-                    (document.querySelector('input[data-name-type="' + product_type + '"][data-name-product="' + product_name + '"][data-name-process="waste_disinfection"][data-name-indicator="employee_count"][data-name-disinfection-method="physic"]').value * price_medosmotr);
+                    let sum_cost_waste_disinfection_employee = document.querySelector('input[data-name-type="' + product_type + '"][data-name-product="' + product_name + '"][data-name-process="waste_disinfection"][data-name-indicator="sum_cost_waste_disinfection_employee"][data-name-disinfection-method="physic"]');
+                    let cost_waste_disinfection_hour_employee = document.querySelector('input[data-name-type="' + product_type + '"][data-name-product="' + product_name + '"][data-name-process="waste_disinfection"][data-name-indicator="cost_waste_disinfection_hour_employee"][data-name-disinfection-method="physic"]');
 
-                    sum = sum + parseInt(document.querySelector('input[data-name-type="' + product_type + '"][data-name-product="' + product_name + '"][data-name-process="waste_disinfection"][data-name-indicator="equipment_annual_cost"][data-name-disinfection-method="physic"]').value) + parseInt(document.querySelector('input[data-name-type="' + product_type + '"][data-name-product="' + product_name + '"][data-name-process="waste_disinfection"][data-name-indicator="sum_cost_waste_disinfection_employee"][data-name-disinfection-method="physic"]').value);
+                    //Затраты на персонал
+                    sum_cost_waste_disinfection_employee.value = (parseInputToNumber(employee_count.value) * count_hours_physic_method * parseInputToNumber(cost_waste_disinfection_hour_employee.value)) + (parseInputToNumber(employee_count.value) * price_medosmotr);
+
+                    sum = sum + parseInputToNumber(equipment_annual_cost.value) + parseInputToNumber(sum_cost_waste_disinfection_employee.value);
+
+                    total_cost_employee_disposable = total_cost_employee_disposable + parseInputToNumber(sum_cost_waste_disinfection_employee.value);
+
+                    equipment_annual_cost.value = formatWithSpaces(roundTwo(parseInputToNumber(equipment_annual_cost.value)));
+                    cycles_per_year.value = formatWithSpaces(roundTwo(parseInputToNumber(cycles_per_year.value)));
+                    modification_equipment_annual_cost.value = formatWithSpaces(roundTwo(parseInputToNumber(modification_equipment_annual_cost.value)));
+                    hours_approximate.value = formatWithSpaces(roundTwo(parseInputToNumber(hours_approximate.value)));
+                    sum_cost_waste_disinfection_employee.value = formatWithSpaces(roundTwo(parseInputToNumber(sum_cost_waste_disinfection_employee.value)));
 
                     //!!Можно посчитать затраты на персонал по каждому процессу отдельно
                 }
 
                 if (method == 'chemical') {
+
+                    let disinfectant_consumption_year = document.querySelector('input[data-name-type="' + product_type + '"][data-name-product="' + product_name + '"][data-name-process="waste_disinfection"][data-name-indicator="disinfectant_consumption_year"][data-name-disinfection-method="chemical"]');
+                    let chemical_weight = document.querySelector('input[data-name-type="' + product_type + '"][data-name-product="' + product_name + '"][data-name-process="waste_disinfection"][data-name-indicator="chemical_weight"][data-name-disinfection-method="chemical"]');
+                    let items_per_load = document.querySelector('input[data-name-type="' + product_type + '"][data-name-product="' + product_name + '"][data-name-process="waste_disinfection"][data-name-indicator="items_per_load"][data-name-disinfection-method="chemical"]');
+                    let disinfectant_consumption_per_load = document.querySelector('input[data-name-type="' + product_type + '"][data-name-product="' + product_name + '"][data-name-process="waste_disinfection"][data-name-indicator="disinfectant_consumption_per_load"][data-name-disinfection-method="chemical"]');
+
                     //Расход дезсредства на обеззараживание в год, (кг, л, таб.)
-                    if (document.querySelector('input[data-name-type="' + product_type + '"][data-name-product="' + product_name + '"][data-name-process="waste_disinfection"][data-name-indicator="items_per_load"][data-name-disinfection-method="chemical"]').value != 0) {
-                        document.querySelector('input[data-name-type="' + product_type + '"][data-name-product="' + product_name + '"][data-name-process="waste_disinfection"][data-name-indicator="disinfectant_consumption_year"][data-name-disinfection-method="chemical"]').value 
-                        = (document.querySelector('input[data-name-type="' + product_type + '"][data-name-product="' + product_name + '"][data-name-process="waste_disinfection"][data-name-indicator="chemical_weight"][data-name-disinfection-method="chemical"]').value 
-                        / 
-                        document.querySelector('input[data-name-type="' + product_type + '"][data-name-product="' + product_name + '"][data-name-process="waste_disinfection"][data-name-indicator="items_per_load"][data-name-disinfection-method="chemical"]').value)
-                        *
-                        document.querySelector('input[data-name-type="' + product_type + '"][data-name-product="' + product_name + '"][data-name-process="waste_disinfection"][data-name-indicator="disinfectant_consumption_per_load"][data-name-disinfection-method="chemical"]').value;
+                    if (items_per_load.value != 0) {
+                        disinfectant_consumption_year.value = (parseInputToNumber(chemical_weight.value) / parseInputToNumber(items_per_load.value)) * parseInputToNumber(disinfectant_consumption_per_load.value);
+                    } else {
+                        disinfectant_consumption_year.value = 0;
                     }
+
+                    let disinfectant_cost_year = document.querySelector('input[data-name-type="' + product_type + '"][data-name-product="' + product_name + '"][data-name-process="waste_disinfection"][data-name-indicator="disinfectant_cost_year"][data-name-disinfection-method="chemical"]');
+                    let disinfectant_volume = document.querySelector('input[data-name-type="' + product_type + '"][data-name-product="' + product_name + '"][data-name-process="waste_disinfection"][data-name-indicator="disinfectant_volume"][data-name-disinfection-method="chemical"]');
+                    let disinfectant_cost_per_unit = document.querySelector('input[data-name-type="' + product_type + '"][data-name-product="' + product_name + '"][data-name-process="waste_disinfection"][data-name-indicator="disinfectant_cost_per_unit"][data-name-disinfection-method="chemical"]');
                     
                     //Затраты на дезсредства в год, руб
-                    if (document.querySelector('input[data-name-type="' + product_type + '"][data-name-product="' + product_name + '"][data-name-process="waste_disinfection"][data-name-indicator="disinfectant_volume"][data-name-disinfection-method="chemical"]').value != 0) {
-                        document.querySelector('input[data-name-type="' + product_type + '"][data-name-product="' + product_name + '"][data-name-process="waste_disinfection"][data-name-indicator="disinfectant_cost_year"][data-name-disinfection-method="chemical"]').value 
-                        = Math.ceil((document.querySelector('input[data-name-type="' + product_type + '"][data-name-product="' + product_name + '"][data-name-process="waste_disinfection"][data-name-indicator="disinfectant_consumption_year"][data-name-disinfection-method="chemical"]').value 
-                        / 
-                        document.querySelector('input[data-name-type="' + product_type + '"][data-name-product="' + product_name + '"][data-name-process="waste_disinfection"][data-name-indicator="disinfectant_volume"][data-name-disinfection-method="chemical"]').value))
-                        *
-                        document.querySelector('input[data-name-type="' + product_type + '"][data-name-product="' + product_name + '"][data-name-process="waste_disinfection"][data-name-indicator="disinfectant_cost_per_unit"][data-name-disinfection-method="chemical"]').value;
+                    if (disinfectant_volume.value != 0) {
+                        disinfectant_cost_year.value = Math.ceil((parseInputToNumber(disinfectant_consumption_year.value) / parseInputToNumber(disinfectant_volume.value))) * parseInputToNumber(disinfectant_cost_per_unit.value);
+                    } else {
+                        disinfectant_cost_year.value = 0;
                     }
-                    
+
+                    let hours_approximate = document.querySelector('input[data-name-type="' + product_type + '"][data-name-product="' + product_name + '"][data-name-process="waste_disinfection"][data-name-indicator="hours_approximate"][data-name-disinfection-method="chemical"]');
+                    let time_disinfection_one_load = document.querySelector('input[data-name-type="' + product_type + '"][data-name-product="' + product_name + '"][data-name-process="waste_disinfection"][data-name-indicator="time_disinfection_one_load"][data-name-disinfection-method="chemical"]');
+                    let employee_count = document.querySelector('input[data-name-type="' + product_type + '"][data-name-product="' + product_name + '"][data-name-process="waste_disinfection"][data-name-indicator="employee_count"][data-name-disinfection-method="chemical"]');
+
+                    let hours_known = document.querySelector('input[data-name-type="' + product_type + '"][data-name-product="' + product_name + '"][data-name-process="waste_disinfection"][data-name-indicator="hours_known"][data-name-disinfection-method="chemical"]');
 
                     //Примерное количество часов в год, затрачиваемых на обеззараживание одним сотрудником (если неизвестно точное количество)
-                    if (document.querySelector('input[data-name-type="' + product_type + '"][data-name-product="' + product_name + '"][data-name-process="waste_disinfection"][data-name-indicator="hours_known"][data-name-disinfection-method="chemical"]').value == 0 && document.querySelector('input[data-name-type="' + product_type + '"][data-name-product="' + product_name + '"][data-name-process="waste_disinfection"][data-name-indicator="employee_count"][data-name-disinfection-method="chemical"]').value != 0) {
-                        document.querySelector('input[data-name-type="' + product_type + '"][data-name-product="' + product_name + '"][data-name-process="waste_disinfection"][data-name-indicator="hours_approximate"][data-name-disinfection-method="chemical"]').value 
-                        = ((document.querySelector('input[data-name-type="' + product_type + '"][data-name-product="' + product_name + '"][data-name-process="waste_disinfection"][data-name-indicator="chemical_weight"][data-name-disinfection-method="chemical"]').value 
-                        /
-                        document.querySelector('input[data-name-type="' + product_type + '"][data-name-product="' + product_name + '"][data-name-process="waste_disinfection"][data-name-indicator="items_per_load"][data-name-disinfection-method="chemical"]').value)
-                        *
-                        document.querySelector('input[data-name-type="' + product_type + '"][data-name-product="' + product_name + '"][data-name-process="waste_disinfection"][data-name-indicator="time_disinfection_one_load"][data-name-disinfection-method="chemical"]').value 
-                        ) / 
-                        document.querySelector('input[data-name-type="' + product_type + '"][data-name-product="' + product_name + '"][data-name-process="waste_disinfection"][data-name-indicator="employee_count"][data-name-disinfection-method="chemical"]').value;
+                    if (hours_known.value == 0 && employee_count.value != 0) {
+                        hours_approximate.value = ((parseInputToNumber(chemical_weight.value) / parseInputToNumber(items_per_load.value)) * parseInputToNumber(time_disinfection_one_load.value)) / parseInputToNumber(employee_count.value);
+                    } else {
+                        hours_approximate.value = 0;
                     }
 
                     let count_hours_chemical_method = 0; 
-                    if (document.querySelector('input[data-name-type="' + product_type + '"][data-name-product="' + product_name + '"][data-name-process="waste_disinfection"][data-name-indicator="hours_known"][data-name-disinfection-method="chemical"]').value == 0) {
-                        count_hours_chemical_method = document.querySelector('input[data-name-type="' + product_type + '"][data-name-product="' + product_name + '"][data-name-process="waste_disinfection"][data-name-indicator="hours_approximate"][data-name-disinfection-method="chemical"]').value;
+                    if (hours_known.value == 0) {
+                        count_hours_chemical_method = parseInputToNumber(hours_approximate.value);
                     } else {
-                        count_hours_chemical_method = document.querySelector('input[data-name-type="' + product_type + '"][data-name-product="' + product_name + '"][data-name-process="waste_disinfection"][data-name-indicator="hours_known"][data-name-disinfection-method="chemical"]').value;
+                        count_hours_chemical_method = parseInputToNumber(hours_known.value);
                     }
 
-                    //Затраты на персонал
-                    document.querySelector('input[data-name-type="' + product_type + '"][data-name-product="' + product_name + '"][data-name-process="waste_disinfection"][data-name-indicator="sum_cost_waste_disinfection_employee"][data-name-disinfection-method="chemical"]').value 
-                    = (document.querySelector('input[data-name-type="' + product_type + '"][data-name-product="' + product_name + '"][data-name-process="waste_disinfection"][data-name-indicator="employee_count"][data-name-disinfection-method="chemical"]').value 
-                    *
-                    count_hours_chemical_method
-                    * document.querySelector('input[data-name-type="' + product_type + '"][data-name-product="' + product_name + '"][data-name-process="waste_disinfection"][data-name-indicator="cost_waste_disinfection_hour_employee"][data-name-disinfection-method="chemical"]').value
-                    )
-                    +
-                    (document.querySelector('input[data-name-type="' + product_type + '"][data-name-product="' + product_name + '"][data-name-process="waste_disinfection"][data-name-indicator="employee_count"][data-name-disinfection-method="chemical"]').value * price_medosmotr);
+                    let sum_cost_waste_disinfection_employee = document.querySelector('input[data-name-type="' + product_type + '"][data-name-product="' + product_name + '"][data-name-process="waste_disinfection"][data-name-indicator="sum_cost_waste_disinfection_employee"][data-name-disinfection-method="chemical"]');
+                    let cost_waste_disinfection_hour_employee = document.querySelector('input[data-name-type="' + product_type + '"][data-name-product="' + product_name + '"][data-name-process="waste_disinfection"][data-name-indicator="cost_waste_disinfection_hour_employee"][data-name-disinfection-method="chemical"]');
 
-                    sum = sum + parseInt(document.querySelector('input[data-name-type="' + product_type + '"][data-name-product="' + product_name + '"][data-name-process="waste_disinfection"][data-name-indicator="disinfectant_cost_year"][data-name-disinfection-method="chemical"]').value) + parseInt(document.querySelector('input[data-name-type="' + product_type + '"][data-name-product="' + product_name + '"][data-name-process="waste_disinfection"][data-name-indicator="sum_cost_waste_disinfection_employee"][data-name-disinfection-method="chemical"]').value);
+                    //Затраты на персонал
+                    sum_cost_waste_disinfection_employee.value = (parseInputToNumber(employee_count.value) * count_hours_chemical_method * parseInputToNumber(cost_waste_disinfection_hour_employee.value)) + (parseInputToNumber(employee_count.value) * price_medosmotr);
+
+                    sum = sum + parseInputToNumber(disinfectant_cost_year.value) + parseInputToNumber(sum_cost_waste_disinfection_employee.value);
+
+                    total_cost_employee_disposable = total_cost_employee_disposable + parseInputToNumber(sum_cost_waste_disinfection_employee.value);
+
+                    disinfectant_consumption_year.value = formatWithSpaces(roundTwo(parseInputToNumber(disinfectant_consumption_year.value)));
+                    disinfectant_cost_year.value = formatWithSpaces(roundTwo(parseInputToNumber(disinfectant_cost_year.value)));
+                    hours_approximate.value = formatWithSpaces(roundTwo(parseInputToNumber(hours_approximate.value)));
+                    sum_cost_waste_disinfection_employee.value = formatWithSpaces(roundTwo(parseInputToNumber(sum_cost_waste_disinfection_employee.value)));
                 }
             }
             });
 
         input.value = sum;
 
-        total_waste_disinfection_disposable = total_waste_disinfection_disposable + parseInt(input.value);
+        total_waste_disinfection_disposable = total_waste_disinfection_disposable + parseInputToNumber(input.value);
+
+        input.value = formatWithSpaces(roundTwo(parseInputToNumber(input.value)));
 
     });
 
@@ -1367,7 +1935,8 @@ function recount () {
                 let weight = document.querySelector('input[data-name-type="' + product_type + '"][data-name-product="' + product_name + '"][data-name-process="'+ type_oborot +'"][data-name-indicator="weight"]');
 
                 let count_hours = document.querySelector('input[data-name-type="' + product_type + '"][data-name-product="' + product_name + '"][data-name-process="disinfection"][data-name-indicator="count_hours"]');
-                let var_cost = document.querySelector('input[data-name-type="' + product_type + '"][data-name-product="' + product_name + '"][data-name-process="disinfection"][data-name-indicator="var_cost"]');
+                let unknown_count_hours = document.querySelector('input[data-name-type="' + product_type + '"][data-name-product="' + product_name + '"][data-name-process="disinfection"][data-name-indicator="unknown_count_hours"]')
+                // let var_cost = document.querySelector('input[data-name-type="' + product_type + '"][data-name-product="' + product_name + '"][data-name-process="disinfection"][data-name-indicator="var_cost"]');
 
                 let approximate_count_hours = document.querySelector('input[data-name-type="' + product_type + '"][data-name-product="' + product_name + '"][data-name-process="disinfection"][data-name-indicator="approximate_count_hours"]');
                 let employee_count = document.querySelector('input[data-name-type="' + product_type + '"][data-name-product="' + product_name + '"][data-name-process="disinfection"][data-name-indicator="employee_count"]');
@@ -1383,35 +1952,48 @@ function recount () {
                 let cost_disinfectant_year = document.querySelector('input[data-name-type="' + product_type + '"][data-name-product="' + product_name + '"][data-name-process="disinfection"][data-name-indicator="cost_disinfectant_year"]');
 
                 //Вес обеззараживаемых изделий в год
-                weight_product.value = weight.value * count_product.value;
+                weight_product.value = parseInputToNumber(weight.value) * parseInputToNumber(count_product.value);
+
 
                 //Примерное количество часов в год, затрачиваемых на обеззараживание одним сотрудником (если неизвестно точное количество)
-                if (count_hours.value == 0 && var_cost.value == 1 && employee_count.value != 0) {
-                    approximate_count_hours.value = (weight_product.value / (one_load_obezzaraz * time_on_load_and_unload_obezzaraz)) / employee_count.value;
+                if (count_hours.value == 0 && unknown_count_hours.checked && employee_count.value != 0) {
+                    approximate_count_hours.value = ((parseInputToNumber(weight_product.value) / one_load_obezzaraz) * time_on_load_and_unload_obezzaraz) / parseInputToNumber(employee_count.value);
+                } else {
+                    approximate_count_hours.value = 0;
                 }
 
                 let count_hours_for_formula = 0; 
                 if (count_hours.value == 0) {
-                    count_hours_for_formula = approximate_count_hours.value;
+                    count_hours_for_formula = parseInputToNumber(approximate_count_hours.value);
                 } else {
-                    count_hours_for_formula = count_hours.value;
+                    count_hours_for_formula = parseInputToNumber(count_hours.value);
                 }
 
                 //Затраты на персонал
-                sum_cost_employee.value = (employee_count.value * count_hours_for_formula * employee_hour_cost.value
-                ) + (employee_count.value * price_medosmotr);
+                sum_cost_employee.value = (parseInputToNumber(employee_count.value) * count_hours_for_formula * parseInputToNumber(employee_hour_cost.value)) + (parseInputToNumber(employee_count.value) * price_medosmotr);
+
+                total_cost_employee_reusable = total_cost_employee_reusable + parseInputToNumber(sum_cost_employee.value);
 
                 //Расход средства в год
                 if (count_product_one_load.value != 0) {
-                    consumption_disinfectant_year.value = (weight_product.value / count_product_one_load.value) * consumption_disinfectant.value;
+                    consumption_disinfectant_year.value = (parseInputToNumber(weight_product.value) / parseInputToNumber(count_product_one_load.value)) * parseInputToNumber(consumption_disinfectant.value);
+                } else {
+                    consumption_disinfectant_year.value = 0;
                 }
 
                 //Затраты на дезсредства
                 if (volume_disinfectant.value != 0) {
-                    cost_disinfectant_year.value = Math.ceil(consumption_disinfectant_year.value / volume_disinfectant.value) * cost_disinfectant.value;
+                    cost_disinfectant_year.value = Math.ceil(parseInputToNumber(consumption_disinfectant_year.value) / parseInputToNumber(volume_disinfectant.value)) * parseInputToNumber(cost_disinfectant.value);
+                } else {
+                    cost_disinfectant_year.value = 0;
                 }
 
-                sum = sum + parseInt(cost_disinfectant_year.value) + parseInt(sum_cost_employee.value);
+                sum = sum + parseInputToNumber(cost_disinfectant_year.value) + parseInputToNumber(sum_cost_employee.value);
+
+                approximate_count_hours.value = formatWithSpaces(roundTwo(parseInputToNumber(approximate_count_hours.value)));
+                sum_cost_employee.value = formatWithSpaces(roundTwo(parseInputToNumber(sum_cost_employee.value)));
+                consumption_disinfectant_year.value = formatWithSpaces(roundTwo(parseInputToNumber(consumption_disinfectant_year.value)));
+                cost_disinfectant_year.value = formatWithSpaces(roundTwo(parseInputToNumber(cost_disinfectant_year.value)));
             }
         }
 
@@ -1425,15 +2007,19 @@ function recount () {
                 let cost_disinfection_contract = document.querySelector('input[data-name-type="' + product_type + '"][data-name-product="' + product_name + '"][data-name-process="disinfection"][data-name-indicator="cost_disinfection_contract"]');
                 let count_product_disinfection_contract = document.querySelector('input[data-name-type="' + product_type + '"][data-name-product="' + product_name + '"][data-name-process="disinfection"][data-name-indicator="count_product_disinfection_contract"]');
 
-                consumption_disinfectant_contract.value = cost_disinfection_contract.value * count_product_disinfection_contract.value;
+                consumption_disinfectant_contract.value = parseInputToNumber(cost_disinfection_contract.value) * parseInputToNumber(count_product_disinfection_contract.value);
 
-                sum = parseInt(sum) + parseInt(consumption_disinfectant_contract.value);
+                sum = sum + parseInputToNumber(consumption_disinfectant_contract.value);
+
+                consumption_disinfectant_contract.value = formatWithSpaces(roundTwo(parseInputToNumber(consumption_disinfectant_contract.value)));
             }
         }
         
         input.value = sum;
 
-        total_disinfection_reusable = total_disinfection_reusable + parseInt(input.value);
+        total_disinfection_reusable = total_disinfection_reusable + parseInputToNumber(input.value);
+
+        input.value = formatWithSpaces(roundTwo(parseInputToNumber(input.value)));
     });
 
     //Стирка (для многоразовых)
@@ -1486,40 +2072,55 @@ function recount () {
                 let equipment_annual_cost = document.querySelector('input[data-name-type="' + product_type + '"][data-name-product="' + product_name + '"][data-name-process="washing"][data-name-indicator="equipment_annual_cost"]');
 
                 //Вес стираемых изделий в год
-                weight_product.value = weight.value * count_product.value;
+                weight_product.value = parseInputToNumber(weight.value) * parseInputToNumber(count_product.value);
 
                 //Примерное количество часов в год, затрачиваемых на обеззараживание одним сотрудником (если неизвестно точное количество)
-                if (count_hours.value == 0 && var_cost.value != 0 && employee_count.value != 0) {
-                    approximate_count_hours.value = ((weight_product.value / count_product_one_load.value * var_cost.value) + (time_on_load_and_unload_clean * (weight_product.value / count_product_one_load.value))) / employee_count.value;
+                if (count_hours.value == 0 && var_cost.value != 0 && employee_count.value != 0 && count_product_one_load.value != 0) {
+                    approximate_count_hours.value = (((parseInputToNumber(weight_product.value) / parseInputToNumber(count_product_one_load.value)) * parseInputToNumber(var_cost.value)) + (time_on_load_and_unload_clean * (parseInputToNumber(weight_product.value) / parseInputToNumber(count_product_one_load.value)))) / parseInputToNumber(employee_count.value);
+                } else {
+                    approximate_count_hours.value = 0;
                 }
 
                 let count_hours_for_formula = 0; 
                 if (count_hours.value == 0) {
-                    count_hours_for_formula = approximate_count_hours.value;
+                    count_hours_for_formula = parseInputToNumber(approximate_count_hours.value);
                 } else {
-                    count_hours_for_formula = count_hours.value;
+                    count_hours_for_formula = parseInputToNumber(count_hours.value);
                 }
 
                 //Затраты на персонал
-                sum_cost_employee.value = (employee_count.value * count_hours_for_formula * employee_hour_cost.value
-                ) + (employee_count.value * ironing_hours_per_year.value * employee_hour_cost.value) + (employee_count.value * price_medosmotr);
+                sum_cost_employee.value = (parseInputToNumber(employee_count.value) * count_hours_for_formula * parseInputToNumber(employee_hour_cost.value)) + (parseInputToNumber(employee_count.value) * parseInputToNumber(ironing_hours_per_year.value) * parseInputToNumber(employee_hour_cost.value)) + (parseInputToNumber(employee_count.value) * price_medosmotr);
+
+                total_cost_employee_reusable = total_cost_employee_reusable + parseInputToNumber(sum_cost_employee.value);
 
                 //Расход средства в год
                 if (count_product_one_load.value != 0) {
-                    consumption_detergent_year.value = (weight_product.value / count_product_one_load.value) * consumption_detergent_per_load.value;
+                    consumption_detergent_year.value = (parseInputToNumber(weight_product.value) / parseInputToNumber(count_product_one_load.value)) * parseInputToNumber(consumption_detergent_per_load.value);
+                } else {
+                    consumption_detergent_year.value = 0;
                 }
 
                 //Затраты на дезсредства
                 if (volume_detergent.value != 0) {
-                    cost_detergent_year.value = Math.ceil(consumption_detergent_year.value / volume_detergent.value) * cost_detergent.value;
+                    cost_detergent_year.value = Math.ceil(parseInputToNumber(consumption_detergent_year.value) / parseInputToNumber(volume_detergent.value)) * parseInputToNumber(cost_detergent.value);
+                } else {
+                    cost_detergent_year.value = 0;
                 }
 
                 //Затраты на оборудование
                 if (equipment_lifetime.value != 0) {
-                    equipment_annual_cost.value = equipment_cost.value / equipment_lifetime.value;
+                    equipment_annual_cost.value = parseInputToNumber(equipment_cost.value) / parseInputToNumber(equipment_lifetime.value);
+                } else {
+                    equipment_annual_cost.value = 0;
                 }
 
-                sum = sum + parseInt(cost_detergent_year.value) + parseInt(sum_cost_employee.value) + parseInt(equipment_annual_cost.value);
+                sum = sum + parseInputToNumber(cost_detergent_year.value) + parseInputToNumber(sum_cost_employee.value) + parseInputToNumber(equipment_annual_cost.value);
+
+                approximate_count_hours.value = formatWithSpaces(roundTwo(parseInputToNumber(approximate_count_hours.value)));
+                sum_cost_employee.value = formatWithSpaces(roundTwo(parseInputToNumber(sum_cost_employee.value)));
+                consumption_detergent_year.value = formatWithSpaces(roundTwo(parseInputToNumber(consumption_detergent_year.value)));
+                cost_detergent_year.value = formatWithSpaces(roundTwo(parseInputToNumber(cost_detergent_year.value)));
+                equipment_annual_cost.value = formatWithSpaces(roundTwo(parseInputToNumber(equipment_annual_cost.value)));
             }
         }
 
@@ -1533,15 +2134,19 @@ function recount () {
                 let cost_washing_contract = document.querySelector('input[data-name-type="' + product_type + '"][data-name-product="' + product_name + '"][data-name-process="washing"][data-name-indicator="cost_washing_contract"]');
                 let count_product_washing_contract = document.querySelector('input[data-name-type="' + product_type + '"][data-name-product="' + product_name + '"][data-name-process="washing"][data-name-indicator="count_product_washing_contract"]');
 
-                expenses_washing_contract.value = cost_washing_contract.value * count_product_washing_contract.value;
+                expenses_washing_contract.value = parseInputToNumber(cost_washing_contract.value) * parseInputToNumber(count_product_washing_contract.value);
 
-                sum = parseInt(sum) + parseInt(expenses_washing_contract.value);
+                sum = sum + parseInputToNumber(expenses_washing_contract.value);
+
+                expenses_washing_contract.value = formatWithSpaces(roundTwo(parseInputToNumber(expenses_washing_contract.value)));
             }
         }
         
         input.value = sum;
 
-        total_washing_reusable = total_washing_reusable + parseInt(input.value);
+        total_washing_reusable = total_washing_reusable + parseInputToNumber(input.value);
+
+        input.value = formatWithSpaces(roundTwo(parseInputToNumber(input.value)));
     });
 
     //Стерилизация (для многоразовых)
@@ -1554,11 +2159,11 @@ function recount () {
         let sum = 0;
         
         let type_oborot_check = document.querySelector('input[data-name-type="' + product_type + '"][data-name-product="' + product_name + '"][data-name-process="main"][data-name-indicator="type_oborot"]:checked');
-                let type_oborot = 'purchase';
+        let type_oborot = 'purchase';
 
-                if (type_oborot_check) {
-                    type_oborot = type_oborot_check.value;
-                }
+        if (type_oborot_check) {
+            type_oborot = type_oborot_check.value;
+        }
 
         let weight_product = document.querySelector('input[data-name-type="' + product_type + '"][data-name-product="' + product_name + '"][data-name-process="sterilization"][data-name-indicator="weight_product"]');
         let count_product = document.querySelector('input[data-name-type="' + product_type + '"][data-name-product="' + product_name + '"][data-name-process="sterilization"][data-name-indicator="count_product"]');
@@ -1583,37 +2188,50 @@ function recount () {
         let packaging_cost_year = document.querySelector('input[data-name-type="' + product_type + '"][data-name-product="' + product_name + '"][data-name-process="sterilization"][data-name-indicator="packaging_cost_year"]');
 
         //Вес стираемых изделий в год
-        weight_product.value = weight.value * count_product.value;
+        weight_product.value = parseInputToNumber(weight.value) * parseInputToNumber(count_product.value);
 
         //Примерное количество часов в год, затрачиваемых на обеззараживание одним сотрудником (если неизвестно точное количество)
         if (count_hours.value == 0 && var_cost.value != 0 && employee_count.value != 0) {
-            approximate_count_hours.value = ((weight_product.value / count_product_one_load.value * var_cost.value) + (time_on_load_and_unload_sterilize * (weight_product.value / count_product_one_load.value))) / employee_count.value;
+            approximate_count_hours.value = ((parseInputToNumber(weight_product.value) / parseInputToNumber(count_product_one_load.value) * parseInputToNumber(var_cost.value)) + (time_on_load_and_unload_sterilize * (parseInputToNumber(weight_product.value) / parseInputToNumber(count_product_one_load.value)))) / parseInputToNumber(employee_count.value);
+        } else {
+            approximate_count_hours.value = 0;
         }
 
         let count_hours_for_formula = 0; 
         if (count_hours.value == 0) {
-            count_hours_for_formula = approximate_count_hours.value;
+            count_hours_for_formula = parseInputToNumber(approximate_count_hours.value);
         } else {
-            count_hours_for_formula = count_hours.value;
+            count_hours_for_formula = parseInputToNumber(count_hours.value);
         }
 
         //Затраты на персонал
-        sum_cost_employee.value = (employee_count.value * count_hours_for_formula * employee_hour_cost.value
-        ) + (employee_count.value * price_medosmotr);
+        sum_cost_employee.value = (parseInputToNumber(employee_count.value) * count_hours_for_formula * parseInputToNumber(employee_hour_cost.value)) + (parseInputToNumber(employee_count.value) * price_medosmotr);
+
+        total_cost_employee_reusable = total_cost_employee_reusable + parseInputToNumber(sum_cost_employee.value);
 
         //Затраты на оборудование
         if (equipment_lifetime.value != 0) {
-            equipment_annual_cost.value = equipment_cost.value / equipment_lifetime.value;
+            equipment_annual_cost.value = parseInputToNumber(equipment_cost.value) / parseInputToNumber(equipment_lifetime.value);
+        } else {
+            equipment_annual_cost.value = 0;
         }
 
         //Затраты на пакеты
-        packaging_cost_year.value = packaging_cost_per_unit.value * packaging_consumption_year.value;
+        packaging_cost_year.value = parseInputToNumber(packaging_cost_per_unit.value) * parseInputToNumber(packaging_consumption_year.value);
 
-        sum = sum + parseInt(sum_cost_employee.value) + parseInt(equipment_annual_cost.value) + parseInt(packaging_cost_year.value);
+        sum = sum + parseInputToNumber(sum_cost_employee.value) + parseInputToNumber(equipment_annual_cost.value) + parseInputToNumber(packaging_cost_year.value);
         
         input.value = sum;
 
-        total_sterilization_reusable = total_sterilization_reusable + parseInt(input.value);
+        total_sterilization_reusable = total_sterilization_reusable + parseInputToNumber(input.value);
+
+        approximate_count_hours.value = formatWithSpaces(roundTwo(parseInputToNumber(approximate_count_hours.value)));
+        weight_product.value = formatWithSpaces(roundTwo(parseInputToNumber(weight_product.value)));
+        sum_cost_employee.value = formatWithSpaces(roundTwo(parseInputToNumber(sum_cost_employee.value)));
+        equipment_annual_cost.value = formatWithSpaces(roundTwo(parseInputToNumber(equipment_annual_cost.value)));
+        packaging_cost_year.value = formatWithSpaces(roundTwo(parseInputToNumber(packaging_cost_year.value)));
+
+        input.value = formatWithSpaces(roundTwo(parseInputToNumber(input.value)));
     });
 
     //Ремонт (для многоразовых)
@@ -1633,15 +2251,19 @@ function recount () {
         let materials_cost = document.querySelector('input[data-name-type="' + product_type + '"][data-name-product="' + product_name + '"][data-name-process="repair"][data-name-indicator="materials_cost"]');
 
         //Затраты на персонал
-        sum_cost_employee.value = (employee_count.value * hours_per_year.value * employee_hour_cost.value
-        ) + (employee_count.value * price_medosmotr);
+        sum_cost_employee.value = (parseInputToNumber(employee_count.value) * parseInputToNumber(hours_per_year.value) * parseInputToNumber(employee_hour_cost.value)) + (parseInputToNumber(employee_count.value) * price_medosmotr);
 
+        total_cost_employee_reusable = total_cost_employee_reusable + parseInputToNumber(sum_cost_employee.value);
 
-        sum = sum + parseInt(sum_cost_employee.value) + parseInt(materials_cost.value);
+        sum = sum + parseInputToNumber(sum_cost_employee.value) + parseInputToNumber(materials_cost.value);
         
         input.value = sum;
 
-        total_repair_reusable = total_repair_reusable + parseInt(input.value);
+        total_repair_reusable = total_repair_reusable + parseInputToNumber(input.value);
+
+        sum_cost_employee.value = formatWithSpaces(roundTwo(parseInputToNumber(sum_cost_employee.value)));
+
+        input.value = formatWithSpaces(roundTwo(parseInputToNumber(input.value)));
     });
 
     //Итого
@@ -1657,9 +2279,9 @@ function recount () {
             let sum_year_transportation = document.querySelector('input[data-name-type="' + product_type + '"][data-name-product="' + product_name + '"][data-name-process="transportation"][data-name-indicator="sum_year"]');
             let total_cost_waste_disinfection = document.querySelector('input[data-name-type="' + product_type + '"][data-name-product="' + product_name + '"][data-name-process="waste_disinfection"][data-name-indicator="total_cost"]');
 
-            input.value = parseInt(sum_year_purchase.value) + parseInt(sum_year_storage.value) + parseInt(sum_year_transportation.value) + parseInt(total_cost_waste_disinfection.value);
+            input.value = formatWithSpaces(parseInputToNumber(sum_year_purchase.value) + parseInputToNumber(sum_year_storage.value) + parseInputToNumber(sum_year_transportation.value) + parseInputToNumber(total_cost_waste_disinfection.value));
 
-            total_disposable = total_disposable + parseInt(input.value);
+            total_disposable = total_disposable + parseInputToNumber(input.value);
 
         } else {
             let sum_year_purchase = document.querySelector('input[data-name-type="' + product_type + '"][data-name-product="' + product_name + '"][data-name-process="purchase"][data-name-indicator="sum_year"]');
@@ -1671,51 +2293,54 @@ function recount () {
             let total_cost_sterilization = document.querySelector('input[data-name-type="' + product_type + '"][data-name-product="' + product_name + '"][data-name-process="sterilization"][data-name-indicator="sterilization_cost_sum"]');
             let total_cost_repair = document.querySelector('input[data-name-type="' + product_type + '"][data-name-product="' + product_name + '"][data-name-process="repair"][data-name-indicator="repair_cost_sum"]');
 
-            input.value = parseInt(sum_year_purchase.value) + parseInt(sum_year_rent.value) + parseInt(sum_year_storage.value) + parseInt(sum_year_transportation.value) + parseInt(total_cost_disinfection.value) + parseInt(total_cost_washing.value) + parseInt(total_cost_sterilization.value) + parseInt(total_cost_repair.value);
+            input.value = formatWithSpaces (parseInputToNumber(sum_year_purchase.value) + parseInputToNumber(sum_year_rent.value) + parseInputToNumber(sum_year_storage.value) + parseInputToNumber(sum_year_transportation.value) + parseInputToNumber(total_cost_disinfection.value) + parseInputToNumber(total_cost_washing.value) + parseInputToNumber(total_cost_sterilization.value) + parseInputToNumber(total_cost_repair.value));
 
-            total_reusable = total_reusable + parseInt(input.value);
+            total_reusable = total_reusable + parseInputToNumber(input.value);
         }
 
     });
 
     let total_purchase = total_purchase_disposable + total_purchase_reusable;
-    document.querySelector('#total_purchase').textContent = total_purchase;
-    document.querySelector('#total_purchase_disposable').textContent = total_purchase_disposable;
-    document.querySelector('#total_purchase_reusable').textContent = total_purchase_reusable;
+    document.querySelector('#total_purchase').textContent = formatWithSpaces(total_purchase);
+    document.querySelector('#total_purchase_disposable').textContent = formatWithSpaces(total_purchase_disposable);
+    document.querySelector('#total_purchase_reusable').textContent = formatWithSpaces(total_purchase_reusable);
 
     let total_rent = total_rent_reusable;
-    document.querySelector('#total_rent_reusable').textContent = total_rent_reusable;
+    document.querySelector('#total_rent_reusable').textContent = formatWithSpaces(total_rent_reusable);
 
     let total_storage = total_storage_disposable + total_storage_reusable;
-    document.querySelector('#total_storage').textContent = total_storage;
-    document.querySelector('#total_storage_disposable').textContent = total_storage_disposable;
-    document.querySelector('#total_storage_reusable').textContent = total_storage_reusable;
+    document.querySelector('#total_storage').textContent = formatWithSpaces(total_storage);
+    document.querySelector('#total_storage_disposable').textContent = formatWithSpaces(total_storage_disposable);
+    document.querySelector('#total_storage_reusable').textContent = formatWithSpaces(total_storage_reusable);
 
     let total_transportation = total_transportation_disposable + total_transportation_reusable;
-    document.querySelector('#total_transportation').textContent = total_transportation;
-    document.querySelector('#total_transportation_disposable').textContent = total_transportation_disposable;
-    document.querySelector('#total_transportation_reusable').textContent = total_transportation_reusable;
+    document.querySelector('#total_transportation').textContent = formatWithSpaces(total_transportation);
+    document.querySelector('#total_transportation_disposable').textContent = formatWithSpaces(total_transportation_disposable);
+    document.querySelector('#total_transportation_reusable').textContent = formatWithSpaces(total_transportation_reusable);
 
     let total_waste_disinfection = total_waste_disinfection_disposable;
-    document.querySelector('#total_waste_disinfection').textContent = total_waste_disinfection;
+    document.querySelector('#total_waste_disinfection').textContent = formatWithSpaces(total_waste_disinfection);
 
     let total_disinfection = total_disinfection_reusable;
-    document.querySelector('#total_disinfection').textContent = total_disinfection;
+    document.querySelector('#total_disinfection').textContent = formatWithSpaces(total_disinfection);
     
     let total_washing = total_washing_reusable;
-    document.querySelector('#total_washing').textContent = total_washing;
+    document.querySelector('#total_washing').textContent = formatWithSpaces(total_washing);
 
     let total_sterilization = total_sterilization_reusable;
-    document.querySelector('#total_sterilization').textContent = total_sterilization;
+    document.querySelector('#total_sterilization').textContent = formatWithSpaces(total_sterilization);
 
     let total_repair = total_repair_reusable;
-    document.querySelector('#total_repair').textContent = total_repair;
+    document.querySelector('#total_repair').textContent = formatWithSpaces(total_repair);
 
     let total = total_disposable + total_reusable;
-    document.querySelector('#total').textContent = total;
-    document.querySelector('#total_table').textContent = total;
-    document.querySelector('#total_disposable').textContent = total_disposable;
-    document.querySelector('#total_reusable').textContent = total_reusable;
+    document.querySelector('#total').textContent = formatWithSpaces(total);
+    document.querySelector('#total_table').textContent = formatWithSpaces(total);
+    document.querySelector('#total_disposable').textContent = formatWithSpaces(total_disposable);
+    document.querySelector('#total_reusable').textContent = formatWithSpaces(total_reusable);
+
+    document.querySelector('#total_disposable_cost_employee').textContent = formatWithSpaces(total_cost_employee_disposable);
+    document.querySelector('#total_reusable_cost_employee').textContent = formatWithSpaces(total_cost_employee_reusable);
 
     rebuildTable();
 }
@@ -1771,6 +2396,12 @@ function createProductBlock(type, product, productName) {
                 form.classList.remove('dop_form_hidden');
             });
         }
+    }
+    if (product == 'other') {
+        let other_blocks = block.querySelectorAll(".other");
+        other_blocks.forEach(other_block => {
+            other_block.classList.add('other_hidden');
+        });
     }
     return block;
 }
@@ -1920,7 +2551,13 @@ function handleCheckboxChange(checkbox, type_calc) {
         const product = checkbox.dataset.nameProduct;
         const productName = checkbox.value;
         const disposable_blockId = `disposable_${product}_group`;
-        const reusable_blockId = `reusable_${product}_group`;
+        let reusable_blockId ;
+
+        if (product == 'non_woven_shoe') {
+            reusable_blockId = `reusable_reusable_woven_shoe_group`;
+        } else {
+            reusable_blockId = `reusable_${product}_group`;
+        }
 
         const disposable_container = getContainerByType('disposable');
         if (!disposable_container) {
@@ -1962,7 +2599,11 @@ function handleCheckboxChange(checkbox, type_calc) {
             addColumnToTable('disposable', product, productName);
 
             if (!reusable_block) {
-                reusable_block = createProductBlock('reusable', product, productName);
+                if (product == 'non_woven_shoe') {
+                    reusable_block = createProductBlock('reusable', 'reusable_woven_shoe', 'Тканевые бахилы');
+                } else {
+                    reusable_block = createProductBlock('reusable', product, productName);
+                }
                 if (reusable_block) {
                     reusable_container.appendChild(reusable_block);
                 }
@@ -1971,22 +2612,30 @@ function handleCheckboxChange(checkbox, type_calc) {
                 reusable_block.classList.remove('dropdown__group_hidden');
             }
             // Добавляем/показываем столбец в таблице
-            addColumnToTable('reusable', product, productName);
+            if (product == 'non_woven_shoe') {
+                addColumnToTable('reusable', 'reusable_woven_shoe', 'Тканевые бахилы');
+            } else {
+                addColumnToTable('reusable', product, productName);
+            }
         } else {
             // Скрываем блок и столбец
             if (disposable_block) {
                 // disposable_block.classList.add('dropdown__group_hidden');
-                // resetInputsInBlock(disposable_blockId);
+                resetInputsInBlock(disposable_blockId);
                 disposable_block.remove();
             }
             hideColumn('disposable', product);
 
             if (reusable_block) {
                 // reusable_block.classList.add('dropdown__group_hidden');
-                // resetInputsInBlock(reusable_blockId);
+                resetInputsInBlock(reusable_blockId);
                 reusable_block.remove();
             }
-            hideColumn('reusable', product);
+            if (product == 'non_woven_shoe') {
+                hideColumn('reusable', 'reusable_woven_shoe');
+            } else {
+                hideColumn('reusable', product);
+            }
         }
 
     } else {
@@ -2020,7 +2669,7 @@ function handleCheckboxChange(checkbox, type_calc) {
             // Скрываем блок и столбец
             if (block) {
                 // block.classList.add('dropdown__group_hidden');
-                // resetInputsInBlock(blockId);
+                resetInputsInBlock(blockId);
                 block.remove();
             }
             hideColumn(type, product);

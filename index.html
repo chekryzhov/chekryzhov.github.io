@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Главная</title>
     <link rel="stylesheet" href="css/bootstrap.min.css">
-    <link rel="stylesheet" href="css/style.css?ver=1.0">
+    <link rel="stylesheet" href="css/style.css?ver=1.3">
     <script src="js/jquery-3.3.1.slim.min.js" ></script>
     <script src="js/popper.min.js"></script>
     <script src="js/bootstrap.min.js"></script>
@@ -20,7 +20,9 @@
                             <img src="img/logo.svg" alt="" class="logo">
                         </div>
                     </a>
-                    <div class="name__app">Калькулятор расчета затрат на использование одноразовых нетканых <p>и многоразовых тканых изделий в медицинских организациях</p></div>
+                    <div class="name__app">
+                        Калькулятор расчета затрат за год на использование одноразовых нетканых <p>и многоразовых тканых изделий в медицинских организациях</p>
+                        </p></div>
                 </div>
             </div>
         </div>
@@ -111,7 +113,7 @@
                                     </div>
                                 </div>
 
-                                <div class="disposable_dop_form dop_form_hidden">
+                                <div class="disposable_dop_form dop_form_hidden other">
                                     <div class="form__item">           
                                         <div class="checkbox__wrapper">
                                             <input type="checkbox" id="disposable_diapers_purchase_unknown_cost_weight" name="disposable_diapers_purchase_unknown_cost_weight" value="1" data-name-type="disposable" data-name-product="diapers" data-name-process="purchase" data-name-indicator="unknown_cost_weight">
@@ -140,7 +142,7 @@
                                     <div class="form__item__enter">
                                         <input id="disposable_diapers_purchase_consumption" class="form__input" type="text" placeholder="Введите значение" value="0" data-name-type="disposable" data-name-product="diapers" data-name-process="purchase" data-name-indicator="consumption">
                                         <div class="disposable_dop_form dop_form_hidden">
-                                            <div class="checkbox__wrapper">
+                                            <div class="checkbox__wrapper other">
                                                 <input type="checkbox" id="disposable_diapers_purchase_unknown_consumption" name="disposable_diapers_purchase_unknown_consumption" value="1" data-name-type="disposable" data-name-product="diapers" data-name-process="purchase" data-name-indicator="unknown_consumption">
                                                 <label for="disposable_diapers_purchase_unknown_consumption">Отсутствует информация</label>
                                             </div>
@@ -833,7 +835,7 @@
 
                                         <!-- Количество часов в год, затраченных на обеззараживание/обезвреживание отходов (одноразового изделия) (если известно) -->
                                         <div class="form__item">
-                                            <div class="form__item__label">Количество часов в год, затраченных на обеззараживание/обезвреживание отходов (если известно)</div>
+                                            <div class="form__item__label">Количество часов в год, затраченных на обеззараживание/обезвреживание отходов одним сотрудником (если известно)</div>
                                             <div class="form__item__enter">
                                                 <input id="disposable_diapers_waste_disinfection_hours_known_physic" class="form__input" type="text" placeholder="Введите значение" value="0" data-name-type="disposable" data-name-product="diapers" data-name-process="waste_disinfection" data-name-indicator="hours_known"
                                                 data-name-disinfection-method="physic">
@@ -886,6 +888,20 @@
                                             <div class="form__item__enter">
                                                 <input id="disposable_diapers_waste_disinfection_chemical_weight" class="form__input" type="text" placeholder="Введите значение" value="0" data-name-type="disposable" data-name-product="diapers" data-name-process="waste_disinfection" data-name-indicator="chemical_weight"
                                                 data-name-disinfection-method="chemical">
+                                            </div>
+                                        </div>
+
+                                        <div class="form__item">
+                                            <div class="form__item__label">Имеете ли Вы информацию об используемом дезсредстве?</div>
+                                            <div class="form__item__enter">
+                                                <div class="checkbox__wrapper">
+                                                    <input type="radio" id="disposable_diapers_waste_disinfection_info_disinfectant_y" name="disposable_diapers_waste_disinfection_info_disinfectant" value="y" data-name-type="disposable" data-name-product="diapers" data-name-process="waste_disinfection" data-name-indicator="info_disinfectant">
+                                                    <label for="disposable_diapers_waste_disinfection_info_disinfectant_y">Да</label>
+                                                </div>
+                                                <div class="checkbox__wrapper">
+                                                    <input type="radio" id="disposable_diapers_waste_disinfection_info_disinfectant_n" name="disposable_diapers_waste_disinfection_info_disinfectant" value="n" data-name-type="disposable" data-name-product="diapers" data-name-process="waste_disinfection" data-name-indicator="info_disinfectant">
+                                                    <label for="disposable_diapers_waste_disinfection_info_disinfectant_n">Нет</label>
+                                                </div>
                                             </div>
                                         </div>
 
@@ -977,6 +993,10 @@
                                             <div class="form__item__enter">
                                                 <input  id="disposable_diapers_waste_disinfection_time_disinfection_one_load_chemical" class="form__input" type="text" placeholder="Введите значение" value="0" data-name-type="disposable" data-name-product="diapers" data-name-process="waste_disinfection" data-name-indicator="time_disinfection_one_load"
                                                 data-name-disinfection-method="chemical">
+                                                <div class="checkbox__wrapper">
+                                                    <input type="checkbox" id="disposable_diapers_waste_disinfection_unknown_time_disinfection_one_load" name="disposable_diapers_waste_disinfection_unknown_time_disinfection_one_load" value="1" data-name-type="disposable" data-name-product="diapers" data-name-process="waste_disinfection" data-name-indicator="unknown_time_disinfection_one_load" data-name-disinfection-method="chemical">
+                                                    <label for="disposable_diapers_waste_disinfection_unknown_time_disinfection_one_load">Отсутствует информация</label>
+                                                </div>
                                             </div>
                                         </div>
 
@@ -1098,7 +1118,9 @@
                                     </div> -->
 
                                     <div class="form__item">
-                                        <div class="form__item__label">Частота проведения стирки, раз в неделю</div>
+                                        <div class="form__item__label">Частота проведения стирки, раз в неделю
+                                            <p><span>Введите значение от 1 до 7</span></p>
+                                        </div>
                                         <div class="form__item__enter">
                                             <input id="reusable_diapers_main_even_cleaner" class="form__input" type="text" placeholder="Введите значение" value="0" data-name-type="reusable" data-name-product="diapers" data-name-process="main" data-name-indicator="even_cleaner">
                                         </div>
@@ -1144,12 +1166,6 @@
                                     <div class="form__item__label">Стоимость аренды единицы, руб</div>
                                     <div class="form__item__enter">
                                         <input id="reusable_diapers_rent_cost" class="form__input" type="text" placeholder="Введите значение" value="0" data-name-type="reusable" data-name-product="diapers" data-name-process="rent" data-name-indicator="cost">
-                                        <div class="reusable_dop_form dop_form_hidden">
-                                            <div class="checkbox__wrapper">
-                                                <input type="checkbox" id="reusable_diapers_rent_unknown_cost" name="reusable_diapers_rent_unknown_cost" value="1" data-name-type="reusable" data-name-product="diapers" data-name-process="rent" data-name-indicator="unknown_cost">
-                                                <label for="reusable_diapers_rent_unknown_cost">Отсутствует информация</label>
-                                            </div>
-                                        </div>
                                     </div>
                                 </div>
 
@@ -1157,12 +1173,6 @@
                                     <div class="form__item__label">Вес изделия, кг</div>
                                     <div class="form__item__enter">
                                         <input id="reusable_diapers_rent_weight" class="form__input" type="text" placeholder="Введите значение" value="0" data-name-type="reusable" data-name-product="diapers" data-name-process="rent" data-name-indicator="weight">
-                                        <div class="reusable_dop_form dop_form_hidden">
-                                            <div class="checkbox__wrapper">
-                                                <input type="checkbox" id="reusable_diapers_rent_unknown_weight" name="reusable_diapers_rent_unknown_weight" value="1" data-name-type="reusable" data-name-product="diapers" data-name-process="rent" data-name-indicator="unknown_weight">
-                                                <label for="reusable_diapers_rent_unknown_weight">Отсутствует информация</label>
-                                            </div>
-                                        </div>
                                     </div>
                                 </div>
 
@@ -1198,7 +1208,7 @@
                                     <div class="form__item__enter">
                                         <input id="reusable_diapers_purchase_cost" class="form__input" type="text" placeholder="Введите значение" value="0" data-name-type="reusable" data-name-product="diapers" data-name-process="purchase" data-name-indicator="cost">
                                         <div class="reusable_dop_form dop_form_hidden">
-                                            <div class="checkbox__wrapper">
+                                            <div class="checkbox__wrapper other">
                                                 <input type="checkbox" id="reusable_diapers_purchase_unknown_cost" name="reusable_diapers_purchase_unknown_cost" value="1" data-name-type="reusable" data-name-product="diapers" data-name-process="purchase" data-name-indicator="unknown_cost">
                                                 <label for="reusable_diapers_purchase_unknown_cost">Отсутствует информация</label>
                                             </div>
@@ -1211,7 +1221,7 @@
                                     <div class="form__item__enter">
                                         <input id="reusable_diapers_purchase_weight" class="form__input" type="text" placeholder="Введите значение" value="0" data-name-type="reusable" data-name-product="diapers" data-name-process="purchase" data-name-indicator="weight">
                                         <div class="reusable_dop_form dop_form_hidden">
-                                            <div class="checkbox__wrapper">
+                                            <div class="checkbox__wrapper other">
                                                 <input type="checkbox" id="reusable_diapers_purchase_unknown_weight" name="reusable_diapers_purchase_unknown_weight" value="1" data-name-type="reusable" data-name-product="diapers" data-name-process="purchase" data-name-indicator="unknown_weight">
                                                 <label for="reusable_diapers_purchase_unknown_weight">Отсутствует информация</label>
                                             </div>
@@ -1219,19 +1229,12 @@
                                     </div>
                                 </div>
 
-                                <!-- <div class="form__item">
-                                    <div class="form__item__label">Объем изделий</div>
-                                    <div class="form__item__enter">
-                                        <input id="reusable_diapers_purchase_volume" class="form__input" type="text" placeholder="Введите значение" value="0" data-name-type="reusable" data-name-product="diapers" data-name-process="purchase" data-name-indicator="volume">
-                                    </div>
-                                </div> -->
-
                                 <div class="form__item">
                                     <div class="form__item__label">Расход в год кол-во, штук </div>
                                     <div class="form__item__enter">
                                         <input id="reusable_diapers_purchase_consumption" class="form__input" type="text" placeholder="Введите значение" value="0" data-name-type="reusable" data-name-product="diapers" data-name-process="purchase" data-name-indicator="consumption">
                                         <div class="reusable_dop_form dop_form_hidden">
-                                            <div class="checkbox__wrapper">
+                                            <div class="checkbox__wrapper other">
                                                 <input type="checkbox" id="reusable_diapers_purchase_unknown_consumption" name="reusable_diapers_purchase_unknown_consumption" value="1" data-name-type="reusable" data-name-product="diapers" data-name-process="purchase" data-name-indicator="unknown_consumption">
                                                 <label for="reusable_diapers_purchase_unknown_consumption">Отсутствует информация</label>
                                             </div>
@@ -1393,7 +1396,7 @@
                                             <div class="form__item__enter">
                                                 <input id="reusable_diapers_transportation_volume_one_product" class="form__input" type="text" placeholder="Введите значение" value="0" data-name-type="reusable" data-name-product="diapers" data-name-process="transportation" data-name-indicator="volume_one_product">
 
-                                                <div class="checkbox__wrapper">
+                                                <div class="checkbox__wrapper other">
                                                     <input type="checkbox" id="reusable_diapers_transportation_unknown_volume_one_packet" name="reusable_diapers_transportation_unknown_volume_one_packet" value="1" data-name-type="reusable" data-name-product="diapers" data-name-process="transportation" data-name-indicator="unknown_volume_one_packet">
                                                     <label for="reusable_diapers_transportation_unknown_volume_one_packet">Отсутствует информация</label>
                                                 </div>
@@ -1401,7 +1404,9 @@
                                         </div>
 
                                         <div class="form__item">
-                                            <div class="form__item__label">Примерное количество затрачиваемых изделий на транспортировку в год</div>
+                                            <div class="form__item__label">Примерное количество затрачиваемых изделий на транспортировку в год
+                                                <p><span>Следует заполнить графу «Сколько изделий в год подлежит стирке внутри организации?» в блоке стирки собственными силами</span></p>
+                                            </div>
                                             <div class="form__item__enter">
                                                 <input disabled id="reusable_diapers_transportation_approximate_count_product" class="form__input form__input_formula" type="text" placeholder="Введите значение" value="0" data-name-type="reusable" data-name-product="diapers" data-name-process="transportation" data-name-indicator="approximate_count_product">
                                             </div>
@@ -1446,7 +1451,35 @@
 
                                     <div id="reusable_diapers_disinfection_disinfection_self_form_block" class="form__block_hidden">
                                         <div class="form__item">
-                                            <div class="form__item__label">Число сотрудников,обеззараживающих белье</div>
+                                            <div class="form__item__label">Сколько изделий в год подлежит обеззараживанию внутри организации?</div>
+                                            <div class="form__item__enter">
+                                                <input id="reusable_diapers_disinfection_count_product" class="form__input" type="text" placeholder="Введите значение" value="0" data-name-type="reusable" data-name-product="diapers" data-name-process="disinfection" data-name-indicator="count_product">
+                                                <div id="reusable_diapers_disinfection_unknown_count_product_block" class="hidden">
+                                                    <div class="checkbox__wrapper">
+                                                        <input type="checkbox" id="reusable_diapers_disinfection_unknown_count_product" name="reusable_diapers_disinfection_unknown_count_product" value="1" data-name-type="reusable" data-name-product="diapers" data-name-process="disinfection" data-name-indicator="unknown_count_product">
+                                                        <label for="reusable_diapers_disinfection_unknown_count_product">Отсутствует информация</label>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="form__item">
+                                            <div class="form__item__label">Вес обеззараживаемых изделий в год, кг</div>
+                                            <div class="form__item__enter">
+                                                <input disabled id="reusable_diapers_disinfection_weight_product" class="form__input form__input_formula" type="text" placeholder="Введите значение" value="0" data-name-type="reusable" data-name-product="diapers" data-name-process="disinfection" data-name-indicator="weight_product">
+                                            </div>
+                                        </div>
+
+                                        <div class="form__item">
+                                            <div class="form__item__label">Частота обеззараживания изделий внутри организации, раз в неделю
+                                            <p><span>Введите значение от 1 до 7</span></p></div>
+                                            <div class="form__item__enter">
+                                                <input id="reusable_diapers_disinfection_how_often" class="form__input" type="text" placeholder="Введите значение" value="0" data-name-type="reusable" data-name-product="diapers" data-name-process="disinfection" data-name-indicator="how_often">
+                                            </div>
+                                        </div>
+
+                                        <div class="form__item">
+                                            <div class="form__item__label">Число сотрудников, обеззараживающих белье</div>
                                             <div class="form__item__enter">
                                                 <input id="reusable_diapers_disinfection_employee_count" class="form__input" type="text" placeholder="Введите значение" value="0" data-name-type="reusable" data-name-product="diapers" data-name-process="disinfection" data-name-indicator="employee_count">
                                             </div>
@@ -1456,6 +1489,10 @@
                                             <div class="form__item__label">Количество часов в год, затрачиваемых на обеззараживание белья одним сотрудником (если известно)</div>
                                             <div class="form__item__enter">
                                                 <input id="reusable_diapers_disinfection_count_hours" class="form__input" type="text" placeholder="Введите значение" value="0" data-name-type="reusable" data-name-product="diapers" data-name-process="disinfection" data-name-indicator="count_hours">
+                                                <div class="checkbox__wrapper">
+                                                    <input type="checkbox" id="reusable_diapers_disinfection_unknown_count_hours" name="reusable_diapers_disinfection_unknown_count_hours" value="1" data-name-type="reusable" data-name-product="diapers" data-name-process="disinfection" data-name-indicator="unknown_count_hours">
+                                                    <label for="reusable_diapers_disinfection_unknown_count_hours">Отсутствует информация</label>
+                                                </div>
                                             </div>
                                         </div>
 
@@ -1478,53 +1515,9 @@
                                         </div>
 
                                         <div class="form__item">
-                                            <div class="form__item__label">Переменная для расчета
-                                                <p><span>Если неизвестно количество часов, затрачиваемых на обеззараживание многоразовых изделий, вставьте в графу "1"</span></p>
-                                            </div>
-                                            <div class="form__item__enter">
-                                                <input id="reusable_diapers_disinfection_var_cost" class="form__input" type="text" placeholder="Введите значение" value="0" data-name-type="reusable" data-name-product="diapers" data-name-process="disinfection" data-name-indicator="var_cost">
-                                            </div>
-                                        </div>
-
-                                        <div class="form__item">
-                                            <div class="form__item__label">Частота проведения обеззараживания изделий, раз в неделю</div>
-                                            <div class="form__item__enter">
-                                                <input id="reusable_diapers_disinfection_frequency_disinfection" class="form__input" type="text" placeholder="Введите значение" value="0" data-name-type="reusable" data-name-product="diapers" data-name-process="disinfection" data-name-indicator="frequency_disinfection">
-                                            </div>
-                                        </div>
-
-                                        <div class="form__item">
                                             <div class="form__item__label">Затраты на персонал, руб</div>
                                             <div class="form__item__enter">
                                                 <input disabled id="reusable_diapers_disinfection_sum_cost_employee" class="form__input form__input_formula" type="text" placeholder="Введите значение" value="0" data-name-type="reusable" data-name-product="diapers" data-name-process="disinfection" data-name-indicator="sum_cost_employee">
-                                            </div>
-                                        </div>
-
-                                        <div class="form__item">
-                                            <div class="form__item__label">Сколько изделий в год подлежит обеззараживанию внутри организации?</div>
-                                            <div class="form__item__enter">
-                                                <input id="reusable_diapers_disinfection_count_product" class="form__input" type="text" placeholder="Введите значение" value="0" data-name-type="reusable" data-name-product="diapers" data-name-process="disinfection" data-name-indicator="count_product">
-                                                <div class="reusable_dop_form dop_form_hidden">
-                                                    <div class="checkbox__wrapper">
-                                                        <input type="checkbox" id="reusable_diapers_disinfection_unknown_count_product" name="reusable_diapers_disinfection_unknown_count_product" value="1" data-name-type="reusable" data-name-product="diapers" data-name-process="disinfection" data-name-indicator="unknown_count_product">
-                                                        <label for="reusable_diapers_disinfection_unknown_count_product">Отсутствует информация</label>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-
-                                        <div class="form__item">
-                                            <div class="form__item__label">Вес обеззараживаемых изделий в год, кг</div>
-                                            <div class="form__item__enter">
-                                                <input disabled id="reusable_diapers_disinfection_weight_product" class="form__input form__input_formula" type="text" placeholder="Введите значение" value="0" data-name-type="reusable" data-name-product="diapers" data-name-process="disinfection" data-name-indicator="weight_product">
-                                            </div>
-                                        </div>
-
-                                        <div class="form__item">
-                                            <div class="form__item__label">Частота обеззараживания изделий внутри организации, раз в неделю
-                                            <p><span>Введите значение от 1 до 7</span></p></div>
-                                            <div class="form__item__enter">
-                                                <input id="reusable_diapers_disinfection_how_often" class="form__input" type="text" placeholder="Введите значение" value="0" data-name-type="reusable" data-name-product="diapers" data-name-process="disinfection" data-name-indicator="how_often">
                                             </div>
                                         </div>
 
@@ -1567,6 +1560,10 @@
                                             <div class="form__item__label">Количество изделий в 1 загрузку (в кг или куб. м)</div>
                                             <div class="form__item__enter">
                                                 <input id="reusable_diapers_disinfection_count_product_one_load" class="form__input" type="text" placeholder="Введите значение" value="0" data-name-type="reusable" data-name-product="diapers" data-name-process="disinfection" data-name-indicator="count_product_one_load">
+                                                <div class="checkbox__wrapper">
+                                                    <input type="checkbox" id="reusable_diapers_disinfection_unknown_count_product_one_load" name="reusable_diapers_disinfection_unknown_count_product_one_load" value="1" data-name-type="reusable" data-name-product="diapers" data-name-process="disinfection" data-name-indicator="unknown_count_product_one_load">
+                                                    <label for="reusable_diapers_disinfection_unknown_count_product_one_load">Отсутствует информация</label>
+                                                </div>
                                             </div>
                                         </div>
 
@@ -1651,6 +1648,39 @@
                                 </div>
 
                                 <div id="reusable_diapers_washing_washing_self_form_block" class="form__block_hidden">
+
+                                    <!-- Сколько изделий в год подлежит стирке внутри организации? (в единицах по каждой позиции) -->
+                                    <div class="form__item">
+                                        <div class="form__item__label">Сколько изделий в год подлежит стирке внутри организации?</div>
+                                        <div class="form__item__enter">
+                                            <input id="reusable_diapers_washing_count_product" class="form__input" type="text" placeholder="Введите значение" value="0" data-name-type="reusable" data-name-product="diapers" data-name-process="washing" data-name-indicator="count_product">
+                                            <div id="reusable_diapers_washing_unknown_count_product_block" class="hidden">
+                                                <div class="checkbox__wrapper other">
+                                                    <input type="checkbox" id="reusable_diapers_washing_unknown_count_product" name="reusable_diapers_washing_unknown_count_product" value="1" data-name-type="reusable" data-name-product="diapers" data-name-process="washing" data-name-indicator="unknown_count_product">
+                                                    <label for="reusable_diapers_washing_unknown_count_product">Отсутствует информация</label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <!-- Вес стираемых изделий в год, кг -->
+                                    <div class="form__item">
+                                        <div class="form__item__label">Вес стираемых изделий в год, кг</div>
+                                        <div class="form__item__enter">
+                                            <input disabled id="reusable_diapers_washing_weight_product" class="form__input form__input_formula" type="text" placeholder="Введите значение" value="0" data-name-type="reusable" data-name-product="diapers" data-name-process="washing" data-name-indicator="weight_product">
+                                        </div>
+                                    </div>
+
+                                    <!-- Как часто сдаете на стирку внутри организации? По каждой позиции, периодичность -->
+                                    <div class="form__item">
+                                        <div class="form__item__label">Частота стирки изделий внутри организации, раз в неделю
+                                            <p><span>Введите значение от 1 до 7</span></p>
+                                        </div>
+                                        <div class="form__item__enter">
+                                            <input id="reusable_diapers_washing_how_often" class="form__input" type="text" placeholder="Введите значение" value="" data-name-type="reusable" data-name-product="diapers" data-name-process="washing" data-name-indicator="how_often">
+                                        </div>
+                                    </div>
+
                                     <!-- Число сотрудников, осуществляющих стирку -->
                                     <div class="form__item">
                                         <div class="form__item__label">Число сотрудников, осуществляющих стирку</div>
@@ -1681,7 +1711,7 @@
                                         </div>
                                         <div class="form__item__enter">
                                             <input id="reusable_diapers_washing_var_cost" class="form__input" type="text" placeholder="Введите значение" value="0" data-name-type="reusable" data-name-product="diapers" data-name-process="washing" data-name-indicator="var_cost">
-                                            <div class="reusable_dop_form dop_form_hidden">
+                                            <div class="">
                                                 <div class="checkbox__wrapper">
                                                     <input type="checkbox" id="reusable_diapers_washing_unknown_var_cost" name="reusable_diapers_washing_unknown_var_cost" value="1" data-name-type="reusable" data-name-product="diapers" data-name-process="washing" data-name-indicator="unknown_var_cost">
                                                     <label for="reusable_diapers_washing_unknown_var_cost">Отсутствует информация</label>
@@ -1714,38 +1744,6 @@
                                         <div class="form__item__label">Затраты на персонал, руб</div>
                                         <div class="form__item__enter">
                                             <input disabled id="reusable_diapers_washing_sum_cost_employee" class="form__input form__input_formula" type="text" placeholder="Введите значение" value="0" data-name-type="reusable" data-name-product="diapers" data-name-process="washing" data-name-indicator="sum_cost_employee">
-                                        </div>
-                                    </div>
-
-                                    <!-- Сколько изделий в год подлежит стирке внутри организации? (в единицах по каждой позиции) -->
-                                    <div class="form__item">
-                                        <div class="form__item__label">Сколько изделий в год подлежит стирке внутри организации?</div>
-                                        <div class="form__item__enter">
-                                            <input id="reusable_diapers_washing_count_product" class="form__input" type="text" placeholder="Введите значение" value="0" data-name-type="reusable" data-name-product="diapers" data-name-process="washing" data-name-indicator="count_product">
-                                            <div class="reusable_dop_form dop_form_hidden">
-                                                <div class="checkbox__wrapper">
-                                                    <input type="checkbox" id="reusable_diapers_washing_unknown_count_product" name="reusable_diapers_washing_unknown_count_product" value="1" data-name-type="reusable" data-name-product="diapers" data-name-process="washing" data-name-indicator="unknown_count_product">
-                                                    <label for="reusable_diapers_washing_unknown_count_product">Отсутствует информация</label>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                    <!-- Вес стираемых изделий в год, кг -->
-                                    <div class="form__item">
-                                        <div class="form__item__label">Вес стираемых изделий в год, кг</div>
-                                        <div class="form__item__enter">
-                                            <input disabled id="reusable_diapers_washing_weight_product" class="form__input form__input_formula" type="text" placeholder="Введите значение" value="0" data-name-type="reusable" data-name-product="diapers" data-name-process="washing" data-name-indicator="weight_product">
-                                        </div>
-                                    </div>
-
-                                    <!-- Как часто сдаете на стирку внутри организации? По каждой позиции, периодичность -->
-                                    <div class="form__item">
-                                        <div class="form__item__label">Частота стирки изделий внутри организации, раз в неделю
-                                            <p><span>Введите значение от 1 до 7</span></p>
-                                        </div>
-                                        <div class="form__item__enter">
-                                            <input id="reusable_diapers_washing_how_often" class="form__input" type="text" placeholder="Введите значение" value="" data-name-type="reusable" data-name-product="diapers" data-name-process="washing" data-name-indicator="how_often">
                                         </div>
                                     </div>
 
@@ -1898,64 +1896,6 @@
                             <div id="reusable_diapers_sterilization" class="form__block form__block_hidden">
                                 <div class="form__item__title">Стерилизация</div>
 
-                                <!-- Число сотрудников, занимающихся стерилизацией -->
-                                <div class="form__item">
-                                    <div class="form__item__label">Число сотрудников, занимающихся стерилизацией</div>
-                                    <div class="form__item__enter">
-                                        <input id="reusable_diapers_sterilization_employee_count" class="form__input" type="text" placeholder="Введите значение" value="0" data-name-type="reusable" data-name-product="diapers" data-name-process="sterilization" data-name-indicator="employee_count">
-                                    </div>
-                                </div>
-
-                                <!-- Количество часов в год, затрачиваемых на стерилизацию белья одним сотрудником (если известно) -->
-                                <div class="form__item">
-                                    <div class="form__item__label">Количество часов в год, затрачиваемых на стерилизацию белья одним сотрудником (если известно)</div>
-                                    <div class="form__item__enter">
-                                        <input id="reusable_diapers_sterilization_count_hours" class="form__input" type="text" placeholder="Введите значение" value="0" data-name-type="reusable" data-name-product="diapers" data-name-process="sterilization" data-name-indicator="count_hours">
-                                    </div>
-                                </div>
-
-                                <!-- Примерное количество часов в год, затрачиваемых на стерилизацию одним сотрудником (если неизвестен пункт выше, заполните лист "Часы") -->
-                                <div class="form__item">
-                                    <div class="form__item__label">Примерное количество часов в год, затрачиваемых на стерилизацию одним сотрудником (если неизвестно точное количество)</div>
-                                    <div class="form__item__enter">
-                                        <input disabled id="reusable_diapers_sterilization_approximate_count_hours" class="form__input form__input_formula" type="text" placeholder="Введите значение" value="0" data-name-type="reusable" data-name-product="diapers" data-name-process="sterilization" data-name-indicator="approximate_count_hours">
-                                    </div>
-                                </div>
-
-                                <div class="form__item">
-                                    <div class="form__item__label">Длительность одного цикла стерилизации, ч
-                                        <p><span>Если неизвестно количество часов, затрачиваемых на стерилизацию, заполните данную графу</span></p>
-                                    </div>
-                                    <div class="form__item__enter">
-                                        <input id="reusable_diapers_sterilization_var_cost" class="form__input" type="text" placeholder="Введите значение" value="0" data-name-type="reusable" data-name-product="diapers" data-name-process="sterilization" data-name-indicator="var_cost">
-                                        <div class="reusable_dop_form dop_form_hidden">
-                                            <div class="checkbox__wrapper">
-                                                <input type="checkbox" id="reusable_diapers_sterilization_unknown_var_cost" name="reusable_diapers_sterilization_unknown_var_cost" value="1" data-name-type="reusable" data-name-product="diapers" data-name-process="sterilization" data-name-indicator="unknown_var_cost">
-                                                <label for="reusable_diapers_sterilization_unknown_var_cost">Отсутствует информация</label>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <!-- Стоимость часа работы сотрудника, руб -->
-                                <div class="form__item">
-                                    <div class="form__item__label">Стоимость часа работы сотрудника, руб</div>
-                                    <div class="form__item__enter">
-                                        <input id="reusable_diapers_sterilization_employee_hour_cost" class="form__input" type="text" placeholder="Введите значение" value="0" data-name-type="reusable" data-name-product="diapers" data-name-process="sterilization" data-name-indicator="employee_hour_cost">
-                                        <div class="checkbox__wrapper">
-                                            <input type="checkbox" id="reusable_diapers_sterilization_unknown_employee_hour_cost" name="reusable_diapers_sterilization_unknown_employee_hour_cost" value="1" data-name-type="reusable" data-name-product="diapers" data-name-process="sterilization" data-name-indicator="unknown_employee_hour_cost">
-                                            <label for="reusable_diapers_sterilization_unknown_employee_hour_cost">Отсутствует информация</label>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div class="form__item">
-                                    <div class="form__item__label">Затраты на персонал, руб</div>
-                                    <div class="form__item__enter">
-                                        <input disabled id="reusable_diapers_sterilization_sum_cost_employee" class="form__input form__input_formula" type="text" placeholder="Введите значение" value="0" data-name-type="reusable" data-name-product="diapers" data-name-process="sterilization" data-name-indicator="sum_cost_employee">
-                                    </div>
-                                </div>
-
                                 <!-- Сколько изделий в год подлежит стерилизации внутри организации? (В единицах по каждой позиции многоразовых изделий) -->
                                 <div class="form__item">
                                     <div class="form__item__label">Сколько изделий в год подлежит стерилизации внутри организации?</div>
@@ -1988,6 +1928,64 @@
                                     </div>
                                 </div>
 
+                                <!-- Число сотрудников, занимающихся стерилизацией -->
+                                <div class="form__item">
+                                    <div class="form__item__label">Число сотрудников, занимающихся стерилизацией</div>
+                                    <div class="form__item__enter">
+                                        <input id="reusable_diapers_sterilization_employee_count" class="form__input" type="text" placeholder="Введите значение" value="0" data-name-type="reusable" data-name-product="diapers" data-name-process="sterilization" data-name-indicator="employee_count">
+                                    </div>
+                                </div>
+
+                                <!-- Количество часов в год, затрачиваемых на стерилизацию белья одним сотрудником (если известно) -->
+                                <div class="form__item">
+                                    <div class="form__item__label">Количество часов в год, затрачиваемых на стерилизацию белья одним сотрудником (если известно)</div>
+                                    <div class="form__item__enter">
+                                        <input id="reusable_diapers_sterilization_count_hours" class="form__input" type="text" placeholder="Введите значение" value="0" data-name-type="reusable" data-name-product="diapers" data-name-process="sterilization" data-name-indicator="count_hours">
+                                    </div>
+                                </div>
+
+                                <!-- Примерное количество часов в год, затрачиваемых на стерилизацию одним сотрудником (если неизвестен пункт выше, заполните лист "Часы") -->
+                                <div class="form__item">
+                                    <div class="form__item__label">Примерное количество часов в год, затрачиваемых на стерилизацию одним сотрудником (если неизвестно точное количество)</div>
+                                    <div class="form__item__enter">
+                                        <input disabled id="reusable_diapers_sterilization_approximate_count_hours" class="form__input form__input_formula" type="text" placeholder="Введите значение" value="0" data-name-type="reusable" data-name-product="diapers" data-name-process="sterilization" data-name-indicator="approximate_count_hours">
+                                    </div>
+                                </div>
+
+                                <div class="form__item">
+                                    <div class="form__item__label">Длительность одного цикла стерилизации, ч
+                                        <p><span>Если неизвестно количество часов, затрачиваемых на стерилизацию, заполните данную графу</span></p>
+                                    </div>
+                                    <div class="form__item__enter">
+                                        <input id="reusable_diapers_sterilization_var_cost" class="form__input" type="text" placeholder="Введите значение" value="0" data-name-type="reusable" data-name-product="diapers" data-name-process="sterilization" data-name-indicator="var_cost">
+                                        <div class="">
+                                            <div class="checkbox__wrapper">
+                                                <input type="checkbox" id="reusable_diapers_sterilization_unknown_var_cost" name="reusable_diapers_sterilization_unknown_var_cost" value="1" data-name-type="reusable" data-name-product="diapers" data-name-process="sterilization" data-name-indicator="unknown_var_cost">
+                                                <label for="reusable_diapers_sterilization_unknown_var_cost">Отсутствует информация</label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Стоимость часа работы сотрудника, руб -->
+                                <div class="form__item">
+                                    <div class="form__item__label">Стоимость часа работы сотрудника, руб</div>
+                                    <div class="form__item__enter">
+                                        <input id="reusable_diapers_sterilization_employee_hour_cost" class="form__input" type="text" placeholder="Введите значение" value="0" data-name-type="reusable" data-name-product="diapers" data-name-process="sterilization" data-name-indicator="employee_hour_cost">
+                                        <div class="checkbox__wrapper">
+                                            <input type="checkbox" id="reusable_diapers_sterilization_unknown_employee_hour_cost" name="reusable_diapers_sterilization_unknown_employee_hour_cost" value="1" data-name-type="reusable" data-name-product="diapers" data-name-process="sterilization" data-name-indicator="unknown_employee_hour_cost">
+                                            <label for="reusable_diapers_sterilization_unknown_employee_hour_cost">Отсутствует информация</label>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="form__item">
+                                    <div class="form__item__label">Затраты на персонал, руб</div>
+                                    <div class="form__item__enter">
+                                        <input disabled id="reusable_diapers_sterilization_sum_cost_employee" class="form__input form__input_formula" type="text" placeholder="Введите значение" value="0" data-name-type="reusable" data-name-product="diapers" data-name-process="sterilization" data-name-indicator="sum_cost_employee">
+                                    </div>
+                                </div>
+                                
                                 <!-- Стоимость оборудования, руб -->
                                 <div class="form__item">
                                     <div class="form__item__label">Стоимость оборудования, руб</div>
@@ -2022,7 +2020,7 @@
 
                                 <!-- Стоимость упаковки (1 шт), руб -->
                                 <div class="form__item">
-                                    <div class="form__item__label">Стоимость упаковки (1 шт), руб</div>
+                                    <div class="form__item__label">Стоимость единицы упаковки для проведения стерилизации, руб</div>
                                     <div class="form__item__enter">
                                         <input id="reusable_diapers_sterilization_packaging_cost_per_unit" class="form__input" type="text" placeholder="Введите значение" value="0" data-name-type="reusable" data-name-product="diapers" data-name-process="sterilization" data-name-indicator="packaging_cost_per_unit">
                                     </div>
@@ -2075,7 +2073,7 @@
 
                                 <!-- Количество часов, затраченных на ремонт в год -->
                                 <div class="form__item">
-                                    <div class="form__item__label">Количество часов, затраченных на ремонт в год</div>
+                                    <div class="form__item__label">Количество часов, затраченных на ремонт одним сотрудником в год</div>
                                     <div class="form__item__enter">
                                         <input id="reusable_diapers_repair_hours_per_year" class="form__input" type="text" placeholder="Введите значение" value="0" data-name-type="reusable" data-name-product="diapers" data-name-process="repair" data-name-indicator="hours_per_year">
                                     </div>
@@ -2086,6 +2084,10 @@
                                     <div class="form__item__label">Стоимость рабочего часа сотрудника, руб</div>
                                     <div class="form__item__enter">
                                         <input id="reusable_diapers_repair_employee_hour_cost" class="form__input" type="text" placeholder="Введите значение" value="0" data-name-type="reusable" data-name-product="diapers" data-name-process="repair" data-name-indicator="employee_hour_cost">
+                                        <div class="checkbox__wrapper">
+                                            <input type="checkbox" id="reusable_diapers_repair_unknown_employee_hour_cost" name="reusable_diapers_repair_unknown_employee_hour_cost" value="1" data-name-type="reusable" data-name-product="diapers" data-name-process="repair" data-name-indicator="unknown_employee_hour_cost">
+                                            <label for="reusable_diapers_repair_unknown_employee_hour_cost">Отсутствует информация</label>
+                                        </div>
                                     </div>
                                 </div>
 
@@ -2393,877 +2395,6 @@
                 </div>
             </div>
 
-            <!-- <div class="dropdown__group">
-                <div class="dropdown__group__item">
-                    <div class="dropdown__group__name">Часы</div>
-                    <div class="drop__icon"><img class="drop_img_group" src="img/plus.svg" alt=""></div>
-                </div>
-                <div class="dropdown__content">
-                    <div class="form__block">
-                        <div class="form__item__title">Обеззараживание многоразовых изделий</div>
-
-                        <div class="form__item">
-                            <div class="form__item__label">Переменная для расчета <p><span>(Если неизвестно количество часов, затрачиваемых на обеззараживание многоразовых изделий, вставьте в графу "1")</span></p></div>
-                            <div class="form__item__enter">
-                                <input id="id_name" class="form__input" type="text" placeholder="Введите значение" value="">
-                            </div>
-                        </div>
-
-                        <div class="form__item">
-                            <div class="form__item__label">Количество часов в год, затрачиваемых на обеззараживание</div>
-                            <div class="form__item__enter">
-                                <input id="id_name" class="form__input" type="text" placeholder="Введите значение" value="0">
-                            </div>
-                        </div>
-
-                        <div class="form__item__title">Стирка</div>
-
-                        <div class="form__item">
-                            <div class="form__item__label">Длительность одного цикла стирки, ч</div>
-                            <div class="form__item__enter">
-                                <input id="id_name" class="form__input" type="text" placeholder="Введите значение" value="">
-                            </div>
-                        </div>
-
-                        <div class="form__item">
-                            <div class="form__item__label">Количество часов, затрачиваемых на стирку</div>
-                            <div class="form__item__enter">
-                                <input id="id_name" class="form__input" type="text" placeholder="Введите значение" value="0">
-                            </div>
-                        </div>
-
-                        <div class="form__item__title">Обеззараживание отходов</div>
-
-                        <div class="form__item">
-                            <div class="form__item__label">Длительность одного цикла обеззараживания, ч</div>
-                            <div class="form__item__enter">
-                                <input id="id_name" class="form__input" type="text" placeholder="Введите значение" value="">
-                            </div>
-                        </div>
-
-                        <div class="form__item">
-                            <div class="form__item__label">Количество часов, затрачиваемых на обеззараживание</div>
-                            <div class="form__item__enter">
-                                <input id="id_name" class="form__input" type="text" placeholder="Введите значение" value="0">
-                            </div>
-                        </div>
-
-                        <div class="form__item__title">Стерилизация</div>
-
-                        <div class="form__item">
-                            <div class="form__item__label">Длительность одного цикла сетрилизации, ч</div>
-                            <div class="form__item__enter">
-                                <input id="id_name" class="form__input" type="text" placeholder="Введите значение" value="">
-                            </div>
-                        </div>
-
-                        <div class="form__item">
-                            <div class="form__item__label">Количество часов, затрачиваемых на стерилизацию</div>
-                            <div class="form__item__enter">
-                                <input id="id_name" class="form__input" type="text" placeholder="Введите значение" value="0">
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="dropdown__group">
-                <div class="dropdown__group__item">
-                    <div class="dropdown__group__name">Отходы</div>
-                    <div class="drop__icon"><img class="drop_img_group" src="img/plus.svg" alt=""></div>
-                </div>
-                <div class="dropdown__content">
-                    <div class="dropdown__group">
-                        <div class="dropdown__group__item">
-                            <div class="dropdown__group__name">Отходы класса А</div>
-                            <div class="drop__icon"><img class="drop_img_group" src="img/plus.svg" alt=""></div>
-                        </div>
-                        <div class="dropdown__content">
-                            <div class="extra_information">Для расчета общего веса отходов по каждой позиции необходимо умножить вес изделия на количество изделий, относящихся к определенному классу отходов!</div>
-
-                            <div class="form__block">
-                                <div class="form__item">
-                                    <div class="form__item__label">Плотность отходов</div>
-                                    <div class="form__item__enter">
-                                        <input id="id_name" class="form__input" type="text" placeholder="Введите значение" value="">
-                                    </div>
-                                </div>
-
-                                <div class="form__item">
-                                    <div class="form__item__label">Объем пакетов</div>
-                                    <div class="form__item__enter">
-                                        <input id="id_name" class="form__input" type="text" placeholder="Введите значение" value="0">
-                                    </div>
-                                </div>
-
-                                <div class="form__item">
-                                    <div class="form__item__label">Стоимость 1 пакета</div>
-                                    <div class="form__item__enter">
-                                        <input id="id_name" class="form__input" type="text" placeholder="Введите значение" value="">
-                                    </div>
-                                </div>
-                                
-                            </div>
-                            
-                            <table class="table__block waste_A">
-                                <thead>
-                                    <th>Изделие</th>
-                                    <th>Вес изделия, кг</th>
-                                    <th>Общий вес отходов, кг</th>
-                                    <th>Объем отходов, куб. м</th>
-                                    <th>Затраты на вывоз Б</th>
-                                    <th>Объем отходов, л</th>
-                                    <th>Количество пакетов</th>
-                                    <th>Затраты на пакеты, руб</th>
-                                </thead>
-                                <tr>
-                                    <td id="A_1">Одноразовые пеленки/простыни (без абсорбента)</td>
-                                    <td id="A_1_2">0</td>
-                                    <td id="A_1_3"><input id="input_A_1_3" class="table__input" type="text" placeholder="Введите значение" value=""></td>
-                                    <td id="A_1_4">0</td>
-                                    <td id="A_1_5">0</td>
-                                    <td id="A_1_6">0</td>
-                                    <td id="A_1_7">0</td>
-                                    <td id="A_1_8">0</td>
-                                </tr>
-                                <tr>
-                                    <td id="A_2">Впитывающие пеленки</td>
-                                    <td id="A_2_2">0</td>
-                                    <td id="A_2_3"><input id="input_A_2_3" class="table__input" type="text" placeholder="Введите значение" value=""></td>
-                                    <td id="A_2_4">0</td>
-                                    <td id="A_2_5">0</td>
-                                    <td id="A_2_6">0</td>
-                                    <td id="A_2_7">0</td>
-                                    <td id="A_2_8">0</td>
-                                </tr>
-                                <tr>
-                                    <td id="A_3">Прокладки, подгузники</td>
-                                    <td id="A_3_2">0</td>
-                                    <td id="A_3_3"><input id="input_A_3_3" class="table__input" type="text" placeholder="Введите значение" value=""></td>
-                                    <td id="A_3_4">0</td>
-                                    <td id="A_3_5">0</td>
-                                    <td id="A_3_6">0</td>
-                                    <td id="A_3_7">0</td>
-                                    <td id="A_3_8">0</td>
-                                </tr>
-                                <tr>
-                                    <td id="A_4">Хирургические костюмы</td>
-                                    <td id="A_4_2">0</td>
-                                    <td id="A_4_3"><input id="input_A_4_3" class="table__input" type="text" placeholder="Введите значение" value=""></td>
-                                    <td id="A_4_4">0</td>
-                                    <td id="A_4_5">0</td>
-                                    <td id="A_4_6">0</td>
-                                    <td id="A_4_7">0</td>
-                                    <td id="A_4_8">0</td>
-                                </tr>
-                                <tr>
-                                    <td id="A_5">Одноразовая одежда для пациента (рубашки, сорочка, накидка для пациента, брюки процедурные)</td>
-                                    <td id="A_5_2">0</td>
-                                    <td id="A_5_3"><input id="input_A_5_3" class="table__input" type="text" placeholder="Введите значение" value=""></td>
-                                    <td id="A_5_4">0</td>
-                                    <td id="A_5_5">0</td>
-                                    <td id="A_5_6">0</td>
-                                    <td id="A_5_7">0</td>
-                                    <td id="A_5_8">0</td>
-                                </tr>
-                                <tr>
-                                    <td id="A_6">Носки</td>
-                                    <td id="A_6_2">0</td>
-                                    <td id="A_6_3"><input id="input_A_6_3" class="table__input" type="text" placeholder="Введите значение" value=""></td>
-                                    <td id="A_6_4">0</td>
-                                    <td id="A_6_5">0</td>
-                                    <td id="A_6_6">0</td>
-                                    <td id="A_6_7">0</td>
-                                    <td id="A_6_8">0</td>
-                                </tr>
-                                <tr>
-                                    <td id="A_7">Нижнее белье</td>
-                                    <td id="A_7_2">0</td>
-                                    <td id="A_7_3"><input id="input_A_7_3" class="table__input" type="text" placeholder="Введите значение" value=""></td>
-                                    <td id="A_7_4">0</td>
-                                    <td id="A_7_5">0</td>
-                                    <td id="A_7_6">0</td>
-                                    <td id="A_7_7">0</td>
-                                    <td id="A_7_8">0</td>
-                                </tr>
-                                <tr>
-                                    <td id="A_8">Чехол на медоборудование</td>
-                                    <td id="A_8_2">0</td>
-                                    <td id="A_8_3"><input id="input_A_8_3" class="table__input" type="text" placeholder="Введите значение" value=""></td>
-                                    <td id="A_8_4">0</td>
-                                    <td id="A_8_5">0</td>
-                                    <td id="A_8_6">0</td>
-                                    <td id="A_8_7">0</td>
-                                    <td id="A_8_8">0</td>
-                                </tr>
-                                <tr>
-                                    <td id="A_9">Фартук</td>
-                                    <td id="A_9_2">0</td>
-                                    <td id="A_9_3"><input id="input_A_9_3" class="table__input" type="text" placeholder="Введите значение" value=""></td>
-                                    <td id="A_9_4">0</td>
-                                    <td id="A_9_5">0</td>
-                                    <td id="A_9_6">0</td>
-                                    <td id="A_9_7">0</td>
-                                    <td id="A_9_8">0</td>
-                                </tr>
-                                <tr>
-                                    <td id="A_10">Нетканые бахилы</td>
-                                    <td id="A_10_2">0</td>
-                                    <td id="A_10_3"><input id="input_A_10_3" class="table__input" type="text" placeholder="Введите значение" value=""></td>
-                                    <td id="A_10_4">0</td>
-                                    <td id="A_10_5">0</td>
-                                    <td id="A_10_6">0</td>
-                                    <td id="A_10_7">0</td>
-                                    <td id="A_10_8">0</td>
-                                </tr>
-                                <tr>
-                                    <td id="A_11">Халаты</td>
-                                    <td id="A_11_2">0</td>
-                                    <td id="A_11_3"><input id="input_A_11_3" class="table__input" type="text" placeholder="Введите значение" value=""></td>
-                                    <td id="A_11_4">0</td>
-                                    <td id="A_11_5">0</td>
-                                    <td id="A_11_6">0</td>
-                                    <td id="A_11_7">0</td>
-                                    <td id="A_11_8">0</td>
-                                </tr>
-                                <tr>
-                                    <td id="A_12">Шапочки</td>
-                                    <td id="A_12_2">0</td>
-                                    <td id="A_12_3"><input id="input_A_12_3" class="table__input" type="text" placeholder="Введите значение" value=""></td>
-                                    <td id="A_12_4">0</td>
-                                    <td id="A_12_5">0</td>
-                                    <td id="A_12_6">0</td>
-                                    <td id="A_12_7">0</td>
-                                    <td id="A_12_8">0</td>
-                                </tr>
-                                <tr>
-                                    <td id="A_13">Маски</td>
-                                    <td id="A_13_2">0</td>
-                                    <td id="A_13_3"><input id="input_A_13_3" class="table__input" type="text" placeholder="Введите значение" value=""></td>
-                                    <td id="A_13_4">0</td>
-                                    <td id="A_13_5">0</td>
-                                    <td id="A_13_6">0</td>
-                                    <td id="A_13_7">0</td>
-                                    <td id="A_13_8">0</td>
-                                </tr>
-                                <tr>
-                                    <td id="A_14">Одноразовое постельное белье (простыни, пододеяльники, наволочки)</td>
-                                    <td id="A_14_2">0</td>
-                                    <td id="A_14_3"><input id="input_A_14_3" class="table__input" type="text" placeholder="Введите значение" value=""></td>
-                                    <td id="A_14_4">0</td>
-                                    <td id="A_14_5">0</td>
-                                    <td id="A_14_6">0</td>
-                                    <td id="A_14_7">0</td>
-                                    <td id="A_14_8">0</td>
-                                </tr>
-                                <tr>
-                                    <td id="A_15">Чехлы на матрас</td>
-                                    <td id="A_15_2">0</td>
-                                    <td id="A_15_3"><input id="input_A_15_3" class="table__input" type="text" placeholder="Введите значение" value=""></td>
-                                    <td id="A_15_4">0</td>
-                                    <td id="A_15_5">0</td>
-                                    <td id="A_15_6">0</td>
-                                    <td id="A_15_7">0</td>
-                                    <td id="A_15_8">0</td>
-                                </tr>
-                                <tr>
-                                    <td id="A_16">Салфетки для уборки одноразовые</td>
-                                    <td id="A_16_2">0</td>
-                                    <td id="A_16_3"><input id="input_A_16_3" class="table__input" type="text" placeholder="Введите значение" value=""></td>
-                                    <td id="A_16_4">0</td>
-                                    <td id="A_16_5">0</td>
-                                    <td id="A_16_6">0</td>
-                                    <td id="A_16_7">0</td>
-                                    <td id="A_16_8">0</td>
-                                </tr>
-                                <tr>
-                                    <td id="A_17">Другое</td>
-                                    <td id="A_17_2">0</td>
-                                    <td id="A_17_3"><input id="input_A_17_3" class="table__input" type="text" placeholder="Введите значение" value=""></td>
-                                    <td id="A_17_4">0</td>
-                                    <td id="A_17_5">0</td>
-                                    <td id="A_17_6">0</td>
-                                    <td id="A_17_7">0</td>
-                                    <td id="A_17_8">0</td>
-                                </tr>
-                                <tr class="table__block__count">
-                                    <td id="A_18">Всего</td>
-                                    <td id="A_18_2">0</td>
-                                    <td id="A_18_3">0</td>
-                                    <td id="A_18_4">0</td>
-                                    <td id="A_18_5">0</td>
-                                    <td id="A_18_6">0</td>
-                                    <td id="A_18_7">0</td>
-                                    <td id="A_18_8">0</td>
-                                </tr>
-                            </table>
-                        </div>
-                    </div>
-
-                    <div class="dropdown__group">
-                        <div class="dropdown__group__item">
-                            <div class="dropdown__group__name">Отходы класса Б</div>
-                            <div class="drop__icon"><img class="drop_img_group" src="img/plus.svg" alt=""></div>
-                        </div>
-                        <div class="dropdown__content">
-                            <div class="extra_information">Для расчета общего веса отходов по каждой позиции необходимо умножить вес изделия на количество изделий, относящихся к определенному классу отходов!</div>
-
-                            <div class="form__block">
-                                <div class="form__item">
-                                    <div class="form__item__label">Плотность отходов</div>
-                                    <div class="form__item__enter">
-                                        <input id="id_name" class="form__input" type="text" placeholder="Введите значение" value="">
-                                    </div>
-                                </div>
-
-                                <div class="form__item">
-                                    <div class="form__item__label">Объем пакетов</div>
-                                    <div class="form__item__enter">
-                                        <input id="id_name" class="form__input" type="text" placeholder="Введите значение" value="0">
-                                    </div>
-                                </div>
-
-                                <div class="form__item">
-                                    <div class="form__item__label">Стоимость 1 пакета</div>
-                                    <div class="form__item__enter">
-                                        <input id="id_name" class="form__input" type="text" placeholder="Введите значение" value="">
-                                    </div>
-                                </div>
-
-                                <div class="form__item">
-                                    <div class="form__item__label">Объем пакетов для автоклавирования</div>
-                                    <div class="form__item__enter">
-                                        <input id="id_name" class="form__input" type="text" placeholder="Введите значение" value="">
-                                    </div>
-                                </div>
-
-                                <div class="form__item">
-                                    <div class="form__item__label">Стоимость 1 пакета для автоклавирования</div>
-                                    <div class="form__item__enter">
-                                        <input id="id_name" class="form__input" type="text" placeholder="Введите значение" value="">
-                                    </div>
-                                </div>
-                                
-                            </div>
-                            
-                            <div class="table_wrap">
-                                <table class="table__block table__scroll waste_B">
-                                    <thead>
-                                        <th>Изделие</th>
-                                        <th>Вес изделия, кг</th>
-                                        <th>Общий вес отходов, кг</th>
-                                        <th>Объем отходов, куб. м</th>
-                                        <th>Затраты на вывоз Б</th>
-                                        <th>Объем отходов, л</th>
-                                        <th>Количество пакетов</th>
-                                        <th>Затраты на пакеты, руб</th>
-                                        <th>Количество пакетов для автоклавирования</th>
-                                        <th>Затраты на пакеты для автоклавирования, руб</th>
-                                    </thead>
-                                    <tr>
-                                        <td id="B_1">Одноразовые пеленки/простыни (без абсорбента)</td>
-                                        <td id="B_1_2">0</td>
-                                        <td id="B_1_3"><input id="input_B_1_3" class="table__input" type="text" placeholder="Введите значение" value=""></td>
-                                        <td id="B_1_4">0</td>
-                                        <td id="B_1_5">0</td>
-                                        <td id="B_1_6">0</td>
-                                        <td id="B_1_7">0</td>
-                                        <td id="B_1_8">0</td>
-                                        <td id="B_1_9">0</td>
-                                        <td id="B_1_10">0</td>
-                                    </tr>
-                                    <tr>
-                                        <td id="B_2">Впитывающие пеленки</td>
-                                        <td id="B_2_2">0</td>
-                                        <td id="B_2_3"><input id="input_B_2_3" class="table__input" type="text" placeholder="Введите значение" value=""></td>
-                                        <td id="B_2_4">0</td>
-                                        <td id="B_2_5">0</td>
-                                        <td id="B_2_6">0</td>
-                                        <td id="B_2_7">0</td>
-                                        <td id="B_2_8">0</td>
-                                        <td id="B_2_9">0</td>
-                                        <td id="B_2_10">0</td>
-                                    </tr>
-                                    <tr>
-                                        <td id="B_3">Прокладки, подгузники</td>
-                                        <td id="B_3_2">0</td>
-                                        <td id="B_3_3"><input id="input_B_3_3" class="table__input" type="text" placeholder="Введите значение" value=""></td>
-                                        <td id="B_3_4">0</td>
-                                        <td id="B_3_5">0</td>
-                                        <td id="B_3_6">0</td>
-                                        <td id="B_3_7">0</td>
-                                        <td id="B_3_8">0</td>
-                                        <td id="B_3_9">0</td>
-                                        <td id="B_3_10">0</td>
-                                    </tr>
-                                    <tr>
-                                        <td id="B_4">Хирургические костюмы</td>
-                                        <td id="B_4_2">0</td>
-                                        <td id="B_4_3"><input id="input_B_4_3" class="table__input" type="text" placeholder="Введите значение" value=""></td>
-                                        <td id="B_4_4">0</td>
-                                        <td id="B_4_5">0</td>
-                                        <td id="B_4_6">0</td>
-                                        <td id="B_4_7">0</td>
-                                        <td id="B_4_8">0</td>
-                                        <td id="B_4_9">0</td>
-                                        <td id="B_4_10">0</td>
-                                    </tr>
-                                    <tr>
-                                        <td id="B_5">Одноразовая одежда для пациента (рубашки, сорочка, накидка для пациента, брюки процедурные)</td>
-                                        <td id="B_5_2">0</td>
-                                        <td id="B_5_3"><input id="input_B_5_3" class="table__input" type="text" placeholder="Введите значение" value=""></td>
-                                        <td id="B_5_4">0</td>
-                                        <td id="B_5_5">0</td>
-                                        <td id="B_5_6">0</td>
-                                        <td id="B_5_7">0</td>
-                                        <td id="B_5_8">0</td>
-                                        <td id="B_5_9">0</td>
-                                        <td id="B_5_10">0</td>
-                                    </tr>
-                                    <tr>
-                                        <td id="B_6">Носки</td>
-                                        <td id="B_6_2">0</td>
-                                        <td id="B_6_3"><input id="input_B_6_3" class="table__input" type="text" placeholder="Введите значение" value=""></td>
-                                        <td id="B_6_4">0</td>
-                                        <td id="B_6_5">0</td>
-                                        <td id="B_6_6">0</td>
-                                        <td id="B_6_7">0</td>
-                                        <td id="B_6_8">0</td>
-                                        <td id="B_6_9">0</td>
-                                        <td id="B_6_10">0</td>
-                                    </tr>
-                                    <tr>
-                                        <td id="B_7">Нижнее белье</td>
-                                        <td id="B_7_2">0</td>
-                                        <td id="B_7_3"><input id="input_B_7_3" class="table__input" type="text" placeholder="Введите значение" value=""></td>
-                                        <td id="B_7_4">0</td>
-                                        <td id="B_7_5">0</td>
-                                        <td id="B_7_6">0</td>
-                                        <td id="B_7_7">0</td>
-                                        <td id="B_7_8">0</td>
-                                        <td id="B_7_9">0</td>
-                                        <td id="B_7_10">0</td>
-                                    </tr>
-                                    <tr>
-                                        <td id="B_8">Чехол на медоборудование</td>
-                                        <td id="B_8_2">0</td>
-                                        <td id="B_8_3"><input id="input_B_8_3" class="table__input" type="text" placeholder="Введите значение" value=""></td>
-                                        <td id="B_8_4">0</td>
-                                        <td id="B_8_5">0</td>
-                                        <td id="B_8_6">0</td>
-                                        <td id="B_8_7">0</td>
-                                        <td id="B_8_8">0</td>
-                                        <td id="B_8_9">0</td>
-                                        <td id="B_8_10">0</td>
-                                    </tr>
-                                    <tr>
-                                        <td id="B_9">Фартук</td>
-                                        <td id="B_9_2">0</td>
-                                        <td id="B_9_3"><input id="input_B_9_3" class="table__input" type="text" placeholder="Введите значение" value=""></td>
-                                        <td id="B_9_4">0</td>
-                                        <td id="B_9_5">0</td>
-                                        <td id="B_9_6">0</td>
-                                        <td id="B_9_7">0</td>
-                                        <td id="B_9_8">0</td>
-                                        <td id="B_9_9">0</td>
-                                        <td id="B_9_10">0</td>
-                                    </tr>
-                                    <tr>
-                                        <td id="B_10">Нетканые бахилы</td>
-                                        <td id="B_10_2">0</td>
-                                        <td id="B_10_3"><input id="input_B_10_3" class="table__input" type="text" placeholder="Введите значение" value=""></td>
-                                        <td id="B_10_4">0</td>
-                                        <td id="B_10_5">0</td>
-                                        <td id="B_10_6">0</td>
-                                        <td id="B_10_7">0</td>
-                                        <td id="B_10_8">0</td>
-                                        <td id="B_10_9">0</td>
-                                        <td id="B_10_10">0</td>
-                                    </tr>
-                                    <tr>
-                                        <td id="B_11">Халаты</td>
-                                        <td id="B_11_2">0</td>
-                                        <td id="B_11_3"><input id="input_B_11_3" class="table__input" type="text" placeholder="Введите значение" value=""></td>
-                                        <td id="B_11_4">0</td>
-                                        <td id="B_11_5">0</td>
-                                        <td id="B_11_6">0</td>
-                                        <td id="B_11_7">0</td>
-                                        <td id="B_11_8">0</td>
-                                        <td id="B_11_9">0</td>
-                                        <td id="B_11_10">0</td>
-                                    </tr>
-                                    <tr>
-                                        <td id="B_12">Шапочки</td>
-                                        <td id="B_12_2">0</td>
-                                        <td id="B_12_3"><input id="input_B_12_3" class="table__input" type="text" placeholder="Введите значение" value=""></td>
-                                        <td id="B_12_4">0</td>
-                                        <td id="B_12_5">0</td>
-                                        <td id="B_12_6">0</td>
-                                        <td id="B_12_7">0</td>
-                                        <td id="B_12_8">0</td>
-                                        <td id="B_12_9">0</td>
-                                        <td id="B_12_10">0</td>
-                                    </tr>
-                                    <tr>
-                                        <td id="B_13">Маски</td>
-                                        <td id="B_13_2">0</td>
-                                        <td id="B_13_3"><input id="input_B_13_3" class="table__input" type="text" placeholder="Введите значение" value=""></td>
-                                        <td id="B_13_4">0</td>
-                                        <td id="B_13_5">0</td>
-                                        <td id="B_13_6">0</td>
-                                        <td id="B_13_7">0</td>
-                                        <td id="B_13_8">0</td>
-                                        <td id="B_13_9">0</td>
-                                        <td id="B_13_10">0</td>
-                                    </tr>
-                                    <tr>
-                                        <td id="B_14">Одноразовое постельное белье (простыни, пододеяльники, наволочки)</td>
-                                        <td id="B_14_2">0</td>
-                                        <td id="B_14_3"><input id="input_B_14_3" class="table__input" type="text" placeholder="Введите значение" value=""></td>
-                                        <td id="B_14_4">0</td>
-                                        <td id="B_14_5">0</td>
-                                        <td id="B_14_6">0</td>
-                                        <td id="B_14_7">0</td>
-                                        <td id="B_14_8">0</td>
-                                        <td id="B_14_9">0</td>
-                                        <td id="B_14_10">0</td>
-                                    </tr>
-                                    <tr>
-                                        <td id="B_15">Чехлы на матрас</td>
-                                        <td id="B_15_2">0</td>
-                                        <td id="B_15_3"><input id="input_B_15_3" class="table__input" type="text" placeholder="Введите значение" value=""></td>
-                                        <td id="B_15_4">0</td>
-                                        <td id="B_15_5">0</td>
-                                        <td id="B_15_6">0</td>
-                                        <td id="B_15_7">0</td>
-                                        <td id="B_15_8">0</td>
-                                        <td id="B_15_9">0</td>
-                                        <td id="B_15_10">0</td>
-                                    </tr>
-                                    <tr>
-                                        <td id="B_16">Салфетки для уборки одноразовые</td>
-                                        <td id="B_16_2">0</td>
-                                        <td id="B_16_3"><input id="input_B_16_3" class="table__input" type="text" placeholder="Введите значение" value=""></td>
-                                        <td id="B_16_4">0</td>
-                                        <td id="B_16_5">0</td>
-                                        <td id="B_16_6">0</td>
-                                        <td id="B_16_7">0</td>
-                                        <td id="B_16_8">0</td>
-                                        <td id="B_16_9">0</td>
-                                        <td id="B_16_10">0</td>
-                                    </tr>
-                                    <tr>
-                                        <td id="B_17">Другое</td>
-                                        <td id="B_17_2">0</td>
-                                        <td id="B_17_3"><input id="input_B_17_3" class="table__input" type="text" placeholder="Введите значение" value=""></td>
-                                        <td id="B_17_4">0</td>
-                                        <td id="B_17_5">0</td>
-                                        <td id="B_17_6">0</td>
-                                        <td id="B_17_7">0</td>
-                                        <td id="B_17_8">0</td>
-                                        <td id="B_17_9">0</td>
-                                        <td id="B_17_10">0</td>
-                                    </tr>
-                                    <tr class="table__block__count">
-                                        <td id="B_18">Всего</td>
-                                        <td id="B_18_2">0</td>
-                                        <td id="B_18_3">0</td>
-                                        <td id="B_18_4">0</td>
-                                        <td id="B_18_5">0</td>
-                                        <td id="B_18_6">0</td>
-                                        <td id="B_18_7">0</td>
-                                        <td id="B_18_8">0</td>
-                                        <td id="B_18_9">0</td>
-                                        <td id="B_18_10">0</td>
-                                    </tr>
-                                </table>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="dropdown__group">
-                        <div class="dropdown__group__item">
-                            <div class="dropdown__group__name">Отходы класса В</div>
-                            <div class="drop__icon"><img class="drop_img_group" src="img/plus.svg" alt=""></div>
-                        </div>
-                        <div class="dropdown__content">
-                            <div class="extra_information">Для расчета общего веса отходов по каждой позиции необходимо умножить вес изделия на количество изделий, относящихся к определенному классу отходов!</div>
-
-                            <div class="form__block">
-                                <div class="form__item">
-                                    <div class="form__item__label">Плотность отходов</div>
-                                    <div class="form__item__enter">
-                                        <input id="id_name" class="form__input" type="text" placeholder="Введите значение" value="">
-                                    </div>
-                                </div>
-
-                                <div class="form__item">
-                                    <div class="form__item__label">Объем пакетов</div>
-                                    <div class="form__item__enter">
-                                        <input id="id_name" class="form__input" type="text" placeholder="Введите значение" value="0">
-                                    </div>
-                                </div>
-
-                                <div class="form__item">
-                                    <div class="form__item__label">Стоимость 1 пакета</div>
-                                    <div class="form__item__enter">
-                                        <input id="id_name" class="form__input" type="text" placeholder="Введите значение" value="">
-                                    </div>
-                                </div>
-
-                                <div class="form__item">
-                                    <div class="form__item__label">Объем пакетов для автоклавирования</div>
-                                    <div class="form__item__enter">
-                                        <input id="id_name" class="form__input" type="text" placeholder="Введите значение" value="">
-                                    </div>
-                                </div>
-
-                                <div class="form__item">
-                                    <div class="form__item__label">Стоимость 1 пакета для автоклавирования</div>
-                                    <div class="form__item__enter">
-                                        <input id="id_name" class="form__input" type="text" placeholder="Введите значение" value="">
-                                    </div>
-                                </div>
-                                
-                            </div>
-                            
-                            <div class="table_wrap">
-                                <table class="table__block waste_C">
-                                    <thead>
-                                        <th>Изделие</th>
-                                        <th>Вес изделия, кг</th>
-                                        <th>Общий вес отходов, кг</th>
-                                        <th>Объем отходов, куб. м</th>
-                                        <th>Затраты на вывоз Б</th>
-                                        <th>Объем отходов, л</th>
-                                        <th>Количество пакетов</th>
-                                        <th>Затраты на пакеты, руб</th>
-                                        <th>Количество пакетов для автоклавирования</th>
-                                        <th>Затраты на пакеты для автоклавирования, руб</th>
-                                    </thead>
-                                    <tr>
-                                        <td id="C_1">Одноразовые пеленки/простыни (без абсорбента)</td>
-                                        <td id="C_1_2">0</td>
-                                        <td id="C_1_3"><input id="input_C_1_3" class="table__input" type="text" placeholder="Введите значение" value=""></td>
-                                        <td id="C_1_4">0</td>
-                                        <td id="C_1_5">0</td>
-                                        <td id="C_1_6">0</td>
-                                        <td id="C_1_7">0</td>
-                                        <td id="C_1_8">0</td>
-                                        <td id="C_1_9">0</td>
-                                        <td id="C_1_10">0</td>
-                                    </tr>
-                                    <tr>
-                                        <td id="C_2">Впитывающие пеленки</td>
-                                        <td id="C_2_2">0</td>
-                                        <td id="C_2_3"><input id="input_C_2_3" class="table__input" type="text" placeholder="Введите значение" value=""></td>
-                                        <td id="C_2_4">0</td>
-                                        <td id="C_2_5">0</td>
-                                        <td id="C_2_6">0</td>
-                                        <td id="C_2_7">0</td>
-                                        <td id="C_2_8">0</td>
-                                        <td id="C_2_9">0</td>
-                                        <td id="C_2_10">0</td>
-                                    </tr>
-                                    <tr>
-                                        <td id="C_3">Прокладки, подгузники</td>
-                                        <td id="C_3_2">0</td>
-                                        <td id="C_3_3"><input id="input_C_3_3" class="table__input" type="text" placeholder="Введите значение" value=""></td>
-                                        <td id="C_3_4">0</td>
-                                        <td id="C_3_5">0</td>
-                                        <td id="C_3_6">0</td>
-                                        <td id="C_3_7">0</td>
-                                        <td id="C_3_8">0</td>
-                                        <td id="C_3_9">0</td>
-                                        <td id="C_3_10">0</td>
-                                    </tr>
-                                    <tr>
-                                        <td id="C_4">Хирургические костюмы</td>
-                                        <td id="C_4_2">0</td>
-                                        <td id="C_4_3"><input id="input_C_4_3" class="table__input" type="text" placeholder="Введите значение" value=""></td>
-                                        <td id="C_4_4">0</td>
-                                        <td id="C_4_5">0</td>
-                                        <td id="C_4_6">0</td>
-                                        <td id="C_4_7">0</td>
-                                        <td id="C_4_8">0</td>
-                                        <td id="C_4_9">0</td>
-                                        <td id="C_4_10">0</td>
-                                    </tr>
-                                    <tr>
-                                        <td id="C_5">Одноразовая одежда для пациента (рубашки, сорочка, накидка для пациента, брюки процедурные)</td>
-                                        <td id="C_5_2">0</td>
-                                        <td id="C_5_3"><input id="input_C_5_3" class="table__input" type="text" placeholder="Введите значение" value=""></td>
-                                        <td id="C_5_4">0</td>
-                                        <td id="C_5_5">0</td>
-                                        <td id="C_5_6">0</td>
-                                        <td id="C_5_7">0</td>
-                                        <td id="C_5_8">0</td>
-                                        <td id="C_5_9">0</td>
-                                        <td id="C_5_10">0</td>
-                                    </tr>
-                                    <tr>
-                                        <td id="C_6">Носки</td>
-                                        <td id="C_6_2">0</td>
-                                        <td id="C_6_3"><input id="input_C_6_3" class="table__input" type="text" placeholder="Введите значение" value=""></td>
-                                        <td id="C_6_4">0</td>
-                                        <td id="C_6_5">0</td>
-                                        <td id="C_6_6">0</td>
-                                        <td id="C_6_7">0</td>
-                                        <td id="C_6_8">0</td>
-                                        <td id="C_6_9">0</td>
-                                        <td id="C_6_10">0</td>
-                                    </tr>
-                                    <tr>
-                                        <td id="C_7">Нижнее белье</td>
-                                        <td id="C_7_2">0</td>
-                                        <td id="C_7_3"><input id="input_C_7_3" class="table__input" type="text" placeholder="Введите значение" value=""></td>
-                                        <td id="C_7_4">0</td>
-                                        <td id="C_7_5">0</td>
-                                        <td id="C_7_6">0</td>
-                                        <td id="C_7_7">0</td>
-                                        <td id="C_7_8">0</td>
-                                        <td id="C_7_9">0</td>
-                                        <td id="C_7_10">0</td>
-                                    </tr>
-                                    <tr>
-                                        <td id="C_8">Чехол на медоборудование</td>
-                                        <td id="C_8_2">0</td>
-                                        <td id="C_8_3"><input id="input_C_8_3" class="table__input" type="text" placeholder="Введите значение" value=""></td>
-                                        <td id="C_8_4">0</td>
-                                        <td id="C_8_5">0</td>
-                                        <td id="C_8_6">0</td>
-                                        <td id="C_8_7">0</td>
-                                        <td id="C_8_8">0</td>
-                                        <td id="C_8_9">0</td>
-                                        <td id="C_8_10">0</td>
-                                    </tr>
-                                    <tr>
-                                        <td id="C_9">Фартук</td>
-                                        <td id="C_9_2">0</td>
-                                        <td id="C_9_3"><input id="input_C_9_3" class="table__input" type="text" placeholder="Введите значение" value=""></td>
-                                        <td id="C_9_4">0</td>
-                                        <td id="C_9_5">0</td>
-                                        <td id="C_9_6">0</td>
-                                        <td id="C_9_7">0</td>
-                                        <td id="C_9_8">0</td>
-                                        <td id="C_9_9">0</td>
-                                        <td id="C_9_10">0</td>
-                                    </tr>
-                                    <tr>
-                                        <td id="C_10">Нетканые бахилы</td>
-                                        <td id="C_10_2">0</td>
-                                        <td id="C_10_3"><input id="input_C_10_3" class="table__input" type="text" placeholder="Введите значение" value=""></td>
-                                        <td id="C_10_4">0</td>
-                                        <td id="C_10_5">0</td>
-                                        <td id="C_10_6">0</td>
-                                        <td id="C_10_7">0</td>
-                                        <td id="C_10_8">0</td>
-                                        <td id="C_10_9">0</td>
-                                        <td id="C_10_10">0</td>
-                                    </tr>
-                                    <tr>
-                                        <td id="C_11">Халаты</td>
-                                        <td id="C_11_2">0</td>
-                                        <td id="C_11_3"><input id="input_C_11_3" class="table__input" type="text" placeholder="Введите значение" value=""></td>
-                                        <td id="C_11_4">0</td>
-                                        <td id="C_11_5">0</td>
-                                        <td id="C_11_6">0</td>
-                                        <td id="C_11_7">0</td>
-                                        <td id="C_11_8">0</td>
-                                        <td id="C_11_9">0</td>
-                                        <td id="C_11_10">0</td>
-                                    </tr>
-                                    <tr>
-                                        <td id="C_12">Шапочки</td>
-                                        <td id="C_12_2">0</td>
-                                        <td id="C_12_3"><input id="input_C_12_3" class="table__input" type="text" placeholder="Введите значение" value=""></td>
-                                        <td id="C_12_4">0</td>
-                                        <td id="C_12_5">0</td>
-                                        <td id="C_12_6">0</td>
-                                        <td id="C_12_7">0</td>
-                                        <td id="C_12_8">0</td>
-                                        <td id="C_12_9">0</td>
-                                        <td id="C_12_10">0</td>
-                                    </tr>
-                                    <tr>
-                                        <td id="C_13">Маски</td>
-                                        <td id="C_13_2">0</td>
-                                        <td id="C_13_3"><input id="input_C_13_3" class="table__input" type="text" placeholder="Введите значение" value=""></td>
-                                        <td id="C_13_4">0</td>
-                                        <td id="C_13_5">0</td>
-                                        <td id="C_13_6">0</td>
-                                        <td id="C_13_7">0</td>
-                                        <td id="C_13_8">0</td>
-                                        <td id="C_13_9">0</td>
-                                        <td id="C_13_10">0</td>
-                                    </tr>
-                                    <tr>
-                                        <td id="C_14">Одноразовое постельное белье (простыни, пододеяльники, наволочки)</td>
-                                        <td id="C_14_2">0</td>
-                                        <td id="C_14_3"><input id="input_C_14_3" class="table__input" type="text" placeholder="Введите значение" value=""></td>
-                                        <td id="C_14_4">0</td>
-                                        <td id="C_14_5">0</td>
-                                        <td id="C_14_6">0</td>
-                                        <td id="C_14_7">0</td>
-                                        <td id="C_14_8">0</td>
-                                        <td id="C_14_9">0</td>
-                                        <td id="C_14_10">0</td>
-                                    </tr>
-                                    <tr>
-                                        <td id="C_15">Чехлы на матрас</td>
-                                        <td id="C_15_2">0</td>
-                                        <td id="C_15_3"><input id="input_C_15_3" class="table__input" type="text" placeholder="Введите значение" value=""></td>
-                                        <td id="C_15_4">0</td>
-                                        <td id="C_15_5">0</td>
-                                        <td id="C_15_6">0</td>
-                                        <td id="C_15_7">0</td>
-                                        <td id="C_15_8">0</td>
-                                        <td id="C_15_9">0</td>
-                                        <td id="C_15_10">0</td>
-                                    </tr>
-                                    <tr>
-                                        <td id="C_16">Салфетки для уборки одноразовые</td>
-                                        <td id="C_16_2">0</td>
-                                        <td id="C_16_3"><input id="input_C_16_3" class="table__input" type="text" placeholder="Введите значение" value=""></td>
-                                        <td id="C_16_4">0</td>
-                                        <td id="C_16_5">0</td>
-                                        <td id="C_16_6">0</td>
-                                        <td id="C_16_7">0</td>
-                                        <td id="C_16_8">0</td>
-                                        <td id="C_16_9">0</td>
-                                        <td id="C_16_10">0</td>
-                                    </tr>
-                                    <tr>
-                                        <td id="C_17">Другое</td>
-                                        <td id="C_17_2">0</td>
-                                        <td id="C_17_3"><input id="input_C_17_3" class="table__input" type="text" placeholder="Введите значение" value=""></td>
-                                        <td id="C_17_4">0</td>
-                                        <td id="C_17_5">0</td>
-                                        <td id="C_17_6">0</td>
-                                        <td id="C_17_7">0</td>
-                                        <td id="C_17_8">0</td>
-                                        <td id="C_17_9">0</td>
-                                        <td id="C_17_10">0</td>
-                                    </tr>
-                                    <tr class="table__block__count">
-                                        <td id="C_18">Всего</td>
-                                        <td id="C_18_2">0</td>
-                                        <td id="C_18_3">0</td>
-                                        <td id="C_18_4">0</td>
-                                        <td id="C_18_5">0</td>
-                                        <td id="C_18_6">0</td>
-                                        <td id="C_18_7">0</td>
-                                        <td id="C_18_8">0</td>
-                                        <td id="C_18_9">0</td>
-                                        <td id="C_18_10">0</td>
-                                    </tr>
-                                </table>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div> -->
-
             <div class="dropdown__group">
                 <div class="dropdown__group__item">
                     <div class="dropdown__group__name">Результаты</div>
@@ -3378,7 +2509,7 @@
                                 
                                 <!-- Транспортировка -->
                                 <tr>
-                                    <td rowspan="5" data-group="transportation" data-original-rowspan="15" class="collapsed-header">Транспортировка</td>
+                                    <td rowspan="4" data-group="transportation" data-original-rowspan="15" class="collapsed-header">Транспортировка</td>
                                 </tr>
                                 <!-- <tr data-process="transportation" data-indicator="employee_count" class="collapsed">
                                     <td>Число сотрудников, транспортирующих одноразовые изделия</td>
@@ -3424,10 +2555,10 @@
                                     <td>Расходы на пакеты, мешки, руб</td>
                                     <td>-</td>
                                 </tr> -->
-                                <tr data-process="transportation" data-indicator="sum_cost_employee">
+                                <!-- <tr data-process="transportation" data-indicator="sum_cost_employee">
                                     <td>Затраты на персонал, руб</td>
                                     <td>-</td>
-                                </tr>
+                                </tr> -->
                                 <tr data-process="transportation" data-indicator="sum_year">
                                     <td>Затраты на транспортировку изделия в год, руб</td>
                                     <td id="total_transportation">0</td>
@@ -3443,16 +2574,16 @@
 
                                 <!-- Обеззараживание для одноразовых -->
                                 <tr>
-                                    <td rowspan="4" data-group="waste_disinfection" data-original-rowspan="8" class="collapsed-header">Обеззараживание и вывоз отходов</td>
+                                    <td rowspan="2" data-group="waste_disinfection" data-original-rowspan="8" class="collapsed-header">Обеззараживание и вывоз отходов</td>
                                 </tr>
-                                <tr data-process="waste_disinfection" data-indicator="sum_cost_waste_disinfection_employee_physic">
+                                <!-- <tr data-process="waste_disinfection" data-indicator="sum_cost_waste_disinfection_employee_physic">
                                     <td>Затраты на персонал при физическом методе, руб</td>
                                     <td>-</td>
                                 </tr>
                                 <tr data-process="waste_disinfection" data-indicator="sum_cost_waste_disinfection_employee_chemical">
                                     <td>Затраты на персонал при химическом методе, руб</td>
                                     <td>-</td>
-                                </tr>
+                                </tr> -->
                                 <tr data-process="waste_disinfection" data-indicator="total_cost">
                                     <td>Затраты на обеззараживание и вывоз отходов, руб.</td>
                                     <td id="total_waste_disinfection">0</td>
@@ -3460,12 +2591,12 @@
 
                                 <!-- Обеззараживание для многоразовых -->
                                 <tr>
-                                    <td rowspan="3" data-group="disinfection" data-original-rowspan="8" class="collapsed-header">Обеззараживание (для многоразовых изделий)</td>
+                                    <td rowspan="2" data-group="disinfection" data-original-rowspan="8" class="collapsed-header">Обеззараживание (для многоразовых изделий)</td>
                                 </tr>
-                                <tr data-process="disinfection" data-indicator="sum_cost_employee">
+                                <!-- <tr data-process="disinfection" data-indicator="sum_cost_employee">
                                     <td>Затраты на персонал, руб</td>
                                     <td>-</td>
-                                </tr>
+                                </tr> -->
                                 <tr data-process="disinfection" data-indicator="cost_disinfection_sum">
                                     <td>Затраты на обеззараживание многоразовых изделий, руб.</td>
                                     <td id="total_disinfection">0</td>
@@ -3473,12 +2604,12 @@
 
                                 <!-- Стирка (многоразового изделия) -->
                                 <tr>
-                                    <td rowspan="3" data-group="washing" data-original-rowspan="8" class="collapsed-header">Стирка</td>
+                                    <td rowspan="2" data-group="washing" data-original-rowspan="8" class="collapsed-header">Стирка</td>
                                 </tr>
-                                <tr data-process="washing" data-indicator="sum_cost_employee">
+                                <!-- <tr data-process="washing" data-indicator="sum_cost_employee">
                                     <td>Затраты на персонал, руб</td>
                                     <td>-</td>
-                                </tr>
+                                </tr> -->
                                 <tr data-process="washing" data-indicator="cost_washing_ironing_sum">
                                     <td>Затраты на стирку и глажку многоразовых изделий, руб.</td>
                                     <td id="total_washing">0</td>
@@ -3486,12 +2617,12 @@
 
                                 <!-- Стерилизация (многоразового изделия) -->
                                 <tr>
-                                    <td rowspan="3" data-group="sterilization" data-original-rowspan="8" class="collapsed-header">Стерилизация</td>
+                                    <td rowspan="2" data-group="sterilization" data-original-rowspan="8" class="collapsed-header">Стерилизация</td>
                                 </tr>
-                                <tr data-process="sterilization" data-indicator="sum_cost_employee">
+                                <!-- <tr data-process="sterilization" data-indicator="sum_cost_employee">
                                     <td>Затраты на персонал, руб</td>
                                     <td>-</td>
-                                </tr>
+                                </tr> -->
                                 <tr data-process="sterilization" data-indicator="sterilization_cost_sum">
                                     <td>Затраты на проведение стерилизации, руб</td>
                                     <td id="total_sterilization">0</td>
@@ -3499,12 +2630,12 @@
 
                                 <!-- Ремонт (многоразового изделия) -->
                                 <tr>
-                                    <td rowspan="3" data-group="repair" data-original-rowspan="8" class="collapsed-header">Ремонт</td>
+                                    <td rowspan="2" data-group="repair" data-original-rowspan="8" class="collapsed-header">Ремонт</td>
                                 </tr>
-                                <tr data-process="repair" data-indicator="sum_cost_employee">
+                                <!-- <tr data-process="repair" data-indicator="sum_cost_employee">
                                     <td>Затраты на персонал, руб</td>
                                     <td>-</td>
-                                </tr>
+                                </tr> -->
                                 <tr data-process="repair" data-indicator="repair_cost_sum">
                                     <td>Затраты на ремонт многоразовых изделий, руб.</td>
                                     <td id="total_repair">0</td>
@@ -3524,7 +2655,9 @@
                     </div>
                     <div class="total_wrap">
                         <div class="total_item">Общий итог затрат по одноразовым изделиям, руб: <span id="total_disposable"></span></div>
+                        <div class="total_item total_item_cost_employee">Из них затраты на персонал, руб: <span id="total_disposable_cost_employee"></span></div>
                         <div class="total_item">Общий итог затрат по многоразовым изделиям, руб: <span id="total_reusable"></span></div>
+                        <div class="total_item total_item_cost_employee">Из них затраты на персонал, руб: <span id="total_reusable_cost_employee"></span></div>
                         <div class="total_item">Общий итог затрат по всем изделиям, руб: <span id="total"></span></div>
                     </div>
                 </div>
@@ -3536,20 +2669,215 @@
                     <div class="drop__icon"><img class="drop_img_group" src="img/plus.svg" alt=""></div>
                 </div>
                 <div class="dropdown__content">
-                    
+                    <div class="dropdown__group">
+                        <div class="dropdown__group__item">
+                            <div class="dropdown__group__name">При отсутствии собственных данных используются интегрированные показатели</div>
+                            <div class="drop__icon"><img class="drop_img_group" src="img/plus.svg" alt=""></div>
+                        </div>
+                        <div class="dropdown__content">
+                            <ul class="sprav_list">
+                                <li class="sprav_list_item">Средняя стоимость одноразовых и многоразовых изделий, дезинфицирующих средств получены из данных государственных закупок <a href="https://zakupki.gov.ru">https://zakupki.gov.ru</a> и иных интернет-источников.</li>
+                                <li class="sprav_list_item">Стоимость часа работы приведена на основании справочника типовых оценок и стандартных величин Министерства экономического развития Российской Федерации.</li>
+                                <li class="sprav_list_item">Расчет затрат на дезинфицирующее средство приведен на примере средства на основе третичных аминов.</li>
+                                <li class="sprav_list_item">Число сотрудников, транспортирующих изделия, принято за 1.  Соотношение затрачиваемого времени на транспортировку одноразовых и многоразовых изделий 1:3 ч.</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="dropdown__group">
+                        <div class="dropdown__group__item">
+                            <div class="dropdown__group__name">Как мы считали?</div>
+                            <div class="drop__icon"><img class="drop_img_group" src="img/plus.svg" alt=""></div>
+                        </div>
+                        <div class="dropdown__content">
+                            <div class="dropdown__group">
+                                <div class="dropdown__group__item">
+                                    <div class="dropdown__group__name">Затраты на персонал</div>
+                                    <div class="drop__icon"><img class="drop_img_group" src="img/plus.svg" alt=""></div>
+                                </div>
+                                <div class="dropdown__content">
+                                    <div class="descr">Затраты включают в себя расходы на годовую зарплату персонала и на медицинский осмотр. Взята средняя стоимость медицинского осмотра – 2 000 руб.</div>
+                                    <div class="dropdown__group">
+                                        <div class="dropdown__group__item">
+                                            <div class="dropdown__group__name">Пример расчета</div>
+                                            <div class="drop__icon"><img class="drop_img_group" src="img/plus.svg" alt=""></div>
+                                        </div>
+                                        <div class="dropdown__content">
+                                            <div class="descr">
+                                                <p class="paragraph_example">Стоимость часа работы – 450 руб.</p>
+                                                <p class="paragraph_example">Количество часов в год, затрачиваемых на обеззараживание одним сотрудником – 30 ч</p>
+                                                <p class="paragraph_example">Число сотрудников – 3 человека</p>
+                                                <p class="paragraph_example">Затраты на персонал = (450*30*3)+(2000*3)=46 500  руб.</p>
+                                            </div>
+                                            
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="dropdown__group">
+                                <div class="dropdown__group__item">
+                                    <div class="dropdown__group__name">Затраты на оборудование</div>
+                                    <div class="drop__icon"><img class="drop_img_group" src="img/plus.svg" alt=""></div>
+                                </div>
+                                <div class="dropdown__content">
+                                    <div class="descr">Затраты рассчитываются на 1 год эксплуатации.</div>
+                                    <div class="dropdown__group">
+                                        <div class="dropdown__group__item">
+                                            <div class="dropdown__group__name">Пример расчета</div>
+                                            <div class="drop__icon"><img class="drop_img_group" src="img/plus.svg" alt=""></div>
+                                        </div>
+                                        <div class="dropdown__content">
+                                            <div class="descr">
+                                                <p class="paragraph_example">Стоимость оборудования – 500 000 руб.</p>
+                                                <p class="paragraph_example">Срок эксплуатации – 10 лет</p>
+                                                <p class="paragraph_example">Ежегодные затраты = 500 000/10 = 50 000 руб.</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="dropdown__group">
+                                <div class="dropdown__group__item">
+                                    <div class="dropdown__group__name">Затраты на обеззараживание и вывоз отходов</div>
+                                    <div class="drop__icon"><img class="drop_img_group" src="img/plus.svg" alt=""></div>
+                                </div>
+                                <div class="dropdown__content">
+                                    <div class="descr">
+                                        <p>Затраты включают в себя расходы на:</p>
+                                        <p>- отходы класса А: пакеты для сбора, вывоз отходов</p>
+                                        <p>- отходы классов Б и В: пакеты для сбора, пакеты для автоклавирования, оборудование для обеззараживания, дезсредство, персонал, вывоз отходов. Затраты на пакеты для автоклавирования и оборудование для обеззараживания учитываются при физическом методе, на дезсредство – при химическом.</p>
+                                    </div>
+                                    <div class="dropdown__group">
+                                        <div class="dropdown__group__item">
+                                            <div class="dropdown__group__name">Пример расчета</div>
+                                            <div class="drop__icon"><img class="drop_img_group" src="img/plus.svg" alt=""></div>
+                                        </div>
+                                        <div class="dropdown__content">
+                                            <div class="descr">
+                                                <p class="paragraph_example">Стоимость вывоза 1 куб. м отходов класса Б – 2 200 руб.</p>
+                                                <p class="paragraph_example">Плотность отходов – 70 кг/куб. м</p>
+                                                <p class="paragraph_example">Стоимость пакета для сбора отходов – 2,5 руб.</p>
+                                                <p class="paragraph_example">Объем пакета – 15 л</p>
+                                                <p class="paragraph_example">Стоимость пакета для автоклавирования – 3,1 руб.</p>
+                                                <p class="paragraph_example">Объем пакета – 30 л</p>
+                                                <p class="paragraph_example">Затраты на оборудование – 15 000 руб.</p>
+                                                <p class="paragraph_example">Затраты на персонал – 5 183 руб.</p>
+                                                <br>
+                                                <p class="paragraph_example">Количество изделий, относящихся к этому классу отходов, шт. – 300 шт.</p>
+                                                <p class="paragraph_example">Вес 1 изделия 0,5 кг</p>
+                                                <p class="paragraph_example">Вес отходов = 300*0,5 = 150 кг</p>
+                                                <p class="paragraph_example">Объем отходов в куб. м = 150/70 = 2,14 куб. м</p>
+                                                <p class="paragraph_example">Объем отходов в л = 2,14*1000 = 2 140 л</p>
+                                                <p class="paragraph_example">Затраты на вывоз отходов = 2,14* 2 200 = 4 708 руб.</p>
+                                                <p class="paragraph_example">Затраты на пакеты для сбора = 2 140/15*2,5 = 356,67 руб.</p>
+                                                <p class="paragraph_example">Затраты на пакеты для автоклавирования = 2 140/30*3,1 = 221,13 руб.</p>
+                                                <br>
+                                                <p class="paragraph_example">Общие затраты = 15 000+ 5 183+4 708+ 356,67+221,13 = 25,468,8 руб.</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="dropdown__group">
+                                <div class="dropdown__group__item">
+                                    <div class="dropdown__group__name">Оценка затрат по количеству манипуляций</div>
+                                    <div class="drop__icon"><img class="drop_img_group" src="img/plus.svg" alt=""></div>
+                                </div>
+                                <div class="dropdown__content">
+                                    <div class="descr">
+                                        <p>Количество изделий, подвергаемых обеззараживанию и стирке</p>
+                                        <p>При отсутствии собственных данных о количестве изделий, которые подвергаются обеззараживанию и стирке, калькулятор помогает рассчитать их количество и затраты самостоятельно. Для этого используются количество манипуляций, число изделий в 1 манипуляцию и частота обработки. Количество изделий, обрабатываемых за один раз, округляется до большего целого.</p>
+                                    </div>
+                                    <div class="dropdown__group">
+                                        <div class="dropdown__group__item">
+                                            <div class="dropdown__group__name">Пример расчета</div>
+                                            <div class="drop__icon"><img class="drop_img_group" src="img/plus.svg" alt=""></div>
+                                        </div>
+                                        <div class="dropdown__content">
+                                            <div class="descr">
+                                                <p class="paragraph_example">200 манипуляций в год, 2 изделия в манипуляцию, частота стирки – 3 раза в неделю.</p>
+                                                <p class="paragraph_example">Дней в году - 365, изделия стираются каждые 7/3=2,3 суток.</p>
+                                                <p class="paragraph_example">Количество стираемых изделий в 1 стирку = ((200*2)/365)*2,3=2,521.</p>
+                                                <p class="paragraph_example">Число округляется до целого.</p>
+                                                <p class="paragraph_example">Количество недель в году - 52 </p>
+                                                <p class="paragraph_example">Количество стираемых изделий в год = 3*3*52=468.</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="dropdown__group">
+                                <div class="dropdown__group__item">
+                                    <div class="dropdown__group__name">Примерное количество часов, затрачиваемых на процесс</div>
+                                    <div class="drop__icon"><img class="drop_img_group" src="img/plus.svg" alt=""></div>
+                                </div>
+                                <div class="dropdown__content">
+                                    <div class="descr">
+                                        <p>В случае отсутствия информации о затрачиваемых часах на процесс, калькулятор самостоятельно вычисляет время для некоторых этапов в зависимости от количества изделий, их веса, мощностей оборудования, числа сотрудников</p>
+                                    </div>
+                                    <div class="dropdown__group">
+                                        <div class="dropdown__group__item">
+                                            <div class="dropdown__group__name">Пример расчета</div>
+                                            <div class="drop__icon"><img class="drop_img_group" src="img/plus.svg" alt=""></div>
+                                        </div>
+                                        <div class="dropdown__content">
+                                            <div class="descr">
+                                                <p class="paragraph_example">Количество стерилизуемых изделий – 350 шт.</p>
+                                                <p class="paragraph_example">Вес изделия – 0,3 кг</p>
+                                                <p class="paragraph_example">Количество, стерилизуемое в 1 загрузку – 2,6 кг</p>
+                                                <p class="paragraph_example">Время, затрачиваемое на загрузку и выгрузку изделий (константа) – 0,5 ч</p>
+                                                <p class="paragraph_example">Длительность одного цикла стерилизации – 0,3 ч</p>
+                                                <p class="paragraph_example">Число сотрудников - 1</p>
+                                                <br>
+                                                <p class="paragraph_example">Примерное количество часов на стерилизацию = (((350*0,3)/2,6)*0,3+((350*0,3)/2,6)*0,5)/1 = 60,57 ч</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="dropdown__group">
+                                <div class="dropdown__group__item">
+                                    <div class="dropdown__group__name">Бахилы и носки</div>
+                                    <div class="drop__icon"><img class="drop_img_group" src="img/plus.svg" alt=""></div>
+                                </div>
+                                <div class="dropdown__content">
+                                    <div class="descr">
+                                        <p>Расчеты для носков и бахил проводятся на пары, а не штуки.</p>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="dropdown__group">
+                                <div class="dropdown__group__item">
+                                    <div class="dropdown__group__name">Налог на имущество</div>
+                                    <div class="drop__icon"><img class="drop_img_group" src="img/plus.svg" alt=""></div>
+                                </div>
+                                <div class="dropdown__content">
+                                    <div class="descr">
+                                        <p>Налог необходимо указывать на всю площадь, необходимую для хранения, а не на 1 кв.м.</p>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
                 </div>
             </div>
-
-            <!-- <button class="btn btn_result" id="" onclick="ResultSubmit()">Кнопка</button> -->
 
         </div>
     </main>
 
     <footer class="footer__container">
         <div class="container">
-            <p class="float-left">Калькулятор расчета затрат на использование тканых изделий в медицинских организациях
-            </p>
-            <p class="float-right">&copy ФБУН Центральный НИИ Эпидемиологии Роспотребнадзора</p>
+            <div class="footer_wrap">
+                <p>Калькулятор расчета затрат за год на использование тканых изделий в медицинских организациях</p>
+                <p>&copy ФБУН Центральный НИИ Эпидемиологии Роспотребнадзора</p>
+            </div>
+
         </div>
     </footer>
 
