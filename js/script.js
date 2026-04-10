@@ -938,6 +938,85 @@ document.addEventListener('change', function(e) {
         recount();
     }
 
+    //Указали иформацию об оборудовании в другом изделии
+    if (e.target.matches('input[data-name-indicator="indicated_equipment"]')) {
+        let info_input = e.target.closest('input[data-name-indicator="indicated_equipment"]');
+
+        let product_type = info_input.dataset.nameType;
+        let process_name = info_input.dataset.nameProcess;
+        let product_name = info_input.dataset.nameProduct;
+
+        let modify = info_input.dataset.modifyEquipment;
+        let modify_selector = '';
+
+        if (modify == 'y') {
+            modify_selector = 'modification_';
+        }
+        
+        let info_form_block_id = product_type + '_' + product_name + '_' + process_name + '_indicated_' + modify_selector + 'equipment_form_block';
+        let info_form_block = document.querySelector('#' + info_form_block_id);
+
+        let equipment_cost = document.querySelector('input[data-name-type="' + product_type + '"][data-name-product="' + product_name + '"][data-name-process="' + process_name + '"][data-name-indicator="' + modify_selector + 'equipment_cost"]');
+        let equipment_lifetime = document.querySelector('input[data-name-type="' + product_type + '"][data-name-product="' + product_name + '"][data-name-process="' + process_name + '"][data-name-indicator="' + modify_selector + 'equipment_lifetime"]');
+
+        if (info_input.checked) {
+            info_form_block.classList.add('active');
+            equipment_cost.disabled = true;
+            equipment_cost.classList.add('form__input_formula');
+            equipment_lifetime.disabled = true;
+            equipment_lifetime.classList.add('form__input_formula');
+        } else {
+            resetInputsInBlock(info_form_block_id);            
+            info_form_block.classList.remove('active');
+            equipment_cost.disabled = false;
+            equipment_cost.classList.remove('form__input_formula');
+            equipment_lifetime.disabled = false;
+            equipment_lifetime.classList.remove('form__input_formula');
+            equipment_cost.value = 0;
+            equipment_lifetime.value = 0;
+        }  
+
+        recount();
+    }
+
+    //Указали иформацию об оборудовании в другом изделии
+    if (e.target.matches('select[data-name-indicator="equipment_product"]')) {
+        let info_input = e.target.closest('select[data-name-indicator="equipment_product"]');
+
+        let product_type = info_input.dataset.nameType;
+        let process_name = info_input.dataset.nameProcess;
+        let product_name = info_input.dataset.nameProduct;
+
+        let modify = info_input.dataset.modifyEquipment;
+        let modify_selector = '';
+
+        if (modify == 'y') {
+            modify_selector = 'modification_';
+        }
+
+        let equipment_cost = document.querySelector('input[data-name-type="' + product_type + '"][data-name-product="' + product_name + '"][data-name-process="' + process_name + '"][data-name-indicator="' + modify_selector + 'equipment_cost"]');
+        let equipment_lifetime = document.querySelector('input[data-name-type="' + product_type + '"][data-name-product="' + product_name + '"][data-name-process="' + process_name + '"][data-name-indicator="' + modify_selector + 'equipment_lifetime"]');
+
+        let choose_product = info_input.value;
+
+        if (choose_product == 'temp_product') {
+            choose_product = 'diapers';
+        }
+
+        let equipment_cost_choose_product = document.querySelector('input[data-name-type="' + product_type + '"][data-name-product="' + choose_product + '"][data-name-process="' + process_name + '"][data-name-indicator="' + modify_selector + 'equipment_cost"]');
+        let equipment_lifetime_choose_product = document.querySelector('input[data-name-type="' + product_type + '"][data-name-product="' + choose_product + '"][data-name-process="' + process_name + '"][data-name-indicator="' + modify_selector + 'equipment_lifetime"]');
+
+        if (equipment_cost_choose_product && equipment_lifetime_choose_product) {
+            equipment_cost.value = equipment_cost_choose_product.value;
+            equipment_lifetime.value = equipment_lifetime_choose_product.value;
+        } else {
+            equipment_cost.value = 0;
+            equipment_lifetime.value = 0;
+        }
+
+        recount();
+    }
+
     //Выбор стерильный или нет
     if (e.target.matches('input[data-name-process="purchase"][data-name-indicator="kind_product"]')) {
         let kind_product_input = e.target.closest('input[data-name-process="purchase"][data-name-indicator="kind_product"]');
@@ -1402,6 +1481,13 @@ function recount () {
     let total_cost_employee_disposable = 0;
     let total_cost_employee_reusable = 0;
 
+    let total_waste_disinfection_repeat_equipment = 0;
+    let total_washing_repeat_equipment = 0;
+    let total_sterilization_repeat_equipment = 0;
+
+    let total_disposable_repeat_equipment = 0;
+    let total_reusable_repeat_equipment = 0;
+
     let type_calculation_value = document.querySelector('input[name="type_calculation"]:checked').value;
     if (type_calculation_value != 'Оценка фактических затрат') {
         //Требуемое количество единиц изделия по манипуляциям
@@ -1622,7 +1708,7 @@ function recount () {
                         volume_one_product = parseInputToNumber(document.querySelector('input[data-name-type="' + product_type + '"][data-name-product="' + product_name + '"][data-name-process="transportation"][data-name-indicator="volume_one_product"]').value);
                     }
 
-                    let clean_count_product = parseInputToNumber(document.querySelector('input[data-name-type="' + product_type + '"][data-name-product="' + product_name + '"][data-name-process="washing"][data-name-indicator="count_product"]').value); //!!Уточнить
+                    let clean_count_product = parseInputToNumber(document.querySelector('input[data-name-type="' + product_type + '"][data-name-product="' + product_name + '"][data-name-process="washing"][data-name-indicator="count_product"]').value);
 
                     //Считаем примерное кол-во
                     approximate_count_product = Math.ceil((volume_one_product * clean_count_product)/volume_product);
@@ -1659,6 +1745,10 @@ function recount () {
         let product_name = input.dataset.nameProduct;
 
         let sum = 0;
+
+        let sum_without_equipment = 0; //!!!Объявляем глобально sum_equipment и считаем сумму тех затрат на оборудование, которое не будет идти потом в расчет и вычтем ее в конце
+
+
         //Обеззараживание (отходы)
         let waste_disinfection_waste_class_inputs = document.querySelectorAll('input[data-name-type="' + product_type + '"][data-name-product="' + product_name + '"][data-name-process="waste_disinfection"][data-name-indicator="waste_class"]');
 
@@ -1759,10 +1849,18 @@ function recount () {
                     let equipment_lifetime = document.querySelector('input[data-name-type="' + product_type + '"][data-name-product="' + product_name + '"][data-name-process="waste_disinfection"][data-name-indicator="equipment_lifetime"][data-name-disinfection-method="physic"]');
 
                     //Ежегодные затраты на оборудование, руб
+                    //!!!Если у нас выбрано, что оборудование указали в другом продукте, то увеличиваем sum_equipment
                     if (equipment_lifetime.value != 0) {
                         equipment_annual_cost.value = parseInputToNumber(equipment_cost.value) / parseInputToNumber(equipment_lifetime.value);
                     } else {
                         equipment_annual_cost.value = 0;
+                    }
+
+                    let indicated_equipment = document.querySelector('input[data-name-type="' + product_type + '"][data-name-product="' + product_name + '"][data-name-process="waste_disinfection"][data-name-indicator="indicated_equipment"][data-modify-equipment="n"]');
+
+                    if (indicated_equipment && indicated_equipment.checked) {
+                        total_waste_disinfection_repeat_equipment = total_waste_disinfection_repeat_equipment + parseInputToNumber(equipment_annual_cost.value);
+                        total_disposable_repeat_equipment = total_disposable_repeat_equipment + parseInputToNumber(equipment_annual_cost.value);
                     }
                     
                     let cycles_per_year = document.querySelector('input[data-name-type="' + product_type + '"][data-name-product="' + product_name + '"][data-name-process="waste_disinfection"][data-name-indicator="cycles_per_year"][data-name-disinfection-method="physic"]');
@@ -1779,7 +1877,7 @@ function recount () {
                         cycles_per_year.value = 0;
                     }
 
-                    let modify_waste_equipment = document.querySelector('input[data-name-type="' + product_type + '"][data-name-product="' + product_name + '"][data-name-process="waste_disinfection"][data-name-indicator="modify_waste_equipment"][data-name-disinfection-method="physic"]:checked') && document.querySelector('input[data-name-type="' + product_type + '"][data-name-product="' + product_name + '"][data-name-process="waste_disinfection"][data-name-indicator="modify_waste_equipment"][data-name-disinfection-method="physic"]:checked');
+                    let modify_waste_equipment = document.querySelector('input[data-name-type="' + product_type + '"][data-name-product="' + product_name + '"][data-name-process="waste_disinfection"][data-name-indicator="modify_waste_equipment"][data-name-disinfection-method="physic"]:checked');
 
                     let modification_equipment_annual_cost = document.querySelector('input[data-name-type="' + product_type + '"][data-name-product="' + product_name + '"][data-name-process="waste_disinfection"][data-name-indicator="modification_equipment_annual_cost"][data-name-disinfection-method="physic"]');
                     let modification_equipment_cost = document.querySelector('input[data-name-type="' + product_type + '"][data-name-product="' + product_name + '"][data-name-process="waste_disinfection"][data-name-indicator="modification_equipment_cost"][data-name-disinfection-method="physic"]');
@@ -1791,6 +1889,13 @@ function recount () {
                             modification_equipment_annual_cost.value = parseInputToNumber(modification_equipment_cost.value) / parseInputToNumber(modification_equipment_lifetime.value);
                         } else {
                             modification_equipment_annual_cost.value = 0;
+                        }
+
+                        let indicated_equipment = document.querySelector('input[data-name-type="' + product_type + '"][data-name-product="' + product_name + '"][data-name-process="waste_disinfection"][data-name-indicator="indicated_equipment"][data-modify-equipment="y"]');
+
+                        if (indicated_equipment && indicated_equipment.checked) {
+                            total_waste_disinfection_repeat_equipment = total_waste_disinfection_repeat_equipment + parseInputToNumber(modification_equipment_annual_cost.value);
+                            total_disposable_repeat_equipment = total_disposable_repeat_equipment + parseInputToNumber(modification_equipment_annual_cost.value);
                         }
 
                         sum = sum + parseInputToNumber(modification_equipment_annual_cost.value);
@@ -1824,6 +1929,8 @@ function recount () {
                     sum_cost_waste_disinfection_employee.value = (parseInputToNumber(employee_count.value) * count_hours_physic_method * parseInputToNumber(cost_waste_disinfection_hour_employee.value)) + (parseInputToNumber(employee_count.value) * price_medosmotr);
 
                     sum = sum + parseInputToNumber(equipment_annual_cost.value) + parseInputToNumber(sum_cost_waste_disinfection_employee.value);
+
+                    sum_without_equipment = sum_without_equipment + (sum - parseInputToNumber(equipment_annual_cost.value));
 
                     total_cost_employee_disposable = total_cost_employee_disposable + parseInputToNumber(sum_cost_waste_disinfection_employee.value);
 
@@ -1889,6 +1996,8 @@ function recount () {
 
                     sum = sum + parseInputToNumber(disinfectant_cost_year.value) + parseInputToNumber(sum_cost_waste_disinfection_employee.value);
 
+                    sum_without_equipment = sum_without_equipment + sum;
+
                     total_cost_employee_disposable = total_cost_employee_disposable + parseInputToNumber(sum_cost_waste_disinfection_employee.value);
 
                     disinfectant_consumption_year.value = formatWithSpaces(roundTwo(parseInputToNumber(disinfectant_consumption_year.value)));
@@ -1897,9 +2006,11 @@ function recount () {
                     sum_cost_waste_disinfection_employee.value = formatWithSpaces(roundTwo(parseInputToNumber(sum_cost_waste_disinfection_employee.value)));
                 }
             }
-            });
+        });
 
         input.value = sum;
+
+        //!!!Если у нас выбрак укащали для другого продукта, то в общую сумму добавляем sum_without_equipment (вряд ли уже понадобится)
 
         total_waste_disinfection_disposable = total_waste_disinfection_disposable + parseInputToNumber(input.value);
 
@@ -2114,6 +2225,13 @@ function recount () {
                     equipment_annual_cost.value = 0;
                 }
 
+                let indicated_equipment = document.querySelector('input[data-name-type="' + product_type + '"][data-name-product="' + product_name + '"][data-name-process="washing"][data-name-indicator="indicated_equipment"][data-modify-equipment="n"]');
+
+                if (indicated_equipment && indicated_equipment.checked) {
+                    total_washing_repeat_equipment = total_washing_repeat_equipment + parseInputToNumber(equipment_annual_cost.value);
+                    total_reusable_repeat_equipment = total_reusable_repeat_equipment + parseInputToNumber(equipment_annual_cost.value);
+                }
+
                 sum = sum + parseInputToNumber(cost_detergent_year.value) + parseInputToNumber(sum_cost_employee.value) + parseInputToNumber(equipment_annual_cost.value);
 
                 approximate_count_hours.value = formatWithSpaces(roundTwo(parseInputToNumber(approximate_count_hours.value)));
@@ -2216,6 +2334,13 @@ function recount () {
             equipment_annual_cost.value = 0;
         }
 
+        let indicated_equipment = document.querySelector('input[data-name-type="' + product_type + '"][data-name-product="' + product_name + '"][data-name-process="sterilization"][data-name-indicator="indicated_equipment"][data-modify-equipment="n"]');
+
+        if (indicated_equipment && indicated_equipment.checked) {
+            total_sterilization_repeat_equipment = total_sterilization_repeat_equipment + parseInputToNumber(equipment_annual_cost.value);
+            total_reusable_repeat_equipment = total_reusable_repeat_equipment + parseInputToNumber(equipment_annual_cost.value);
+        }
+
         //Затраты на пакеты
         packaging_cost_year.value = parseInputToNumber(packaging_cost_per_unit.value) * parseInputToNumber(packaging_consumption_year.value);
 
@@ -2300,6 +2425,8 @@ function recount () {
 
     });
 
+    //!! Здесь для каждого тотала вычтем sum_equipment
+
     let total_purchase = total_purchase_disposable + total_purchase_reusable;
     document.querySelector('#total_purchase').textContent = formatWithSpaces(total_purchase);
     document.querySelector('#total_purchase_disposable').textContent = formatWithSpaces(total_purchase_disposable);
@@ -2318,22 +2445,25 @@ function recount () {
     document.querySelector('#total_transportation_disposable').textContent = formatWithSpaces(total_transportation_disposable);
     document.querySelector('#total_transportation_reusable').textContent = formatWithSpaces(total_transportation_reusable);
 
-    let total_waste_disinfection = total_waste_disinfection_disposable;
+    let total_waste_disinfection = total_waste_disinfection_disposable - total_waste_disinfection_repeat_equipment;
     document.querySelector('#total_waste_disinfection').textContent = formatWithSpaces(total_waste_disinfection);
 
     let total_disinfection = total_disinfection_reusable;
     document.querySelector('#total_disinfection').textContent = formatWithSpaces(total_disinfection);
     
-    let total_washing = total_washing_reusable;
+    let total_washing = total_washing_reusable - total_washing_repeat_equipment;
     document.querySelector('#total_washing').textContent = formatWithSpaces(total_washing);
 
-    let total_sterilization = total_sterilization_reusable;
+    let total_sterilization = total_sterilization_reusable - total_sterilization_repeat_equipment;
     document.querySelector('#total_sterilization').textContent = formatWithSpaces(total_sterilization);
 
     let total_repair = total_repair_reusable;
     document.querySelector('#total_repair').textContent = formatWithSpaces(total_repair);
 
-    let total = total_disposable + total_reusable;
+    let total = total_disposable + total_reusable - (total_disposable_repeat_equipment + total_reusable_repeat_equipment);
+    total_disposable = total_disposable - total_disposable_repeat_equipment;
+    total_reusable = total_reusable - total_reusable_repeat_equipment;
+
     document.querySelector('#total').textContent = formatWithSpaces(total);
     document.querySelector('#total_table').textContent = formatWithSpaces(total);
     document.querySelector('#total_disposable').textContent = formatWithSpaces(total_disposable);
@@ -2403,6 +2533,22 @@ function createProductBlock(type, product, productName) {
             other_block.classList.add('other_hidden');
         });
     }
+
+    let choose_products;
+
+    if (type_calculation_value != 'Оценка затрат на переход с многоразовых на одноразовые изделия') {
+        choose_products = document.querySelectorAll('input[name="' + type + '_product"]:checked');
+    } else {
+        choose_products = document.querySelectorAll('input[name="switching_cost_product"]:checked');
+    }
+
+    if (choose_products.length > 1) {
+        let indicated_equipment_blocks = block.querySelectorAll('.indicated_equipment_block');
+        indicated_equipment_blocks.forEach(indicated_equipment_block => {
+            indicated_equipment_block.classList.add('active');
+        });
+    }
+
     return block;
 }
 
@@ -2675,6 +2821,8 @@ function handleCheckboxChange(checkbox, type_calc) {
             hideColumn(type, product);
         }
     }
+
+    //!!!Создать и вызвать функцию, которая проверяет сколько выбрано продуктов в группе и открывает нужный блок
 }
 
 // --- Инициализация для уже отмеченных чекбоксов ---
