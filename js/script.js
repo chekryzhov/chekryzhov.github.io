@@ -999,9 +999,7 @@ document.addEventListener('change', function(e) {
 
         let choose_product = info_input.value;
 
-        if (choose_product == 'temp_product') {
-            choose_product = 'diapers';
-        }
+        choose_product = choose_product.replace('temp_product', 'diapers');
 
         let equipment_cost_choose_product = document.querySelector('input[data-name-type="' + product_type + '"][data-name-product="' + choose_product + '"][data-name-process="' + process_name + '"][data-name-indicator="' + modify_selector + 'equipment_cost"]');
         let equipment_lifetime_choose_product = document.querySelector('input[data-name-type="' + product_type + '"][data-name-product="' + choose_product + '"][data-name-process="' + process_name + '"][data-name-indicator="' + modify_selector + 'equipment_lifetime"]');
@@ -1456,7 +1454,6 @@ document.addEventListener('change', function(e) {
 
 //!!!Функция для пересчета
 function recount () {
-    console.log('RECOUNT');
 
     let total_purchase_disposable = 0;
     let total_purchase_reusable = 0;
