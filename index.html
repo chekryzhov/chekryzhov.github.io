@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Главная</title>
     <link rel="stylesheet" href="css/bootstrap.min.css">
-    <link rel="stylesheet" href="css/style.css?ver=1.4">
+    <link rel="stylesheet" href="css/style.css?ver=1.42">
     <script src="js/jquery-3.3.1.slim.min.js" ></script>
     <script src="js/popper.min.js"></script>
     <script src="js/bootstrap.min.js"></script>
@@ -864,7 +864,7 @@
                                                                 <select id="disposable_diapers_waste_disinfection_modification_equipment_product" class="form__select" type="text" placeholder="Введите значение" value="0" data-name-type="disposable" data-name-product="diapers" data-name-process="waste_disinfection" data-name-indicator="equipment_product" data-modify-equipment="y" data-name-disinfection-method="physic">
                                                                     <option value="default" selected disabled>Выберите из списка</option>
                                                                     <option value="temp_product">Пеленки / простыни (без абсорбента)</option>
-                                                                    <option value="absorbent_diapers">Впитывающие пеленки</option>
+                                                                    <option value="absorbent_temp_product">Впитывающие пеленки</option>
                                                                     <option value="pads">Прокладки, подгузники</option>
                                                                     <option value="surgical_suits">Хирургические костюмы</option>
                                                                     <option value="patient_clothing">Одежда для пациента</option>
@@ -1528,7 +1528,7 @@
                                             <div class="form__item__label">Сколько изделий в год подлежит обеззараживанию внутри организации?</div>
                                             <div class="form__item__enter">
                                                 <input id="reusable_diapers_disinfection_count_product" class="form__input" type="text" placeholder="Введите значение" value="0" data-name-type="reusable" data-name-product="diapers" data-name-process="disinfection" data-name-indicator="count_product">
-                                                <div id="reusable_diapers_disinfection_unknown_count_product_block" class="hidden">
+                                                <div id="reusable_diapers_disinfection_unknown_count_product_block" class="unknown_count_product_block hidden other">
                                                     <div class="checkbox__wrapper">
                                                         <input type="checkbox" id="reusable_diapers_disinfection_unknown_count_product" name="reusable_diapers_disinfection_unknown_count_product" value="1" data-name-type="reusable" data-name-product="diapers" data-name-process="disinfection" data-name-indicator="unknown_count_product">
                                                         <label for="reusable_diapers_disinfection_unknown_count_product">Отсутствует информация</label>
@@ -1728,7 +1728,7 @@
                                         <div class="form__item__label">Сколько изделий в год подлежит стирке внутри организации?</div>
                                         <div class="form__item__enter">
                                             <input id="reusable_diapers_washing_count_product" class="form__input" type="text" placeholder="Введите значение" value="0" data-name-type="reusable" data-name-product="diapers" data-name-process="washing" data-name-indicator="count_product">
-                                            <div id="reusable_diapers_washing_unknown_count_product_block" class="hidden">
+                                            <div id="reusable_diapers_washing_unknown_count_product_block" class="unknown_count_product_block hidden other">
                                                 <div class="checkbox__wrapper other">
                                                     <input type="checkbox" id="reusable_diapers_washing_unknown_count_product" name="reusable_diapers_washing_unknown_count_product" value="1" data-name-type="reusable" data-name-product="diapers" data-name-process="washing" data-name-indicator="unknown_count_product">
                                                     <label for="reusable_diapers_washing_unknown_count_product">Отсутствует информация</label>
@@ -1921,7 +1921,7 @@
                                                     <select id="reusable_diapers_washing_equipment_product" class="form__select" type="text" placeholder="Введите значение" value="0" data-name-type="reusable" data-name-product="diapers" data-name-process="washing" data-name-indicator="equipment_product" data-modify-equipment="n">
                                                         <option value="default" selected disabled>Выберите из списка</option>
                                                         <option value="temp_product">Пеленки / простыни (без абсорбента)</option>
-                                                        <option value="absorbent_diapers">Впитывающие пеленки</option>
+                                                        <option value="absorbent_temp_product">Впитывающие пеленки</option>
                                                         <option value="pads">Прокладки, подгузники</option>
                                                         <option value="surgical_suits">Хирургические костюмы</option>
                                                         <option value="patient_clothing">Одежда для пациента</option>
@@ -2127,7 +2127,7 @@
                                                 <select id="reusable_diapers_sterilization_equipment_product" class="form__select" type="text" placeholder="Введите значение" value="0" data-name-type="reusable" data-name-product="diapers" data-name-process="sterilization" data-name-indicator="equipment_product" data-modify-equipment="n">
                                                     <option value="default" selected disabled>Выберите из списка</option>
                                                     <option value="temp_product">Пеленки / простыни (без абсорбента)</option>
-                                                    <option value="absorbent_diapers">Впитывающие пеленки</option>
+                                                    <option value="absorbent_temp_product">Впитывающие пеленки</option>
                                                     <option value="pads">Прокладки, подгузники</option>
                                                     <option value="surgical_suits">Хирургические костюмы</option>
                                                     <option value="patient_clothing">Одежда для пациента</option>
@@ -2802,11 +2802,18 @@
                         </table>
                     </div>
                     <div class="total_wrap">
-                        <div class="total_item">Общий итог затрат по одноразовым изделиям, руб: <span id="total_disposable"></span></div>
+                        <div class="total_item">Общий итог затрат по одноразовым изделиям, руб<span class="note">*</span>: <span id="total_disposable"></span></div>
                         <div class="total_item total_item_cost_employee">Из них затраты на персонал, руб: <span id="total_disposable_cost_employee"></span></div>
-                        <div class="total_item">Общий итог затрат по многоразовым изделиям, руб: <span id="total_reusable"></span></div>
+                        <div class="total_item total_item_cost_employee">Из них затраты на оборудование, руб: <span id="total_disposable_cost_equipment"></span></div>
+                        <p></p>
+                        <div class="total_item">Общий итог затрат по многоразовым изделиям, руб<span class="note">*</span>: <span id="total_reusable"></span></div>
                         <div class="total_item total_item_cost_employee">Из них затраты на персонал, руб: <span id="total_reusable_cost_employee"></span></div>
+                        <div class="total_item total_item_cost_employee">Из них затраты на оборудование, руб: <span id="total_reusable_cost_equipment"></span></div>
+                        <p></p>
                         <div class="total_item">Общий итог затрат по всем изделиям, руб: <span id="total"></span></div>
+
+                        <br>
+                        <div class="total_item_cost_employee note">*при использовании одного и того же оборудования для нескольких видов изделий внутри группы, затраты на оборудование учитываются 1 раз.</div>
                     </div>
                 </div>
             </div>
@@ -2921,7 +2928,7 @@
                                                 <p class="paragraph_example">Затраты на пакеты для сбора = 2 140/15*2,5 = 356,67 руб.</p>
                                                 <p class="paragraph_example">Затраты на пакеты для автоклавирования = 2 140/30*3,1 = 221,13 руб.</p>
                                                 <br>
-                                                <p class="paragraph_example">Общие затраты = 15 000+ 5 183+4 708+ 356,67+221,13 = 25,468,8 руб.</p>
+                                                <p class="paragraph_example">Общие затраты = 15 000+ 5 183+4 708+ 356,67+221,13 = 25 468,8 руб.</p>
                                             </div>
                                         </div>
                                     </div>
@@ -3029,6 +3036,6 @@
         </div>
     </footer>
 
-    <script src="js/script.js"></script>
+    <script src="js/script.js?ver=1.42"></script>
 </body>
 </html>

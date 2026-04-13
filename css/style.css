@@ -464,6 +464,10 @@ label {
     border-radius: 2px;
 }
 
+.note {
+    color: #ec6608;
+}
+
 #result_table tbody tr.collapsed {
     display: none;
 }
