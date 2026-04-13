@@ -1791,7 +1791,7 @@ function recount () {
                 let volume_kubm = 0;
 
                 //Объем отходов, куб. м
-                if (waste_density.value != 0) {
+                if (parseInputToNumber(waste_density.value) != 0) {
                     volume_kubm = parseInputToNumber(sum_weight_waste.value) / parseInputToNumber(waste_density.value);
                 }
 
@@ -1810,7 +1810,7 @@ function recount () {
                 let packet_volume = document.querySelector('input[data-name-type="' + product_type + '"][data-name-product="' + product_name + '"][data-name-process="waste_disinfection"][data-name-indicator="packet_volume"][data-name-waste-class="' + waste_class + '"]');
 
                 //Количество пакетов для сбора отходов
-                if (packet_volume.value != 0) {
+                if (parseInputToNumber(packet_volume.value) != 0) {
                     count_packet.value = parseInputToNumber(volume_waste_l.value) / parseInputToNumber(packet_volume.value);
                 }
 
@@ -1826,7 +1826,7 @@ function recount () {
                     let autoclaving_volume_packet = document.querySelector('input[data-name-type="' + product_type + '"][data-name-product="' + product_name + '"][data-name-process="waste_disinfection"][data-name-indicator="autoclaving_volume_packet"][data-name-waste-class="' + waste_class + '"]');
 
                     //Количество пакетов для автоклавирования, шт.
-                    if (autoclaving_volume_packet.value != 0) {
+                    if (parseInputToNumber(autoclaving_volume_packet.value) != 0) {
                         autoclaving_count_packet.value = Math.ceil(parseInputToNumber(volume_waste_l.value) / ((parseInputToNumber(autoclaving_volume_packet.value)/4) * 3));
                     } else {
                         autoclaving_count_packet.value = 0;
@@ -1873,7 +1873,7 @@ function recount () {
                     let equipment_lifetime = document.querySelector('input[data-name-type="' + product_type + '"][data-name-product="' + product_name + '"][data-name-process="waste_disinfection"][data-name-indicator="equipment_lifetime"][data-name-disinfection-method="physic"]');
 
                     //Ежегодные затраты на оборудование, руб
-                    if (equipment_lifetime.value != 0) {
+                    if (parseInputToNumber(equipment_lifetime.value) != 0) {
                         equipment_annual_cost.value = parseInputToNumber(equipment_cost.value) / parseInputToNumber(equipment_lifetime.value);
                     } else {
                         equipment_annual_cost.value = 0;
@@ -1910,7 +1910,7 @@ function recount () {
 
                     //Ежегодные затраты на доп оборудование, руб
                     if (modify_waste_equipment && modify_waste_equipment.value == '1') {
-                        if (modification_equipment_lifetime.value != 0) {
+                        if (parseInputToNumber(modification_equipment_lifetime.value) != 0) {
                             modification_equipment_annual_cost.value = parseInputToNumber(modification_equipment_cost.value) / parseInputToNumber(modification_equipment_lifetime.value);
                         } else {
                             modification_equipment_annual_cost.value = 0;
@@ -1943,7 +1943,7 @@ function recount () {
 
                     let count_hours_physic_method = 0; 
 
-                    if (hours_known.value == 0) {
+                    if (parseInputToNumber(hours_known.value) == 0) {
                         count_hours_physic_method = parseInputToNumber(hours_approximate.value);
                     } else {
                         count_hours_physic_method = parseInputToNumber(hours_known.value);
@@ -1977,7 +1977,7 @@ function recount () {
                     let disinfectant_consumption_per_load = document.querySelector('input[data-name-type="' + product_type + '"][data-name-product="' + product_name + '"][data-name-process="waste_disinfection"][data-name-indicator="disinfectant_consumption_per_load"][data-name-disinfection-method="chemical"]');
 
                     //Расход дезсредства на обеззараживание в год, (кг, л, таб.)
-                    if (items_per_load.value != 0) {
+                    if (parseInputToNumber(items_per_load.value) != 0) {
                         disinfectant_consumption_year.value = (parseInputToNumber(chemical_weight.value) / parseInputToNumber(items_per_load.value)) * parseInputToNumber(disinfectant_consumption_per_load.value);
                     } else {
                         disinfectant_consumption_year.value = 0;
@@ -1988,7 +1988,7 @@ function recount () {
                     let disinfectant_cost_per_unit = document.querySelector('input[data-name-type="' + product_type + '"][data-name-product="' + product_name + '"][data-name-process="waste_disinfection"][data-name-indicator="disinfectant_cost_per_unit"][data-name-disinfection-method="chemical"]');
                     
                     //Затраты на дезсредства в год, руб
-                    if (disinfectant_volume.value != 0) {
+                    if (parseInputToNumber(disinfectant_volume.value) != 0) {
                         disinfectant_cost_year.value = Math.ceil((parseInputToNumber(disinfectant_consumption_year.value) / parseInputToNumber(disinfectant_volume.value))) * parseInputToNumber(disinfectant_cost_per_unit.value);
                     } else {
                         disinfectant_cost_year.value = 0;
@@ -2001,14 +2001,14 @@ function recount () {
                     let hours_known = document.querySelector('input[data-name-type="' + product_type + '"][data-name-product="' + product_name + '"][data-name-process="waste_disinfection"][data-name-indicator="hours_known"][data-name-disinfection-method="chemical"]');
 
                     //Примерное количество часов в год, затрачиваемых на обеззараживание одним сотрудником (если неизвестно точное количество)
-                    if (hours_known.value == 0 && employee_count.value != 0) {
+                    if (parseInputToNumber(hours_known.value) == 0 && employee_count.value != 0 && parseInputToNumber(items_per_load.value) != 0 && parseInputToNumber(time_disinfection_one_load.value) != 0 && time_disinfection_one_load.value != '') {
                         hours_approximate.value = ((parseInputToNumber(chemical_weight.value) / parseInputToNumber(items_per_load.value)) * parseInputToNumber(time_disinfection_one_load.value)) / parseInputToNumber(employee_count.value);
                     } else {
                         hours_approximate.value = 0;
                     }
 
                     let count_hours_chemical_method = 0; 
-                    if (hours_known.value == 0) {
+                    if (parseInputToNumber(hours_known.value) == 0) {
                         count_hours_chemical_method = parseInputToNumber(hours_approximate.value);
                     } else {
                         count_hours_chemical_method = parseInputToNumber(hours_known.value);
@@ -2091,14 +2091,14 @@ function recount () {
 
 
                 //Примерное количество часов в год, затрачиваемых на обеззараживание одним сотрудником (если неизвестно точное количество)
-                if (count_hours.value == 0 && unknown_count_hours.checked && employee_count.value != 0) {
+                if (parseInputToNumber(count_hours.value) == 0 && unknown_count_hours.checked && employee_count.value != 0) {
                     approximate_count_hours.value = ((parseInputToNumber(weight_product.value) / one_load_obezzaraz) * time_on_load_and_unload_obezzaraz) / parseInputToNumber(employee_count.value);
                 } else {
                     approximate_count_hours.value = 0;
                 }
 
                 let count_hours_for_formula = 0; 
-                if (count_hours.value == 0) {
+                if (parseInputToNumber(count_hours.value) == 0) {
                     count_hours_for_formula = parseInputToNumber(approximate_count_hours.value);
                 } else {
                     count_hours_for_formula = parseInputToNumber(count_hours.value);
@@ -2110,14 +2110,14 @@ function recount () {
                 total_cost_employee_reusable = total_cost_employee_reusable + parseInputToNumber(sum_cost_employee.value);
 
                 //Расход средства в год
-                if (count_product_one_load.value != 0) {
+                if (parseInputToNumber(count_product_one_load.value) != 0) {
                     consumption_disinfectant_year.value = (parseInputToNumber(weight_product.value) / parseInputToNumber(count_product_one_load.value)) * parseInputToNumber(consumption_disinfectant.value);
                 } else {
                     consumption_disinfectant_year.value = 0;
                 }
 
                 //Затраты на дезсредства
-                if (volume_disinfectant.value != 0) {
+                if (parseInputToNumber(volume_disinfectant.value) != 0) {
                     cost_disinfectant_year.value = Math.ceil(parseInputToNumber(consumption_disinfectant_year.value) / parseInputToNumber(volume_disinfectant.value)) * parseInputToNumber(cost_disinfectant.value);
                 } else {
                     cost_disinfectant_year.value = 0;
@@ -2210,14 +2210,14 @@ function recount () {
                 weight_product.value = parseInputToNumber(weight.value) * parseInputToNumber(count_product.value);
 
                 //Примерное количество часов в год, затрачиваемых на обеззараживание одним сотрудником (если неизвестно точное количество)
-                if (count_hours.value == 0 && var_cost.value != 0 && employee_count.value != 0 && count_product_one_load.value != 0) {
+                if (parseInputToNumber(count_hours.value) == 0 && parseInputToNumber(var_cost.value) != 0 && employee_count.value != 0 && parseInputToNumber(count_product_one_load.value) != 0) {
                     approximate_count_hours.value = (((parseInputToNumber(weight_product.value) / parseInputToNumber(count_product_one_load.value)) * parseInputToNumber(var_cost.value)) + (time_on_load_and_unload_clean * (parseInputToNumber(weight_product.value) / parseInputToNumber(count_product_one_load.value)))) / parseInputToNumber(employee_count.value);
                 } else {
                     approximate_count_hours.value = 0;
                 }
 
                 let count_hours_for_formula = 0; 
-                if (count_hours.value == 0) {
+                if (parseInputToNumber(count_hours.value) == 0) {
                     count_hours_for_formula = parseInputToNumber(approximate_count_hours.value);
                 } else {
                     count_hours_for_formula = parseInputToNumber(count_hours.value);
@@ -2229,21 +2229,21 @@ function recount () {
                 total_cost_employee_reusable = total_cost_employee_reusable + parseInputToNumber(sum_cost_employee.value);
 
                 //Расход средства в год
-                if (count_product_one_load.value != 0) {
+                if (parseInputToNumber(count_product_one_load.value) != 0) {
                     consumption_detergent_year.value = (parseInputToNumber(weight_product.value) / parseInputToNumber(count_product_one_load.value)) * parseInputToNumber(consumption_detergent_per_load.value);
                 } else {
                     consumption_detergent_year.value = 0;
                 }
 
                 //Затраты на дезсредства
-                if (volume_detergent.value != 0) {
+                if (parseInputToNumber(volume_detergent.value) != 0) {
                     cost_detergent_year.value = Math.ceil(parseInputToNumber(consumption_detergent_year.value) / parseInputToNumber(volume_detergent.value)) * parseInputToNumber(cost_detergent.value);
                 } else {
                     cost_detergent_year.value = 0;
                 }
 
                 //Затраты на оборудование
-                if (equipment_lifetime.value != 0) {
+                if (parseInputToNumber(equipment_lifetime.value) != 0) {
                     equipment_annual_cost.value = parseInputToNumber(equipment_cost.value) / parseInputToNumber(equipment_lifetime.value);
                 } else {
                     equipment_annual_cost.value = 0;
@@ -2335,14 +2335,14 @@ function recount () {
         weight_product.value = parseInputToNumber(weight.value) * parseInputToNumber(count_product.value);
 
         //Примерное количество часов в год, затрачиваемых на обеззараживание одним сотрудником (если неизвестно точное количество)
-        if (count_hours.value == 0 && var_cost.value != 0 && employee_count.value != 0) {
+        if (parseInputToNumber(count_hours.value) == 0 && parseInputToNumber(var_cost.value) != 0 && employee_count.value != 0 && parseInputToNumber(count_product_one_load.value) != 0) {
             approximate_count_hours.value = ((parseInputToNumber(weight_product.value) / parseInputToNumber(count_product_one_load.value) * parseInputToNumber(var_cost.value)) + (time_on_load_and_unload_sterilize * (parseInputToNumber(weight_product.value) / parseInputToNumber(count_product_one_load.value)))) / parseInputToNumber(employee_count.value);
         } else {
             approximate_count_hours.value = 0;
         }
 
         let count_hours_for_formula = 0; 
-        if (count_hours.value == 0) {
+        if (parseInputToNumber(count_hours.value) == 0) {
             count_hours_for_formula = parseInputToNumber(approximate_count_hours.value);
         } else {
             count_hours_for_formula = parseInputToNumber(count_hours.value);
@@ -2354,7 +2354,7 @@ function recount () {
         total_cost_employee_reusable = total_cost_employee_reusable + parseInputToNumber(sum_cost_employee.value);
 
         //Затраты на оборудование
-        if (equipment_lifetime.value != 0) {
+        if (parseInputToNumber(equipment_lifetime.value) != 0) {
             equipment_annual_cost.value = parseInputToNumber(equipment_cost.value) / parseInputToNumber(equipment_lifetime.value);
         } else {
             equipment_annual_cost.value = 0;
