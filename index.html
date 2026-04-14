@@ -5,7 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Главная</title>
     <link rel="stylesheet" href="css/bootstrap.min.css">
-    <link rel="stylesheet" href="css/style.css?ver=1.43">
+    <link rel="stylesheet" href="css/style.css?ver=1.45">
+    <link type="image/x-icon" href="/img/favicon.ico" rel="icon">
     <script src="js/jquery-3.3.1.slim.min.js" ></script>
     <script src="js/popper.min.js"></script>
     <script src="js/bootstrap.min.js"></script>
@@ -138,7 +139,7 @@
                                 </div>
 
                                 <div class="form__item">
-                                    <div class="form__item__label">Расход в год кол-во, штук </div>
+                                    <div class="form__item__label">Расход в год кол-во, штук</div>
                                     <div class="form__item__enter">
                                         <input id="disposable_diapers_purchase_consumption" class="form__input" type="text" placeholder="Введите значение" value="0" data-name-type="disposable" data-name-product="diapers" data-name-process="purchase" data-name-indicator="consumption">
                                         <div class="disposable_dop_form dop_form_hidden">
@@ -155,8 +156,21 @@
                                     <div class="form__item__enter">
                                         <input disabled id="disposable_diapers_purchase_sum_year" class="form__input form__input_formula" type="text" placeholder="Введите значение" value="0" data-name-type="disposable" data-name-product="diapers" data-name-process="purchase" data-name-indicator="sum_year">
                                     </div>
+                                    <!-- <div class="tooltip-item">
+                                        <div class="tooltip-container tooltip-container-bottom">
+                                            <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                <circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
+                                                <path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+                                                <line x1="12" y1="17" x2="12.01" y2="17" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
+                                            </svg>
+                                            <span class="tooltip-text">
+                                                Для расчета заполните поля: 
+                                                <p class="tooltip-text-item">"Стоимость закупки единицы, руб"</p>
+                                                <p class="tooltip-text-item">"Расход в год кол-во, штук"</p>
+                                            </span>
+                                        </div>
+                                    </div> -->
                                 </div>
-                                
                             </div>
 
                             <!-- Хранение -->
@@ -940,6 +954,10 @@
                                             <div class="form__item__enter">
                                                 <input  id="disposable_diapers_waste_disinfection_cost_waste_disinfection_hour_employee_physic" class="form__input" type="text" placeholder="Введите значение" value="0" data-name-type="disposable" data-name-product="diapers" data-name-process="waste_disinfection" data-name-indicator="cost_waste_disinfection_hour_employee"
                                                 data-name-disinfection-method="physic">
+                                                <div class="checkbox__wrapper">
+                                                    <input type="checkbox" id="disposable_diapers_waste_disinfection_unknown_cost_hour_physic" name="disposable_diapers_waste_disinfection_unknown_cost_hour_physic" value="1" data-name-type="disposable" data-name-product="diapers" data-name-process="waste_disinfection" data-name-indicator="unknown_cost_hour" data-name-disinfection-method="physic">
+                                                    <label for="disposable_diapers_waste_disinfection_unknown_cost_hour_physic">Отсутствует информация</label>
+                                                </div>
                                             </div>
                                         </div>
 
@@ -1079,6 +1097,10 @@
                                             <div class="form__item__enter">
                                                 <input  id="disposable_diapers_waste_disinfection_cost_waste_disinfection_hour_employee_chemical" class="form__input" type="text" placeholder="Введите значение" value="0" data-name-type="disposable" data-name-product="diapers" data-name-process="waste_disinfection" data-name-indicator="cost_waste_disinfection_hour_employee"
                                                 data-name-disinfection-method="chemical">
+                                                <div class="checkbox__wrapper">
+                                                    <input type="checkbox" id="disposable_diapers_waste_disinfection_unknown_cost_hour_chemical" name="disposable_diapers_waste_disinfection_unknown_cost_hour_chemical" value="1" data-name-type="disposable" data-name-product="diapers" data-name-process="waste_disinfection" data-name-indicator="unknown_cost_hour" data-name-disinfection-method="chemical">
+                                                    <label for="disposable_diapers_waste_disinfection_unknown_cost_hour_chemical">Отсутствует информация</label>
+                                                </div>
                                             </div>
                                         </div>
 
@@ -1375,7 +1397,7 @@
                                 <div class="form__item__title">Транспортировка</div>
 
                                 <div class="form__item">
-                                    <div class="form__item__label">Число сотрудников, транспортирующих одноразовые изделия</div>
+                                    <div class="form__item__label">Число сотрудников, транспортирующих многоразовые изделия</div>
                                     <div class="form__item__enter">
                                         <input id="reusable_diapers_transportation_employee_count" class="form__input" type="text" placeholder="Введите значение" value="0" data-name-type="reusable" data-name-product="diapers" data-name-process="transportation" data-name-indicator="employee_count">
                                         <div class="reusable_dop_form dop_form_hidden">
@@ -3036,6 +3058,6 @@
         </div>
     </footer>
 
-    <script src="js/script.js?ver=1.43"></script>
+    <script src="js/script.js?ver=1.45"></script>
 </body>
 </html>

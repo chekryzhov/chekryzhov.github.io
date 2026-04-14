@@ -257,6 +257,7 @@ label {
 }
 
 .form__item {
+    position: relative;
     width: 100%;
     display: flex;
     flex-direction: row;
@@ -466,6 +467,127 @@ label {
 
 .note {
     color: #ec6608;
+}
+
+.tooltip-container {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    cursor: help;
+    transition: transform 0.2s ease;
+}
+
+/* Небольшой эффект при наведении на иконку (декоративно) */
+.tooltip-container:hover svg {
+    transform: scale(1.02);
+    filter: drop-shadow(0 4px 6px rgba(0, 0, 0, 0.1));
+}
+
+/* SVG иконка — плавный переход */
+.tooltip-container svg {
+    display: block;
+    transition: all 0.2s cubic-bezier(0.2, 0.9, 0.4, 1.1);
+    width: 24px;
+    height: 24px;
+    stroke: #1f6392;
+    stroke-width: 1.8;
+    fill: none;
+}
+
+/* Стиль самого тултипа (скрыт по умолчанию) */
+.tooltip-text {
+    text-align: center;
+    /* width: 200px; */
+    width: max-content; 
+    white-space: normal;
+    visibility: hidden;
+    opacity: 0;
+    background-color: #1e2a3e;
+    color: #fff;
+    text-align: center;
+    border-radius: 12px;
+    padding: 0.5rem 1rem;
+    font-size: 0.85rem;
+    font-weight: 500;
+    letter-spacing: 0.2px;
+    /* white-space: nowrap; */
+    position: absolute;
+    z-index: 20;
+    bottom: 130%;
+    left: 50%;
+    transform: translateX(-50%);
+    transition: opacity 0.25s ease-in-out, visibility 0.25s;
+    pointer-events: none;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+    backdrop-filter: blur(4px);
+    background: rgba(20, 28, 38, 0.95);
+    border: 0.5px solid rgba(255, 255, 255, 0.2);
+    font-family: inherit;
+}
+
+.tooltip-text-item {
+    margin: 0;
+}
+
+/* Треугольная стрелка (хвостик) снизу тултипа */
+.tooltip-text::after {
+    content: "";
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    margin-left: -6px;
+    border-width: 6px;
+    border-style: solid;
+    border-color: rgba(20, 28, 38, 0.95) transparent transparent transparent;
+    filter: drop-shadow(0 1px 1px rgba(0,0,0,0.1));
+}
+
+/* Показываем тултип при наведении на контейнер */
+.tooltip-container:hover .tooltip-text {
+    visibility: visible;
+    opacity: 1;
+}
+
+/* Дополнительная стилизация для варианта "снизу" — альтернативный пример 
+    (ниже сделаем второй экземпляр с тултипом снизу, чтобы показать гибкость) */
+.tooltip-container-bottom .tooltip-text {
+    bottom: auto;
+    top: 135%;
+    bottom: unset;
+}
+.tooltip-container-bottom .tooltip-text::after {
+    top: auto;
+    bottom: 100%;
+    border-color: transparent transparent rgba(20, 28, 38, 0.95) transparent;
+}
+
+/* Группа для двух разных примеров */
+.tooltip-row {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 4rem;
+    margin-top: 1.5rem;
+    align-items: center;
+}
+
+.tooltip-item {
+    position: absolute;
+    right: 15px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.tooltip-label {
+    font-size: 0.75rem;
+    color: #4b6a8b;
+    background: #eef2f8;
+    padding: 0.2rem 0.7rem;
+    border-radius: 40px;
+    font-weight: 500;
 }
 
 #result_table tbody tr.collapsed {
